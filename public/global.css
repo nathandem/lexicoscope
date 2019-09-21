@@ -1,0 +1,11 @@
+/*
+    To be free from the focused box surronding stuff after I click on them:
+    https://stackoverflow.com/questions/19053181/how-to-remove-focus-around-buttons-on-click
+    Recommended only for users with a mouse.
+
+    Like utils.css, global.css is applied in the global namespace. But unlike utils.css it is
+    not meant to be applied on some specific elements, aims at providing site-wide standards.
+*/
+button:focus,div:focus {
+  outline: none;
+}

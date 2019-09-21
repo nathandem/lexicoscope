@@ -1,0 +1,17 @@
+/*  Unlike global.css in public/, utils.css contains rules which are
+    not meant to be applied globally, only generic tools to be applied
+    whenever it makes sense to do so.
+    However, both are in the global namespace.
+*/
+
+.center-inline {
+    text-align: center;
+}
+
+.center-block {
+    margin: 0 auto;
+}
+
+section {
+    padding: 1rem 0;
+}
