@@ -6,6 +6,7 @@ import Footer from './Footer';
 
 import Home from './Home';
 import Help from './Help';
+import Analytics from './analytics/Analytics';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
     <div className="layout">
       {/* Insert the pages here -> react rooter */}
       <Route exact path="/" component={Home} />
+      <Route path="/analytics" component={Analytics} />
       <Route path="/help" component={Help} />
     </div>
     <Footer />
