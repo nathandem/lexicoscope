@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TypeChoice from './components/TypeChoice';
+import TypesChoice from './components/TypesChoice';
 import PredefinedCorpus from './components/PredefinedCorpus';
 import CustomCorpus from './components/CustomCorpus';
 import SavedCorpus from './components/SavedCorpus';
@@ -19,15 +19,23 @@ export default class Corpus extends React.Component {
     };
   }
 
+  handleSelectCorpusType = (type) => {
+    this.setState({ type: type });
+  }
+
 
 
   render() {
 
-
+    const typesChoice = (
+      <TypesChoice
+        selectCorpusTypeCallback={this.handleSelectCorpusType}
+      />
+    );
 
     return (
       <>
-        { !this.state.type && <TypeChoice /> }
+        { !this.state.type && typesChoice }
         { this.state.type === 'predefined' && <PredefinedCorpus /> }
         { this.state.type === 'custom' && <CustomCorpus /> }
         { this.state.type === 'saved' && <SavedCorpus /> }

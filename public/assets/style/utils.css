@@ -4,7 +4,7 @@
     However, both are in the global namespace.
 */
 
-.center-inline {
+.center-text {
     text-align: center;
 }
 
@@ -14,4 +14,11 @@
 
 section {
     padding: 1rem 0;
+}
+
+
+
+/* Helper for dev */
+.debug {
+    border: 1px solid red;
 }

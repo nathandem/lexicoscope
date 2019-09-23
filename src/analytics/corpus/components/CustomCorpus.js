@@ -6,7 +6,7 @@ import { H1 } from '@blueprintjs/core';
 const CustomCorpus = () => {
   return (
     <>
-      <H1>PredefinedCorpus</H1>
+      <H1>Custom Corpus</H1>
     </>
   );
 }
