@@ -5,6 +5,11 @@ import App from './App';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 
+if (process.env.NODE_ENV !== "production") {
+  require("./mockedAPI/routes");
+}
+
+
 ReactDOM.render(
   <Router>
     <App />
