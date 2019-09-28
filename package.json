@@ -2,6 +2,9 @@
   "name": "lexicoscope",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=10.13"
+  },
   "dependencies": {
     "@blueprintjs/core": "^3.18.1",
     "react": "^16.9.0",
