@@ -1,8 +1,13 @@
-/*  Unlike global.css in public/, utils.css contains rules which are
-    not meant to be applied globally, only generic tools to be applied
-    whenever it makes sense to do so.
-    However, both are in the global namespace.
+/*  Style contained in this file is meant to be applied anywhere on the site.
+    It's the opposite of the css rules in src/style which directly map to a
+    specific component.
 */
+
+.layout {
+    width: 95vw;
+    min-width: 970px;
+    margin: 0 auto;
+}
 
 .center-text {
     text-align: center;
