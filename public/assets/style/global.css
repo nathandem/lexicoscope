@@ -7,7 +7,7 @@
     https://stackoverflow.com/questions/19053181/how-to-remove-focus-around-buttons-on-click
     Recommended only for users with a mouse.
 */
-button:focus,div:focus {
+button:focus,div:focus,select:focus {
   outline: none;
 }
 
