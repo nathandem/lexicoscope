@@ -15,12 +15,18 @@ export default class Corpus extends React.Component {
       // If null, show the user the type selection page.
       type: null,
 
-      // data to pass to <Analytics /> when the corpus is selected
+      // for now, the id is the corpus name. I'd be better to use an id (shorter, more stable)
+      predefinedCorpusId: null,
     };
   }
 
   handleSelectCorpusType = (type) => {
     this.setState({ type: type });
+  }
+
+  handleSelectPredefinedCorpusId = (id) => {
+    // for now, the id is the corpus name. I'd be better to use an id (shorter, more stable)
+    this.setState({ predefinedCorpusId: id });
   }
 
 
@@ -33,10 +39,16 @@ export default class Corpus extends React.Component {
       />
     );
 
+    const predefinedCorpus = (
+      <PredefinedCorpus
+        selectPredefinedCorpusIdCallback={this.handleSelectPredefinedCorpusId}
+      />
+    );
+
     return (
       <>
         { !this.state.type && typesChoice }
-        { this.state.type === 'predefined' && <PredefinedCorpus /> }
+        { this.state.type === 'predefined' && predefinedCorpus }
         { this.state.type === 'custom' && <CustomCorpus /> }
         { this.state.type === 'saved' && <SavedCorpus /> }
       </>
