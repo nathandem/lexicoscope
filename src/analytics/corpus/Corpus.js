@@ -17,6 +17,7 @@ export default class Corpus extends React.Component {
 
       // for now, the id is the corpus name. I'd be better to use an id (shorter, more stable)
       predefinedCorpusId: null,
+      userSavedCorpusId: null,
     };
   }
 
@@ -27,6 +28,11 @@ export default class Corpus extends React.Component {
   handleSelectPredefinedCorpusId = (id) => {
     // for now, the id is the corpus name. I'd be better to use an id (shorter, more stable)
     this.setState({ predefinedCorpusId: id });
+  }
+
+  handleSelectUserSavedCorpusId = (id) => {
+    // for now, the id of the saved corpus is its `name`
+    this.setState({ userSavedCorpusId: id });
   }
 
 
@@ -45,12 +51,18 @@ export default class Corpus extends React.Component {
       />
     );
 
+    const savedCorpus = (
+      <SavedCorpus
+        selectUserSavedCorpusIdCallback={this.handleSelectUserSavedCorpusId}
+      />
+    );
+
     return (
       <>
         { !this.state.type && typesChoice }
         { this.state.type === 'predefined' && predefinedCorpus }
         { this.state.type === 'custom' && <CustomCorpus /> }
-        { this.state.type === 'saved' && <SavedCorpus /> }
+        { this.state.type === 'saved' && savedCorpus }
       </>
     );
   }

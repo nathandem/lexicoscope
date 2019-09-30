@@ -19,6 +19,21 @@ section {
     margin-bottom: 1.5rem;
 }
 
+.padding-1rem {
+    padding: 1rem;
+}
+
+
+/* Layout utils using flexbox */
+
+.flex {
+    display: flex;
+}
+
+.flex-two-panels {
+    flex: 0 0 50%;  /* don't grow, don't shrink, 50% width (of parent) */
+}
+
 
 /* Helper for dev */
 .debug {
