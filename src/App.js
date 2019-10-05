@@ -13,13 +13,15 @@ function App() {
   return (
     <>
     <Navbar/>
-    <div className="layout">
-      {/* Insert the pages here -> react rooter */}
-      <Route exact path="/" component={Home} />
-      <Route path="/analytics" component={Analytics} />
-      <Route path="/help" component={Help} />
+    <div className="wrapper">
+      <div className="layout">
+        {/* Insert the pages here -> react rooter */}
+        <Route exact path="/" component={Home} />
+        <Route path="/analytics" component={Analytics} />
+        <Route path="/help" component={Help} />
+        <Footer />
+      </div>
     </div>
-    <Footer />
   </>
   );
 }
