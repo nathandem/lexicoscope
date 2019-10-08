@@ -3,3 +3,15 @@ export const CORPUS_TYPES = {
   CUSTOM: 'custom',
   SAVED: 'saved',
 };
+
+export const LANGUAGES = {
+  FR: 'fr',
+  DE: 'de',
+  EN: 'en',
+};
+
+export const COLLECTIONS = {
+  'fr': ['Phraseorom-fr', 'Scientext-fr', 'Emolex-fr'],
+  'en': ['Phraseorom-en', 'Scientext-en', 'Emolex-en'],
+  'de': ['Phraseorom-de', 'Scientext-de', 'Emolex-de'],
+};
