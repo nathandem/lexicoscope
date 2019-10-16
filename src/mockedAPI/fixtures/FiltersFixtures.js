@@ -29,11 +29,12 @@
 
 
 // mock for one French collection
+// note: the `id`s can be whatever the server sends
 export const FrPhraseoromFixture = {
-    matches_collection: ['Phraseorom-fr'],
-    matches_sub_genre: ['Fantasy', 'SF', 'Policier', 'Philosophie'],
-    matches_author: ['Stendhal', 'Hugo', 'Balzac', 'Zola', 'Sartre'],
-    matches_title: ['Le rouge et le Noir', 'Les Misérables', 'Les mots'],
+    matches_collection: [[1, 'Phraseorom-fr']],
+    matches_sub_genre: [[43, 'Fantasy'], [32, 'SF'], [76, 'Policier'], [48, 'Philosophie']],
+    matches_author: [[23, 'Stendhal'], [43, 'Hugo'], [76, 'Balzac'], [86, 'Zola'], [54, 'Sartre']],
+    matches_title: [[32, 'Le rouge et le Noir'], [65, 'Les Misérables'], [541, 'Les mots']],
     aligned_langues: ['en', 'de'],
     source_langues: ['fr', 'en'],
     nb_title: 123,

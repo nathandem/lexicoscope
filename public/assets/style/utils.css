@@ -15,12 +15,24 @@ section {
     padding: 1rem 0;
 }
 
-.margin-bottom-1-5rem {
+.padding-1rem {
+    padding: 1rem;
+}
+
+.margin-bottom-1-rem {
+    margin-bottom: 1rem;
+}
+
+.margin-bottom-1-5-rem {
     margin-bottom: 1.5rem;
 }
 
-.padding-1rem {
-    padding: 1rem;
+.margin-right-05-rem {
+    margin-right: .5rem;
+}
+
+.margin-left-05-rem {
+    margin-left: .5rem;
 }
 
 
@@ -32,6 +44,14 @@ section {
 
 .flex-two-panels {
     flex: 0 0 50%;  /* don't grow, don't shrink, 50% width (of parent) */
+}
+
+.flex-one-third {
+    flex: 0 0 33%;  /* don't grow, don't shrink, 33% width (of the parent) */
+}
+
+.flex-two-third {
+    flex: 0 0 66%;  /* don't grow, don't shrink, 66% width (of the parent) */
 }
 
 
