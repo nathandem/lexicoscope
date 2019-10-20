@@ -2,7 +2,7 @@ import React from 'react';
 
 import TypesChoice from './components/TypesChoice';
 import PredefinedCorpus from './components/PredefinedCorpus';
-import CustomCorpus from './components/CustomCorpus';
+// import CustomCorpus from './components/CustomCorpus';
 import SavedCorpus from './components/SavedCorpus';
 
 
@@ -56,11 +56,11 @@ export default class Corpus extends React.Component {
       />
     );
 
-    const customCorpus = (
-      <CustomCorpus
-        corpusReadyCallback={this.handleSelectCustomCorpus}
-      />
-    );
+    // const customCorpus = (
+    //   <CustomCorpus
+    //     corpusReadyCallback={this.handleSelectCustomCorpus}
+    //   />
+    // );
 
     const savedCorpus = (
       <SavedCorpus
@@ -72,7 +72,7 @@ export default class Corpus extends React.Component {
       <>
         { !this.state.type && typesChoice }
         { this.state.type === 'predefined' && predefinedCorpus }
-        { this.state.type === 'custom' && customCorpus }
+        {/* { this.state.type === 'custom' && customCorpus } */}
         { this.state.type === 'saved' && savedCorpus }
       </>
     );
