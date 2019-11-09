@@ -37,6 +37,8 @@ export const FrPhraseoromFixture = {
     matches_title: [[32, 'Le rouge et le Noir'], [65, 'Les Misérables'], [541, 'Les mots']],
     aligned_langues: ['en', 'de'],
     source_langues: ['fr', 'en'],
+    minYear: 1950,
+    maxYear: 2016,
     nb_title: 123,
     nb_author: 123,
     nbToks: 123456789,
