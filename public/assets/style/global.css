@@ -12,13 +12,12 @@ button:focus,div:focus,select:focus {
 }
 
 .wrapper {
-  height: 100vh;
+  min-width: 970px;
   background-color: #F5F8FA;
 }
 
 .layout {
   width: 95vw;
-  min-width: 970px;
-
+  height: 100vh;
   margin: 0 auto;
 }
