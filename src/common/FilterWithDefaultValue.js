@@ -19,7 +19,7 @@ const FilterWithDefaultValue = (props) => {
 
   return (
     <FormGroup label={props.label} labelFor={props.label} inline={true}>
-      <HTMLSelect id={props.label} name="collection" onChange={props.onChange}>
+      <HTMLSelect id={props.label} name={props.name} onChange={props.onChange}>
         <option value="">{props.defaultOption}</option>
         {dropDownOptions}
       </HTMLSelect>
