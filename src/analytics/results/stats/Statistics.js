@@ -8,7 +8,7 @@ import Stat from './Stat';
 export default class Statistics extends React.Component {
 
   state = {
-    selectedTabId: 'global',
+    selectedTabId: 'SF',
   }
 
   handleTabChange = (navbarTabId) => this.setState({ selectedTabId: navbarTabId });

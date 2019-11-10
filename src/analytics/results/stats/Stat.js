@@ -3,12 +3,12 @@ import React from 'react';
 import { H2, H4, H6 } from '@blueprintjs/core';
 import TablePagination from '@material-ui/core/TablePagination';
 import MaterialTable, { MTableBodyRow } from 'material-table';
+import { Bar, withResponsiveness } from 'britecharts-react';
 
 import FilterWithDefaultValue from '../../../common/FilterWithDefaultValue';
 
 
 export default class Stat extends React.PureComponent {
-
 
 
   render() {
@@ -24,8 +24,9 @@ export default class Stat extends React.PureComponent {
       dispByRealData.push(row);
     }
 
-    // sort dispByRealData
+    // sort dispByRealData by decreasing order
     dispByRealData.sort((a, b) => a.disp - b.disp);
+    dispByRealData.reverse();
 
     const dispByReal = (
       <MaterialTable
@@ -59,6 +60,14 @@ export default class Stat extends React.PureComponent {
       />
     );
 
+    // prep data for the chart
+    const dispByRealChart = dispByRealData.map(el => ({
+      value: el.disp, name: el.real,
+    }));
+    dispByRealChart.length = 20;
+
+    const ResponsiveBarChart = withResponsiveness(Bar);
+
     return(
     <>
       <H2>Space search</H2>
@@ -85,10 +94,18 @@ export default class Stat extends React.PureComponent {
       />
 
       <H6><u>Graphical representation</u></H6>
-
-
-
-
+      <ResponsiveBarChart
+        data={dispByRealChart}
+        // width={921}
+        // height={400}
+        isHorizontal={true}
+        margin={{
+          left: 200,
+          right: 20,
+          top: 20,
+          bottom: 20
+      }}
+      />
 
       <H6><u>Complete list of results</u></H6>
 

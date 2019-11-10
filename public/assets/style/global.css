@@ -18,6 +18,5 @@ button:focus,div:focus,select:focus {
 
 .layout {
   width: 95vw;
-  height: 100vh;
   margin: 0 auto;
 }
