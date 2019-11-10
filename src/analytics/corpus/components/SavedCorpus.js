@@ -54,7 +54,7 @@ export default class SavedCorpus extends React.Component {
         />
         <div className="flex">
           <div className="flex-two-panels">
-            <div className="padding-1rem">
+            <div className="padding-1-rem">
               {this.state.savedCorpuses &&
                 // test just to avoid having to pass dummy value for initial rendering before fetching
                 <SavedCorpusTable
@@ -65,7 +65,7 @@ export default class SavedCorpus extends React.Component {
             </div>
           </div>
           <div className="flex-two-panels">
-            <div className="padding-1rem">
+            <div className="padding-1-rem">
               {this.state.selectedCorpus &&
               <Card elevation={2}>
                 <H3 className="margin-bottom-1-5rem">{this.state.selectedCorpus.name}</H3>
