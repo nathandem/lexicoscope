@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Paper } from '@material-ui/core';
 
 import { CORPUS_TYPES } from '../../constants';
 import '../../../style/TypeChoice.css';
 
 
 const TypeChoice = (props) => (
-  <div
+  <Paper
+    elevation={2}
     className="TypeChoice__choice"
     onClick={() => props.selectCorpusTypeCallback(props.type)}
   >
@@ -14,7 +16,7 @@ const TypeChoice = (props) => (
       <img src={props.logo} alt="" />
       <p className="center-text">{props.text}</p>
     </div>
-  </div>
+  </Paper>
 );
 
 TypeChoice.propTypes = {
