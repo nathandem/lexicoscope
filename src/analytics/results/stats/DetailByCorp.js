@@ -6,19 +6,33 @@ import MaterialTable, { MTableBodyRow } from 'material-table';
 import { Bar, withResponsiveness } from 'britecharts-react';
 
 
-export default class DetailByReal extends React.PureComponent {
+export default class DetailByCorp extends React.PureComponent {
 
 
   render() {
 
     const corpusStats = this.props.corpusStats;
-    const type = (this.props.type === 'dispByReal') ? 'disp' : 'freq';
+
+    let type;
+    switch (this.props.type) {
+      case 'dispByCorp':
+        type = 'disp';
+        break;
+      case 'freqByCorp':
+        type = 'freq';
+        break;
+      case 'speByCorp':
+        type = 'specificity';
+        break;
+      default:
+        break;
+    }
 
     let data = [];
-    for (const real in corpusStats.realizations) {
+    for (const doc in corpusStats.byDoc) {
       const row = {
-        real: real,
-        value: corpusStats['realizations'][real][type],
+        title: corpusStats.byDoc[doc].title,
+        value: corpusStats.byDoc[doc][type],
       };
       data.push(row);
     }
@@ -27,22 +41,35 @@ export default class DetailByReal extends React.PureComponent {
     data.sort((a, b) => a.value - b.value);
     data.reverse();
 
-    const typeLabel = (type === 'disp') ? "Dispersion" : "Frequency";
+    let typeLabel;
+    switch (this.props.type) {
+      case 'dispByCorp':
+        typeLabel = 'Dispersion';
+        break;
+      case 'freqByCorp':
+        typeLabel = 'Frequency';
+        break;
+      case 'speByCorp':
+        typeLabel = 'Specificity';
+        break;
+      default:
+        break;
+    }
     const typeLabelLower = typeLabel.toLowerCase();
 
-    const realsTable = (
+    const titlesTable = (
       <MaterialTable
         columns={[
-          { title: "Realization", field: "real" },
+          { title: "Title", field: 'title' },
           { title: typeLabel, field: 'value' },
         ]}
         data={data}
-        title={`${typeLabel} by realization`}
+        title={`${typeLabel} by title`}
         options={{
           search: true,
           sorting: true,
           exportButton: true,
-          exportFileName:`${typeLabelLower}_by_realization`,
+          exportFileName:`${typeLabelLower}_by_title`,
         }}
         components={{
           Pagination: props => (
@@ -70,7 +97,7 @@ export default class DetailByReal extends React.PureComponent {
 
     // prep data for the chart
     const chartData = data.map(el => ({
-      value: el.value, name: el.real,
+      value: el.value, name: el.title,
     }));
     chartData.length = 20;
 
@@ -93,13 +120,13 @@ export default class DetailByReal extends React.PureComponent {
         </div>
 
         <H6><u>Complete list of results</u></H6>
-        {realsTable}
+        {titlesTable}
       </>
     );
   }
 }
 
-DetailByReal.propTypes = {
+DetailByCorp.propTypes = {
   corpusStats: PropTypes.object,
   type: PropTypes.string,
 };

@@ -3,13 +3,14 @@ import React from 'react';
 import { FormGroup, H2, H4, HTMLSelect } from '@blueprintjs/core';
 import { Paper } from '@material-ui/core';
 
+import DetailByCorp from './DetailByCorp';
 import DetailByReal from './DetailByReal';
 
 
 export default class Stat extends React.PureComponent {
 
   state = {
-    detailStats: 'dispByReal',
+    detailStats: 'dispByReal',  // dispByReal, freqByReal, dispByCorp, freqByCorp, speByCorp
   }
 
   onDetailChange = (e) => {
@@ -50,14 +51,28 @@ export default class Stat extends React.PureComponent {
             <HTMLSelect id='statsDetails' name='statsDetails' onChange={this.onDetailChange}>
               <option value='dispByReal'>Dispersion by realization</option>
               <option value='freqByReal'>Frequency by realization</option>
+              <option value='dispByCorp'>Dispersion by corpus</option>
+              <option value='freqByCorp'>Frequency by corpus</option>
+              <option value='speByCorp'>Specificity by corpus</option>
             </HTMLSelect>
           </FormGroup>
         </div>
 
-        <DetailByReal
-          corpusStats={corpusStats}
-          type={this.state.detailStats}
-        />
+        {(this.state.detailStats === 'dispByReal' || this.state.detailStats === 'freqByReal') &&
+          <DetailByReal
+            corpusStats={corpusStats}
+            type={this.state.detailStats}
+          />
+        }
+
+        {(this.state.detailStats === 'dispByCorp'
+          || this.state.detailStats === 'freqByCorp'
+          || this.state.detailStats === 'speByCorp') &&
+          <DetailByCorp
+            corpusStats={corpusStats}
+            type={this.state.detailStats}
+          />
+        }
       </Paper>
     </>
     );

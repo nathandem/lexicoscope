@@ -16,6 +16,17 @@ export default class Analytics extends React.Component {
 
   render() {
 
+    let statsData = this.props.results.stats;
+    const concord = this.props.results.concord;
+
+    // prepare stats data
+    // notably, get the proper titles of the documents
+    for (const corp in statsData.byCorpus) {
+      for (const doc in statsData.byCorpus[corp].byDoc) {
+        statsData.byCorpus[corp].byDoc[doc]['title'] = concord.docMeta[doc].title;
+      }
+    }
+
     const stats = <Statistics stats={this.props.results.stats} />;
 
     return (
