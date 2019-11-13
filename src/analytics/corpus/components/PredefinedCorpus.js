@@ -20,7 +20,7 @@ export default class PredefinedCorpus extends React.Component {
   }
 
   fetchPredefinedCollections = () => {
-    const endpoint = '/predefined-collections';
+    const endpoint = '/collections';
     fetch(
       process.env.REACT_APP_API_HOSTNAME + endpoint,
       { credentials: 'include' })
