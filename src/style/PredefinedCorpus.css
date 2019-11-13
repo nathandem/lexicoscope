@@ -30,9 +30,7 @@
 
 .PredefinedCorpus__innerCorpusDetail {
   min-height: 50vh;
-  border: 1px solid #A7B6C2;  /* @gray4 https://blueprintjs.com/docs/#core/colors */
-  border-radius: 1%;
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .PredefinedCorpus__corpusCaracImg {

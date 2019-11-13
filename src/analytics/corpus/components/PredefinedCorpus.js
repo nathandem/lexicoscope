@@ -87,6 +87,7 @@ export default class PredefinedCorpus extends React.Component {
               <H6>Key caracteristics</H6>
               <ul>
                 <li>Period: {selectedCorpus.yearMin} - {selectedCorpus.yearMax}</li>
+                <li>Category: {selectedCorpus.category}</li>
                 <li>Token number: {selectedCorpus.tokenSize}</li>
               </ul>
             </div>
@@ -122,9 +123,9 @@ export default class PredefinedCorpus extends React.Component {
           </div>
 
           <div className="PredefinedCorpus__corpusDetail">
-            <div className="PredefinedCorpus__innerCorpusDetail">
+            <Card className="PredefinedCorpus__innerCorpusDetail">
               {selectedCorpus && selectedCorpusDetails}
-            </div>
+            </Card>
           </div>
 
         </div>
