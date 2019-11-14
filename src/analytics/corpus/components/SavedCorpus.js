@@ -34,8 +34,7 @@ export default class SavedCorpus extends React.Component {
   }
 
   handleGoToQuery = () => {
-    // for now, the `name` stands as the `id` of the corpus, which isn't quite clean
-    this.props.selectUserSavedCorpusIdCallback(this.state.selectedCorpus.name);
+    this.props.selectUserSavedCorpusIdCallback(this.state.selectedCorpus.file_name);
   }
 
   handleSelectRow = (idx) => {
@@ -68,7 +67,7 @@ export default class SavedCorpus extends React.Component {
             <div className="padding-1-rem">
               {this.state.selectedCorpus &&
               <Card elevation={2}>
-                <H3 className="margin-bottom-1-5rem">{this.state.selectedCorpus.name}</H3>
+                <H3 className="margin-bottom-1-5rem">{this.state.selectedCorpus.file_name}</H3>
                 <H6>Recap information</H6>
                 <ul>
                   <li>{this.state.selectedCorpus.json.collection_name}</li>

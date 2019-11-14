@@ -30,11 +30,11 @@ const SavedCorpusTable = (props) => {
           <TableBody>
             {props.savedCorpuses.map((corpus, idx) => (
               <TableRow
-                key={corpus.name}
-                onClick={() => onClickRow(idx)}  // when calling the handler function this way, no event get passed implicitely. Only what we pass explicitely as arg
+                key={corpus.file_name}
+                onClick={() => onClickRow(idx)}
                 selected={(selectedCorpusId === idx) ? true : false}
               >
-                <TableCell align="right">{corpus.name}</TableCell>
+                <TableCell align="right">{corpus.file_name}</TableCell>
                 <TableCell align="right">{corpus.date}</TableCell>
               </TableRow>
             ))}
@@ -48,7 +48,7 @@ const SavedCorpusTable = (props) => {
 SavedCorpusTable.propTypes = {
   savedCorpuses: PropTypes.arrayOf(
     PropTypes.shape({
-      name: PropTypes.string,
+      file_name: PropTypes.string,
       date: PropTypes.string,
     }),
   ),
