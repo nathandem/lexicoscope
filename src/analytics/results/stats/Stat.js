@@ -27,8 +27,6 @@ export default class Stat extends React.PureComponent {
       <Paper className="margin-bottom-1-rem padding-1-rem">
         <H2>Space search</H2>
         <ul>
-          {/* Use tokenSize instead */}
-          <li>Size: {corpusStats.size}</li>
           <li>Sentences to parse: {corpusStats.nbSents2Parse}</li>
           <li>Sentences parsed: {corpusStats.nbParsedSents}</li>
         </ul>

@@ -3,6 +3,7 @@ import React from 'react';
 import { Tab, Tabs } from '@blueprintjs/core';
 
 import Statistics from './stats/Statistics';
+//TODO Remove this import when the corpus+query part of the app works properly
 import { ResultsFixture } from '../../mockedAPI/fixtures/ResultsFixture';
 
 
