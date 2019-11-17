@@ -3,7 +3,7 @@ import React from 'react';
 import { Tab, Tabs } from '@blueprintjs/core';
 
 import Statistics from './stats/Statistics';
-import { ResultsFixture } from '../../mockedAPI/fixtures/Results';
+import { ResultsFixture } from '../../mockedAPI/fixtures/ResultsFixture';
 
 
 export default class Analytics extends React.Component {

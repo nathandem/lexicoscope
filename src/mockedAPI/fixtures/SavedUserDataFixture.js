@@ -15,7 +15,7 @@
 // => kebab case or camel case?
 // type of the data returned by the backend. Only strings?
 
-export const savedUserDataFixture = {
+export const SavedUserDataFixture = {
   corpus: [
     {
       file_name: 'French novels of the 20th century',
