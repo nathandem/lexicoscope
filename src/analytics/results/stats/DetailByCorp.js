@@ -70,6 +70,7 @@ export default class DetailByCorp extends React.PureComponent {
           sorting: true,
           exportButton: true,
           exportFileName:`${typeLabelLower}_by_title`,
+          exportAllData: true,
         }}
         components={{
           Pagination: props => (

@@ -43,6 +43,7 @@ export default class DetailByReal extends React.PureComponent {
           sorting: true,
           exportButton: true,
           exportFileName:`${typeLabelLower}_by_realization`,
+          exportAllData: true,
         }}
         components={{
           Pagination: props => (

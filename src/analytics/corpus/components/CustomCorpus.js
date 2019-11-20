@@ -166,7 +166,7 @@ export default class CustomCorpus extends React.Component {
       <>
         <CorpusHeader
           title="Create your own corpus"
-          explanations="You can define a corpus, several sub-corpuses or slip one into partitions."
+          explanations="You can define a corpus, several sub-corpuses or split one into partitions."
           goToQuery={this.handleGoToQuery}
         />
 
