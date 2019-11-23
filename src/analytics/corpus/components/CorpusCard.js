@@ -200,8 +200,8 @@ export default class CorpusCard extends React.Component {
           </>
         }
 
-        <Button text={"Reset"} onClick={this.resetCorpus} />
-        <Button text={"Validate"} onClick={this.props.onCorpusReady} />
+        <Button text={"Reset"} onClick={() => this.resetCorpus(corpus)} />
+        <Button text={"Validate"} onClick={() => this.props.onCorpusReady(corpus)} />
 
       </Card>
     );

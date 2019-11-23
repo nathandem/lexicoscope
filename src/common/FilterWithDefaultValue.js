@@ -19,8 +19,14 @@ const FilterWithDefaultValue = (props) => {
 
   return (
     <FormGroup label={props.label} labelFor={props.label} inline={true}>
-      <HTMLSelect id={props.label} name={props.name} onChange={props.onChange}>
-        <option value="">{props.defaultOption}</option>
+      <HTMLSelect
+        id={props.label}
+        name={props.name}
+        onChange={props.onChange}
+        value={props.value}
+        disabled={props.disabled}
+      >
+        {props.hasDefault && <option disabled={!props.hasSelectableDefault} value="">{props.defaultLabel}</option> }
         {dropDownOptions}
       </HTMLSelect>
     </FormGroup>
@@ -32,15 +38,22 @@ FilterWithDefaultValue.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string,
 
+  // default option
+  hasDefault: PropTypes.bool,
+  hasSelectableDefault: PropTypes.bool,
+  defaultLabel: PropTypes.string,
+
   // select and options related props
-  defaultOption: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.string),
   value: PropTypes.string,
   onChange: PropTypes.func,
+  disabled: PropTypes.bool,
 };
 
 FilterWithDefaultValue.defaultProps = {
-  defaultOption: "Choose something",
+  defaultLabel: "-----",
+  hasSelectableDefault: false,
+  disabled: false,
 };
 
 export default FilterWithDefaultValue;
