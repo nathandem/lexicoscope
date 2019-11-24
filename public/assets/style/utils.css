@@ -42,6 +42,10 @@ section {
     display: flex;
 }
 
+.flex-between {
+    justify-content: space-between;
+}
+
 .flex-two-panels {
     flex: 0 0 50%;  /* don't grow, don't shrink, 50% width (of parent) */
 }
@@ -52,6 +56,21 @@ section {
 
 .flex-two-third {
     flex: 0 0 66%;  /* don't grow, don't shrink, 66% width (of the parent) */
+}
+
+
+/*  Cards edited state
+
+    The colors come from the blueprint projet, see:
+    https://blueprintjs.com/docs/#core/colors.core-colors
+*/
+
+.active-card {
+    border: 2px solid #137CBD;
+}
+
+.success-card {
+    border: 2px solid #0F9960;
 }
 
 

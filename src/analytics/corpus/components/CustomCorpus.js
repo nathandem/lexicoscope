@@ -5,11 +5,9 @@ import React from 'react';
 import { Button, Card, FormGroup, InputGroup, H3, H4, H6 } from '@blueprintjs/core';
 
 import CorpusHeader from './CorpusHeader';
-// import CorpusCard from './CorpusCard';
+import CorpusCard from './CorpusCard';
 import SelectPartKeys from './SelectPartKeys';
 import FilterWithDefaultValue from '../../../common/FilterWithDefaultValue';
-
-import '../../../style/CustomCorpus.css';
 
 
 const emptyCorpus = {
@@ -17,10 +15,9 @@ const emptyCorpus = {
   ready: false,
   name: '',
   collection: '',
-  subGenres: [],
+  categories: [],
   authors: [],
   titles: [],
-  alignedLangs: [],
   sourceLangs: [],
   period: [1950, 2000],
 };
@@ -51,9 +48,9 @@ export default class CustomCorpus extends React.Component {
     alignedLang: '',  // optional
 
     // subcorpuses and partition keys
-    partitionKeys: [],  // optional
     currentCorpusId: 0,  // a newly created corpus takes currentCorpusId + 1 as id
     corpuses: [],
+    partitionKeys: [],  // optional
 
     // presentational
     globalParamsReady: false,
@@ -189,10 +186,10 @@ export default class CustomCorpus extends React.Component {
   createNewCorpus = () => {
     const newCorpusId = this.state.currentCorpusId + 1;
     const newCorpus = { ...emptyCorpus, id: newCorpusId };
-    this.setState({
-      corpuses: [...this.state.corpuses, newCorpus],
+    this.setState(prevState => ({
+      corpuses: [...prevState.corpuses, newCorpus],
       currentCorpusId: newCorpusId,
-    });
+    }));
   }
 
   // array.map allows some neat things: https://stackoverflow.com/a/37585362
@@ -203,9 +200,8 @@ export default class CustomCorpus extends React.Component {
   }
 
   deleteCorpus = (corpusToDel) => {
-    const filteredCorpus = this.state.corpuses.filter(corpus => corpus.id !== corpusToDel.id);
-    // this step is required to pass a new array to the state (immutability principle)
-    const newCorpuses = [...filteredCorpus];
+    const corpuses = [...this.state.corpuses];  // not to mutate the state directly
+    const newCorpuses = corpuses.filter(corpus => corpus.id !== corpusToDel.id);
     this.setState({ corpuses: newCorpuses });
   }
 
@@ -230,22 +226,29 @@ export default class CustomCorpus extends React.Component {
       !curr.ready ? false : prev
     )), true);
 
-    // const corpusCards = this.state.corpuses.map(corpus => (
-    //   <CorpusCard
-    //     key={corpus.id}
-    //     collections={this.state.allLangColls}
-    //     lang={this.state.lang}
-    //     corpus={corpus}
-    //     onCorpusReady={this.updateCorpus}
-    //     onDeleteCorpus={this.deleteCorpus}
-    //   />
-    // ));
+    const corpusCards = this.state.corpuses.map(corpus => (
+      <CorpusCard
+        key={corpus.id}
+        collections={this.state.collsMatchingGlobalParams}
+        lang={this.state.lang}
+        alignedLang={this.state.alignedLang}
+        corpus={corpus}
+        onCorpusReady={this.updateCorpus}
+        onDeleteCorpus={this.deleteCorpus}
+      />
+    ));
+
+    const corpusRecapList = this.state.corpuses.map(corpus => {
+      if (corpus.ready) {
+        return <li key={corpus.id}>{corpus.name}</li>;
+      }
+    })
 
     const globalParamBoxClasses = classNames(
       'margin-bottom-1-rem',
       'margin-right-05-rem',
-      {'CustomCorpus__active': !this.state.globalParamsReady},
-      {'CustomCorpus__success': this.state.globalParamsReady},
+      {'active-card': !this.state.globalParamsReady},
+      {'success-card': this.state.globalParamsReady},
     );
 
     return (
@@ -274,22 +277,29 @@ export default class CustomCorpus extends React.Component {
               <FilterWithDefaultValue
                 disabled={this.state.globalParamsReady}
                 value={this.state.lang}
-                label={"Corpus language"} name={"lang"} hasDefault={true}
-                options={this.state.allLangs} onChange={this.onChangeLang}
+                label={"Corpus language"}
+                name={"lang"}
+                hasDefault={true}
+                options={this.state.allLangs}
+                onChange={this.onChangeLang}
               />
               <H6><u>Advanced parameters (optional)</u></H6>
               <FilterWithDefaultValue
                 disabled={this.state.globalParamsReady}
-                value={this.state.alignedLang} hasDefault={true} hasSelectableDefault={true}
-                label={"Aligned language (language in which the text is translated)"} name={"alignedLang"}
-                options={this.state.alignedLangs} onChange={this.onChangeAlignedLang}
+                value={this.state.alignedLang}
+                hasDefault={true}
+                hasSelectableDefault={true}
+                label={"Aligned language (language in which the text is translated)"}
+                name={"alignedLang"}
+                options={this.state.alignedLangs}
+                onChange={this.onChangeAlignedLang}
               />
               {this.state.name && this.state.lang &&
                 <Button text={globalParamsBtnLabel} onClick={this.onGlobalParamsReadyChange} />
               }
             </Card>
 
-            {/* {corpusCards} */}
+            {corpusCards}
 
             {this.state.globalParamsReady && allCorpusesReady &&
               <div className="flex">
@@ -310,7 +320,7 @@ export default class CustomCorpus extends React.Component {
             <Card elevation={2} className="margin-bottom-1-rem margin-left-05-rem">
               <H4>Recap search area: {this.state.name}</H4>
               <ul>
-                {this.state.corpuses.map(corpus => <li key={corpus.id}>{corpus.name}</li>)}
+                {corpusRecapList}
               </ul>
             </Card>
           </div>
