@@ -59,9 +59,9 @@ export default class CorpusCard extends React.Component {
     // year_min
     // year_max
     // - Below are stats
-    // nb_title
-    // nb_author
-    // nbToks
+    // nb_titles
+    // nb_authors
+    // nb_toks
     // nb_unknown_toks
 
     const { collection, categories, authors, titles, sourceLangs, period } = this.state.corpus;
@@ -106,9 +106,9 @@ export default class CorpusCard extends React.Component {
         };
 
         const newStats = {
-          nbTitles: data.nb_title,
-          nbAuthors: data.nb_author,
-          nbTokens: data.nbToks,
+          nbTitles: data.nb_titles,
+          nbAuthors: data.nb_authors,
+          nbTokens: data.nb_toks,
           // also `nb_unknown_toks` but don't know how to use it
         }
 

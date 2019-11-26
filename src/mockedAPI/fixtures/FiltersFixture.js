@@ -23,9 +23,9 @@
 // year_min
 // year_max
 // - Below are stats
-// nb_title
-// nb_author
-// nbToks
+// nb_titles
+// nb_authors
+// nb_toks
 // nb_unknown_toks
 
 // mock for one French collection
@@ -38,8 +38,8 @@ export const FrPhraseoromFixture = {
     source_languages: ['fr', 'en'],
     year_min: 1950,
     year_max: 2000,
-    nb_title: 123,
-    nb_author: 123,
-    nbToks: 123456789,
+    nb_titles: 123,
+    nb_authors: 123,
+    nb_toks: 123456789,
     nb_unknown_toks: 123456,
 };
