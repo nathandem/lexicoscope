@@ -22,13 +22,6 @@ const emptyCorpus = {
   period: [1950, 2000],
 };
 
-const emptyPartKeys = {
-  author: false,
-  subGenre: false,
-  year: false,
-  decade: false,
-};
-
 export default class CustomCorpus extends React.Component {
 
   state = {
@@ -39,7 +32,7 @@ export default class CustomCorpus extends React.Component {
     alignedLangs: [],
     // subcorpus
     collsMatchingGlobalParams: [],  // just the names of the collections
-    partKeys: emptyPartKeys,  //TODO Change this (last thing to do in the dev). Partitions depend on the collection being chosen by the user
+    collPartKeys: [],
 
     // Choices made by the user
     // global params
@@ -50,7 +43,7 @@ export default class CustomCorpus extends React.Component {
     // subcorpuses and partition keys
     currentCorpusId: 0,  // a newly created corpus takes currentCorpusId + 1 as id
     corpuses: [],
-    partitionKeys: [],  // optional
+    partKeys: [],  // optional
 
     // presentational
     globalParamsReady: false,
@@ -85,7 +78,7 @@ export default class CustomCorpus extends React.Component {
   }
 
   createSendCorpus = () => {
-    const { name, lang, partitionKeys, corpuses } = this.state;
+    const { name, lang, partKeys, corpuses } = this.state;
 
     // checks corpus valid
     if (!name || !lang || corpuses.length < 1) {
@@ -108,8 +101,8 @@ export default class CustomCorpus extends React.Component {
       global: { name: name, lang: lang },
       corpuses: [...corpuses],
     };
-    if (partitionKeys) {
-      res['partitions'] = partitionKeys;
+    if (partKeys) {
+      res['partitions'] = partKeys;
     }
 
     // pass it to the parent component
@@ -179,6 +172,9 @@ export default class CustomCorpus extends React.Component {
       collsMatchingGlobalParams: [],
       alignedLangs: [],
       corpuses: [],
+      partKeys: [],
+      isPartToggled: false,
+      collPartKeys: [],
     });
   }
 
@@ -202,18 +198,26 @@ export default class CustomCorpus extends React.Component {
   deleteCorpus = (corpusToDel) => {
     const corpuses = [...this.state.corpuses];  // not to mutate the state directly
     const newCorpuses = corpuses.filter(corpus => corpus.id !== corpusToDel.id);
-    this.setState({ corpuses: newCorpuses });
+    this.setState({ corpuses: newCorpuses, isPartToggled: false, partKeys: null });
   }
 
-  onTogglePartition = () => {
-    this.setState(prevState => ({ isPartToggled: !prevState.isPartToggled }));
+  onPartToggle = () => {
+    // get the partition keys of the collection
+    const { collections, lang, corpuses } = this.state;
+    const collPartKeys = collections[lang][corpuses[0].collection].partitions;
+
+    this.setState(prevState => {
+      const newIsPartToggled = !prevState.isPartToggled;
+      return { isPartToggled: newIsPartToggled, collPartKeys: collPartKeys };
+    });
   }
 
-  onTogglePartKey = (e) => {
-    const partKeys = this.state.partKeys;
-    const partKey = e.target.name;
-    const newPartKeys = { ...partKeys, [partKey]: !partKeys[partKey] }
-    this.setState({ partKeys: newPartKeys });
+  handlePartReady = (flatPartKeys) => {
+    this.setState({ partKeys: flatPartKeys });
+  }
+
+  handlePartDelete = () => {
+    this.setState({ partKeys: [], isPartToggled: false, collPartKeys: [] });
   }
 
 
@@ -242,6 +246,7 @@ export default class CustomCorpus extends React.Component {
       if (corpus.ready) {
         return <li key={corpus.id}>{corpus.name}</li>;
       }
+      return null;
     })
 
     const globalParamBoxClasses = classNames(
@@ -303,8 +308,8 @@ export default class CustomCorpus extends React.Component {
 
             {this.state.globalParamsReady && allCorpusesReady &&
               <div className="flex">
-                {this.state.corpuses.length === 1 &&
-                  <Button text={"Partition the corpus"} onClick={this.onTogglePartition} active={this.state.isPartToggled} />
+                {this.state.corpuses.length === 1 && !this.state.isPartToggled &&
+                  <Button text={"Partition the corpus"} onClick={this.onPartToggle} />
                 }
                 {!this.state.isPartToggled &&
                   <Button text={"Add a subcorpus"} onClick={this.createNewCorpus} />
@@ -312,7 +317,13 @@ export default class CustomCorpus extends React.Component {
               </div>
             }
 
-            {this.state.isPartToggled && <SelectPartKeys />}
+            {this.state.isPartToggled &&
+              <SelectPartKeys
+                collPartKeys={this.state.collPartKeys}
+                onPartReady={this.handlePartReady}
+                onDeletePart={this.handlePartDelete}
+              />
+            }
 
           </div>
 
