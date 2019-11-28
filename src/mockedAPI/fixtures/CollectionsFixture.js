@@ -1,4 +1,4 @@
-const dummyThumbnail = 'https://dummyimage.com/100x100/#808080/aaa';
+const dummyThumbnail = process.env.PUBLIC_URL + '/assets/img/dummyimage__100-100.png';
 
 export const CollectionsFixture = {
 

@@ -3,7 +3,6 @@ import React from 'react';
 import { Card, H3, H4, H6, HTMLSelect } from '@blueprintjs/core';
 
 import CorpusHeader from './CorpusHeader';
-
 import '../../../style/PredefinedCorpus.css';
 
 
@@ -11,8 +10,11 @@ export default class PredefinedCorpus extends React.Component {
 
   state = {
     collections: null,
+    allLangs: [],
     selectedLang: 'fr',
-    selectedCorpus: null,  // a corpus object from `collections`
+    // the collections API separates the collection name and its attributes
+    selectedCorpusName: null,
+    selectedCorpusBody: null,
   };
 
   componentDidMount() {
@@ -29,8 +31,9 @@ export default class PredefinedCorpus extends React.Component {
           console.log(`Issue reaching ${endpoint}`);
           return;
         }
-        res.json().then((data) => {
-          this.setState({ collections: data });
+        res.json().then((collections) => {
+          const languages = Object.keys(collections);
+          this.setState({ collections, allLangs: languages });
         })
       })
       .catch(() => {
@@ -38,66 +41,47 @@ export default class PredefinedCorpus extends React.Component {
       })
   }
 
-  onChangeLanguage = (e) => {
+  handleLangChange = (e) => {
     e.preventDefault();
     this.setState({
       selectedLang: e.target.value,
-      selectedCorpus: null,
+      selectedCorpusName: null,
     });
   }
 
-  selectThisCorpus = (corpus) => {
-    this.setState({ selectedCorpus: corpus });
-  }
-
-  handleGoToQuery = () => {
-    // for now, the `name` of the corpus is its `id`
-    this.props.selectPredefinedCorpusIdCallback(this.state.selectedCorpus.name);
+  handleCorpusSelect = (collName) => {
+    const { collections, selectedLang } = this.state;
+    const selectedCorpusBody = collections[selectedLang][collName];
+    this.setState({ selectedCorpusName: collName, selectedCorpusBody });
   }
 
   render() {
+    const {
+      collections,
+      allLangs,
+      selectedLang,
+      selectedCorpusName,
+      selectedCorpusBody
+    } = this.state;
 
-    const { selectedCorpus, collections } = this.state;
+    let collectionsInSelectedLang;
+    if (collections && selectedLang) {
+      const collsInSelectedLang = collections[selectedLang];
+      const collNamesInSelectLang = Object.keys(collsInSelectedLang);
 
-    let languages = [];
-    let filteredCorpuses;
-    if (collections) {
-      languages = Object.keys(collections);
-
-      filteredCorpuses = this.state.collections[this.state.selectedLang].map((corpus) => (
+      collectionsInSelectedLang = collNamesInSelectLang.map(collName => (
         <Card
-          onClick={() => this.selectThisCorpus(corpus)}
+          onClick={() => this.handleCorpusSelect(collName)}
           interactive={true}
-          key={corpus.name}
+          key={collName}
           className="PredefinedCorpus__corpusCard"
         >
-          <img src={corpus.thumbnail} alt="" />
-          <p>{corpus.name}</p>
+          <div>
+            <img src={collsInSelectedLang[collName].thumbnail} alt="" />
+            <p>{collName}</p>
+          </div>
         </Card>
       ));
-    }
-
-    let selectedCorpusDetails;
-    if (selectedCorpus) {
-      selectedCorpusDetails = (
-        <>
-          <H3 className="margin-bottom-1-5rem">{selectedCorpus.name}</H3>
-          <div className="PredefinedCorpus__corpusCaracImg margin-bottom-1-5rem">
-            <div>
-              <H6>Key caracteristics</H6>
-              <ul>
-                <li>Period: {selectedCorpus.yearMin} - {selectedCorpus.yearMax}</li>
-                <li>Category: {selectedCorpus.category}</li>
-                <li>Token number: {selectedCorpus.tokenSize}</li>
-              </ul>
-            </div>
-            <div><img src={selectedCorpus.thumbnail} alt="" /></div>
-          </div>
-
-          <H6>Description</H6>
-          <p>{selectedCorpus.description}</p>
-        </>
-      )
     }
 
     return (
@@ -105,7 +89,7 @@ export default class PredefinedCorpus extends React.Component {
         <CorpusHeader
           title="PredefinedCorpus"
           explanations="Après avoir sélectionné un corpus, n'oubliez pas d'appuyer sur le bouton Lancer une recherche en haut à droite !"
-          goToQuery={this.handleGoToQuery}
+          goToQuery={() => this.props.onCollectionChosen(selectedCorpusName)}
         />
 
         <div className="PredefinedCorpus__core">
@@ -114,17 +98,36 @@ export default class PredefinedCorpus extends React.Component {
             <div className="PredefinedCorpus__langChoice">
               Language
               {' '}
-              <HTMLSelect options={languages} onChange={this.onChangeLanguage} />
+              <HTMLSelect options={allLangs} onChange={this.handleLangChange} />
             </div>
+
             <H4 className="margin-bottom-1rem">Corpus choice</H4>
             <div className="PredefinedCorpus__corpusList">
-              {filteredCorpuses}
+              {collectionsInSelectedLang}
             </div>
           </div>
 
           <div className="PredefinedCorpus__corpusDetail">
             <Card className="PredefinedCorpus__innerCorpusDetail">
-              {selectedCorpus && selectedCorpusDetails}
+              {selectedCorpusName &&
+                <>
+                  <H3 className="margin-bottom-1-5rem">{selectedCorpusName}</H3>
+                  <div className="PredefinedCorpus__corpusCaracImg margin-bottom-1-5rem">
+                    <div>
+                      <H6>Key caracteristics</H6>
+                      <ul>
+                        <li>Period: {selectedCorpusBody.yearMin} - {selectedCorpusBody.yearMax}</li>
+                        <li>Category: {selectedCorpusBody.category}</li>
+                        <li>Token number: {selectedCorpusBody.tokenSize}</li>
+                      </ul>
+                    </div>
+                    <div><img src={selectedCorpusBody.thumbnail} alt="" /></div>
+                  </div>
+
+                  <H6>Description</H6>
+                  <p>{selectedCorpusBody.description}</p>
+                </>
+              }
             </Card>
           </div>
 
@@ -135,5 +138,5 @@ export default class PredefinedCorpus extends React.Component {
 }
 
 PredefinedCorpus.propType = {
-  selectPredefinedCorpusIdCallback: PropTypes.func,
+  onCollectionChosen: PropTypes.func,
 };
