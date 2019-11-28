@@ -7,7 +7,7 @@ import { Button, Card, FormGroup, InputGroup, H3, H4, H6 } from '@blueprintjs/co
 import CorpusHeader from './CorpusHeader';
 import CorpusCard from './CorpusCard';
 import SelectPartKeys from './SelectPartKeys';
-import FilterWithDefaultValue from '../../../common/FilterWithDefaultValue';
+import EnhancedSingleSelect from '../../../common/EnhancedSingleSelect';
 
 
 const emptyCorpus = {
@@ -279,7 +279,7 @@ export default class CustomCorpus extends React.Component {
                   onChange={(e) => this.setState({ name: e.target.value })}
                 />
               </FormGroup>
-              <FilterWithDefaultValue
+              <EnhancedSingleSelect
                 disabled={this.state.globalParamsReady}
                 value={this.state.lang}
                 label={"Corpus language"}
@@ -289,7 +289,7 @@ export default class CustomCorpus extends React.Component {
                 onChange={this.onChangeLang}
               />
               <H6><u>Advanced parameters (optional)</u></H6>
-              <FilterWithDefaultValue
+              <EnhancedSingleSelect
                 disabled={this.state.globalParamsReady}
                 value={this.state.alignedLang}
                 hasDefault={true}

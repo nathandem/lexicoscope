@@ -5,7 +5,7 @@ import { Button, Card, FormGroup, H3, H6, Icon, InputGroup, MenuItem, RangeSlide
 import { IconNames } from '@blueprintjs/icons';
 import { MultiSelect } from '@blueprintjs/select';
 
-import FilterWithDefaultValue from '../../../common/FilterWithDefaultValue';
+import EnhancedSingleSelect from '../../../common/EnhancedSingleSelect';
 
 
 export default class CorpusCard extends React.Component {
@@ -244,7 +244,7 @@ export default class CorpusCard extends React.Component {
           />
         </FormGroup>
 
-        <FilterWithDefaultValue
+        <EnhancedSingleSelect
           disabled={corpus.ready}
           value={corpus.collection}
           hasDefault={true}
