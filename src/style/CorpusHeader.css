@@ -3,17 +3,28 @@
   padding: 1rem 0;
 }
 
+.CorpusHeader__typesFlexBox {
+  flex: 0 0 25%;
+}
+
+.CorpusHeader__typesInner {
+  width: fit-content;
+  padding: 0 0 1rem 1rem;
+}
+
 .CorpusHeader__texts {
-  flex: 0 0 75%;
+  flex: 0 0 50%;
   /* The line above means:
       flex-grow: 0;      do not grow   - initial value: 0
       flex-shrink: 0;    do not shrink - initial value: 1
       flex-basis: 25em;  width/height  - initial value: auto
   */
+  text-align: center;
 }
 
 .CorpusHeader__subtitle {
-  max-width: 80%;  /* of the div that CorpusHeader__texts corresponds to */
+  max-width: 80%;  /* of the div of CorpusHeader__texts */
+  margin: 0 auto;
 }
 
 .CorpusHeader__queryFlexBox {

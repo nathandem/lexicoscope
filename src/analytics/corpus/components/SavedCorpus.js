@@ -51,6 +51,7 @@ export default class SavedCorpus extends React.PureComponent {
           title="Choix d'un corpus précédemment sauvegardé"
           explanations="Lorsque vous etes satisfait de votre sélection, cliquez sur Lancer une recherche pour passer à la création de requête."
           goToQuery={this.handleSelectionReady}
+          onBackToTypeSelection={this.props.onBackToTypeSelection}
         />
         <div className="flex">
           <div className="flex-two-panels">
@@ -86,4 +87,5 @@ export default class SavedCorpus extends React.PureComponent {
 
 SavedCorpus.propTypes = {
   onSavedCorpusChosen: PropTypes.func,
+  onBackToTypeSelection: PropTypes.func,
 };

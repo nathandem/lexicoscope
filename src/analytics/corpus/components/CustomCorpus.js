@@ -266,6 +266,7 @@ export default class CustomCorpus extends React.PureComponent {
           title="Create your own corpus"
           explanations="You can define a corpus, several sub-corpuses or split one into partitions."
           goToQuery={this.onCustomCorpusReady}
+          onBackToTypeSelection={this.props.onBackToTypeSelection}
         />
 
         <div className="flex">
@@ -348,4 +349,5 @@ export default class CustomCorpus extends React.PureComponent {
 
 CustomCorpus.propTypes = {
   corpusReadyCallback: PropTypes.func,
+  onBackToTypeSelection: PropTypes.func,
 };

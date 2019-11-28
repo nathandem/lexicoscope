@@ -95,6 +95,7 @@ export default class PredefinedCorpus extends React.PureComponent {
           title="PredefinedCorpus"
           explanations="Après avoir sélectionné un corpus, n'oubliez pas d'appuyer sur le bouton Lancer une recherche en haut à droite !"
           goToQuery={this.handleSelectionReady}
+          onBackToTypeSelection={this.props.onBackToTypeSelection}
         />
 
         <div className="PredefinedCorpus__core">
@@ -144,4 +145,5 @@ export default class PredefinedCorpus extends React.PureComponent {
 
 PredefinedCorpus.propType = {
   onCollectionChosen: PropTypes.func,
+  onBackToTypeSelection: PropTypes.func,
 };

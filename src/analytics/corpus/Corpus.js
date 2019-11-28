@@ -6,6 +6,13 @@ import CustomCorpus from './components/CustomCorpus';
 import SavedCorpus from './components/SavedCorpus';
 
 
+const baseState = {
+  type: null,  // predefined, custom, saved
+  predefinedCorpus: {},
+  userSavedCorpus: {},
+  customCorpus: {},
+};
+
 /* `Corpus` doesn't show any UI, its role is to:
   * - orchestrate the 3 components allowing the user to choose the corpus he wants
   * - deal with the preparation of the `corpus` object of the search payload
@@ -16,12 +23,7 @@ import SavedCorpus from './components/SavedCorpus';
 */
 export default class Corpus extends React.PureComponent {
 
-  state = {
-    type: null,  // predefined, custom, saved
-    predefinedCorpus: {},
-    userSavedCorpus: {},
-    customCorpus: {},
-  };
+  state = baseState;
 
   handleSelectPredefinedCorpus = (lang, collName) => {
     const predefinedCorpus = {
@@ -60,6 +62,10 @@ export default class Corpus extends React.PureComponent {
     this.setState({ customCorpus });
   }
 
+  handleBackToTypeSelection = () => {
+    this.setState(baseState);
+  }
+
   render() {
     return (
       <>
@@ -67,13 +73,22 @@ export default class Corpus extends React.PureComponent {
           <TypesChoice selectCorpusTypeCallback={(type) => this.setState({ type })} />
         }
         { this.state.type === 'predefined' &&
-          <PredefinedCorpus onCollectionChosen={this.handleSelectPredefinedCorpus} />
+          <PredefinedCorpus
+            onCollectionChosen={this.handleSelectPredefinedCorpus}
+            onBackToTypeSelection={this.handleBackToTypeSelection}
+          />
         }
         { this.state.type === 'custom' &&
-          <CustomCorpus corpusReadyCallback={this.handleSelectCustomCorpus} />
+          <CustomCorpus
+            corpusReadyCallback={this.handleSelectCustomCorpus}
+            onBackToTypeSelection={this.handleBackToTypeSelection}
+          />
         }
         { this.state.type === 'saved' &&
-          <SavedCorpus onSavedCorpusChosen={this.handleSelectUserSavedCorpus} />
+          <SavedCorpus
+            onSavedCorpusChosen={this.handleSelectUserSavedCorpus}
+            onBackToTypeSelection={this.handleBackToTypeSelection}
+          />
         }
       </>
     );
