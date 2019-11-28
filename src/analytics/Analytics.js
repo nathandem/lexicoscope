@@ -55,7 +55,7 @@ export default class Analytics extends React.Component {
     // conditionally display the components based on the progression of the user
     return (
       <>
-        { !this.state.corpus && <Corpus /> }
+        { !this.state.corpus && <Corpus onCorpusReady={(corpus) => this.setState({ corpus })} /> }
         { (this.state.corpus && !this.state.query) && <Search /> }
         { this.state.results && <Results /> }
       </>

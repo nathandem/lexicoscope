@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import TypesChoice from './components/TypesChoice';
@@ -8,9 +9,6 @@ import SavedCorpus from './components/SavedCorpus';
 
 const baseState = {
   type: null,  // predefined, custom, saved
-  predefinedCorpus: {},
-  userSavedCorpus: {},
-  customCorpus: {},
 };
 
 /* `Corpus` doesn't show any UI, its role is to:
@@ -31,7 +29,7 @@ export default class Corpus extends React.PureComponent {
       language: lang,
       collection: collName,
     };
-    this.setState({ predefinedCorpus });
+    this.props.onCorpusReady(predefinedCorpus);
   }
 
   handleSelectUserSavedCorpus = (userSavedCorpusName) => {
@@ -39,7 +37,7 @@ export default class Corpus extends React.PureComponent {
       type: 'saved',
       userCorpus: userSavedCorpusName,
     };
-    this.setState({ userSavedCorpus });
+    this.props.onCorpusReady(userSavedCorpus);
   }
 
   handleSelectCustomCorpus = (rawCustomCorpus) => {
@@ -59,7 +57,7 @@ export default class Corpus extends React.PureComponent {
       aligned_language: rawCustomCorpus.alignedLang,
       subCorpuses: subCorpuses,
     };
-    this.setState({ customCorpus });
+    this.props.onCorpusReady(customCorpus);
   }
 
   handleBackToTypeSelection = () => {
@@ -70,7 +68,7 @@ export default class Corpus extends React.PureComponent {
     return (
       <>
         { !this.state.type &&
-          <TypesChoice selectCorpusTypeCallback={(type) => this.setState({ type })} />
+          <TypesChoice selectCorpusTypeCallback={type => this.setState({ type })} />
         }
         { this.state.type === 'predefined' &&
           <PredefinedCorpus
@@ -94,3 +92,7 @@ export default class Corpus extends React.PureComponent {
     );
   }
 }
+
+Corpus.propTypes = {
+  onCorpusReady: PropTypes.func,
+};
