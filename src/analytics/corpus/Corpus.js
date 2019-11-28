@@ -6,73 +6,75 @@ import CustomCorpus from './components/CustomCorpus';
 import SavedCorpus from './components/SavedCorpus';
 
 
-export default class Corpus extends React.Component {
+/* `Corpus` doesn't show any UI, its role is to:
+  * - orchestrate the 3 components allowing the user to choose the corpus he wants
+  * - deal with the preparation of the `corpus` object of the search payload
+  *   and return it to `Analytics` (which itself orchestrates the entire search section).
+  *   As such, individual corpus type components (e.g. PredefinedCorpus) don't have to
+  *   know the expectation of formatting of the API. They just return the information in
+  *   a simple format and `Corpus` prepares it for the API.
+*/
+export default class Corpus extends React.PureComponent {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      // Type of corpus the user selected: predefined, custom, saved.
-      // If null, show the user the type selection page.
-      type: null,
+  state = {
+    type: null,  // predefined, custom, saved
+    predefinedCorpus: {},
+    userSavedCorpus: {},
+    customCorpus: {},
+  };
 
-      predefinedCorpusId: null,
-      userSavedCorpusId: null,
-      customCorpus: null,
+  handleSelectPredefinedCorpus = (lang, collName) => {
+    const predefinedCorpus = {
+      type: 'predefined',
+      language: lang,
+      collection: collName,
     };
+    this.setState({ predefinedCorpus });
   }
 
-  handleSelectCorpusType = (type) => {
-    this.setState({ type: type });
+  handleSelectUserSavedCorpus = (userSavedCorpusName) => {
+    const userSavedCorpus = {
+      type: 'saved',
+      userCorpus: userSavedCorpusName,
+    };
+    this.setState({ userSavedCorpus });
   }
 
-  handleSelectPredefinedCorpusId = (id) => {
-    // for now, the id is the corpus name. I'd be better to use an id (shorter, more stable)
-    this.setState({ predefinedCorpusId: id });
+  handleSelectCustomCorpus = (rawCustomCorpus) => {
+    // rename `sourceLangs` into `source_languages` to fit the API expectation
+    const subCorpuses = rawCustomCorpus.corpuses.map(subCorpus => {
+      const sourceLangs = subCorpus.sourceLangs;
+      delete subCorpus.sourceLangs;
+      subCorpus.source_languages = sourceLangs;
+      return subCorpus;
+    });
+
+    const customCorpus = {
+      type: 'custom',
+      name: rawCustomCorpus.name,
+      language: rawCustomCorpus.lang,
+      partitions: rawCustomCorpus.partKeys,
+      aligned_language: rawCustomCorpus.alignedLang,
+      subCorpuses: subCorpuses,
+    };
+    this.setState({ customCorpus });
   }
-
-  handleSelectUserSavedCorpusId = (id) => {
-    // for now, the id of the saved corpus is its `name`
-    this.setState({ userSavedCorpusId: id });
-  }
-
-  handleSelectCustomCorpus = (customCorpus) => {
-    this.setState({ customCorpus: customCorpus });
-  }
-
-
 
   render() {
-
-    const typesChoice = (
-      <TypesChoice
-        selectCorpusTypeCallback={this.handleSelectCorpusType}
-      />
-    );
-
-    const predefinedCorpus = (
-      <PredefinedCorpus
-        selectPredefinedCorpusIdCallback={this.handleSelectPredefinedCorpusId}
-      />
-    );
-
-    const customCorpus = (
-      <CustomCorpus
-        corpusReadyCallback={this.handleSelectCustomCorpus}
-      />
-    );
-
-    const savedCorpus = (
-      <SavedCorpus
-        selectUserSavedCorpusIdCallback={this.handleSelectUserSavedCorpusId}
-      />
-    );
-
     return (
       <>
-        { !this.state.type && typesChoice }
-        { this.state.type === 'predefined' && predefinedCorpus }
-        { this.state.type === 'custom' && customCorpus }
-        { this.state.type === 'saved' && savedCorpus }
+        { !this.state.type &&
+          <TypesChoice selectCorpusTypeCallback={(type) => this.setState({ type })} />
+        }
+        { this.state.type === 'predefined' &&
+          <PredefinedCorpus onCollectionChosen={this.handleSelectPredefinedCorpus} />
+        }
+        { this.state.type === 'custom' &&
+          <CustomCorpus corpusReadyCallback={this.handleSelectCustomCorpus} />
+        }
+        { this.state.type === 'saved' &&
+          <SavedCorpus onSavedCorpusChosen={this.handleSelectUserSavedCorpus} />
+        }
       </>
     );
   }

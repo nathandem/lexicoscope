@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
 import { Card, H3, H6 } from '@blueprintjs/core';
+
 import CorpusHeader from './CorpusHeader';
 import SavedCorpusTable from './SavedCorpusTable';
 
 
-export default class SavedCorpus extends React.Component {
+export default class SavedCorpus extends React.PureComponent {
 
   state = {
     savedCorpuses: null,
@@ -33,8 +33,8 @@ export default class SavedCorpus extends React.Component {
       })
   }
 
-  handleGoToQuery = () => {
-    this.props.selectUserSavedCorpusIdCallback(this.state.selectedCorpus.file_name);
+  handleSelectionReady = () => {
+    this.props.onSavedCorpusChosen(this.state.selectedCorpus.file_name);
   }
 
   handleSelectRow = (idx) => {
@@ -43,21 +43,21 @@ export default class SavedCorpus extends React.Component {
   }
 
   render() {
+    const { savedCorpuses, selectedCorpus } = this.state;
 
     return (
       <>
         <CorpusHeader
           title="Choix d'un corpus précédemment sauvegardé"
           explanations="Lorsque vous etes satisfait de votre sélection, cliquez sur Lancer une recherche pour passer à la création de requête."
-          goToQuery={this.handleGoToQuery}
+          goToQuery={this.handleSelectionReady}
         />
         <div className="flex">
           <div className="flex-two-panels">
             <div className="padding-1-rem">
-              {this.state.savedCorpuses &&
-                // test just to avoid having to pass dummy value for initial rendering before fetching
+              {savedCorpuses &&
                 <SavedCorpusTable
-                  savedCorpuses={this.state.savedCorpuses}
+                  savedCorpuses={savedCorpuses}
                   onSelectRow={this.handleSelectRow}
                 />
               }
@@ -65,17 +65,16 @@ export default class SavedCorpus extends React.Component {
           </div>
           <div className="flex-two-panels">
             <div className="padding-1-rem">
-              {this.state.selectedCorpus &&
-              <Card elevation={2}>
-                <H3 className="margin-bottom-1-5rem">{this.state.selectedCorpus.file_name}</H3>
-                <H6>Recap information</H6>
-                <ul>
-                  <li>{this.state.selectedCorpus.json.collection_name}</li>
-                  <li>{this.state.selectedCorpus.json.year_min}</li>
-                  <li>{this.state.selectedCorpus.json.year_max}</li>
-                  <li>{this.state.selectedCorpus.json.token_size}</li>
-                </ul>
-              </Card>
+              {selectedCorpus &&
+                <Card elevation={2}>
+                  <H3 className="margin-bottom-1-5rem">{selectedCorpus.file_name}</H3>
+                  <H6>Recap information</H6>
+                  <ul>
+                    {Object.keys(selectedCorpus.json).map(detailKey => (
+                      <li key={detailKey}>{selectedCorpus.json[detailKey]}</li>
+                    ))}
+                  </ul>
+                </Card>
               }
             </div>
           </div>
@@ -86,5 +85,5 @@ export default class SavedCorpus extends React.Component {
 }
 
 SavedCorpus.propTypes = {
-  selectUserSavedCorpusIdCallback: PropTypes.func,
+  onSavedCorpusChosen: PropTypes.func,
 };

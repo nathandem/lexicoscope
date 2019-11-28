@@ -6,7 +6,7 @@ import CorpusHeader from './CorpusHeader';
 import '../../../style/PredefinedCorpus.css';
 
 
-export default class PredefinedCorpus extends React.Component {
+export default class PredefinedCorpus extends React.PureComponent {
 
   state = {
     collections: null,
@@ -55,6 +55,11 @@ export default class PredefinedCorpus extends React.Component {
     this.setState({ selectedCorpusName: collName, selectedCorpusBody });
   }
 
+  handleSelectionReady = () => {
+    const { selectedLang, selectedCorpusName } = this.state;
+    this.props.onCollectionChosen(selectedLang, selectedCorpusName);
+  }
+
   render() {
     const {
       collections,
@@ -89,7 +94,7 @@ export default class PredefinedCorpus extends React.Component {
         <CorpusHeader
           title="PredefinedCorpus"
           explanations="Après avoir sélectionné un corpus, n'oubliez pas d'appuyer sur le bouton Lancer une recherche en haut à droite !"
-          goToQuery={() => this.props.onCollectionChosen(selectedCorpusName)}
+          goToQuery={this.handleSelectionReady}
         />
 
         <div className="PredefinedCorpus__core">

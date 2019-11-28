@@ -22,7 +22,7 @@ const emptyCorpus = {
   period: [1950, 2000],
 };
 
-export default class CustomCorpus extends React.Component {
+export default class CustomCorpus extends React.PureComponent {
 
   state = {
     // Options available to the user
@@ -77,10 +77,10 @@ export default class CustomCorpus extends React.Component {
       })
   }
 
-  createSendCorpus = () => {
-    const { name, lang, partKeys, corpuses } = this.state;
+  onCustomCorpusReady = () => {
+    const { name, lang, alignedLang, corpuses, partKeys } = this.state;
 
-    // checks corpus valid
+    // check corpus is valid
     if (!name || !lang || corpuses.length < 1) {
       // comprehensive visual feedback
       if (!name) {
@@ -96,17 +96,21 @@ export default class CustomCorpus extends React.Component {
       return;
     }
 
-    // prepare the response object
-    const res = {
-      global: { name: name, lang: lang },
-      corpuses: [...corpuses],
-    };
-    if (partKeys) {
-      res['partitions'] = partKeys;
-    }
+    // remove unnecessary information from corpus items, namely `id` and `ready`,
+    // and transform the `period` key into `minYear` and `maxYear`.
+    const cleanCorpuses = corpuses.map(corpus => ({
+      name: corpus.name,
+      collection: corpus.collection,
+      categories: corpus.categories,
+      authors: corpus.authors,
+      titles: corpus.titles,
+      sourceLangs: corpus.sourceLangs,
+      minYear: corpus.period[0],
+      maxYear: corpus.period[1],
+    }));
 
-    // pass it to the parent component
-    this.props.corpusReadyCallback(res);
+    const customCorpus = { name, lang, alignedLang, corpuses: cleanCorpuses, partKeys };
+    this.props.corpusReadyCallback(customCorpus);
   }
 
   onChangeLang = (e) => {
@@ -261,7 +265,7 @@ export default class CustomCorpus extends React.Component {
         <CorpusHeader
           title="Create your own corpus"
           explanations="You can define a corpus, several sub-corpuses or split one into partitions."
-          goToQuery={this.handleGoToQuery}
+          goToQuery={this.onCustomCorpusReady}
         />
 
         <div className="flex">
