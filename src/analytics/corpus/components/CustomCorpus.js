@@ -64,12 +64,9 @@ export default class CustomCorpus extends React.PureComponent {
           console.log(`Issue reaching ${endpoint}`);
           return;
         }
-        res.json().then((data) => {
-          // set the collections in the state...
-          this.setState({ collections: data });
-          // ... and the available languages
-          const allLangs = Object.keys(data);
-          this.setState({ allLangs: allLangs });
+        res.json().then((collections) => {
+          const allLangs = Object.keys(collections);
+          this.setState({ collections, allLangs });
         })
       })
       .catch(() => {

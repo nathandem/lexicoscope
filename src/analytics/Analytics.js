@@ -7,15 +7,12 @@ import Results from './results/Results.js';
 
 export default class Analytics extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      corpus: null,
-      params: null,  // where do we get the default params? probably constants in the app
-      query: null,
-      results: null,
-    };
-  }
+  state = {
+    corpus: null,
+    params: null,  // where do we get the default params? probably constants in the app
+    query: null,
+    results: null,
+  };
 
   performSearch = () => {
 
@@ -55,8 +52,15 @@ export default class Analytics extends React.Component {
     // conditionally display the components based on the progression of the user
     return (
       <>
-        { !this.state.corpus && <Corpus onCorpusReady={(corpus) => this.setState({ corpus })} /> }
-        { (this.state.corpus && !this.state.query) && <Search /> }
+        { !this.state.corpus &&
+          <Corpus onCorpusReady={corpus => this.setState({ corpus })} />
+        }
+        { this.state.corpus && !this.state.query &&
+          <Search
+            onQueryReady={query => this.setState({ query })}
+            onParamsReady={params => this.setState({ params })}
+          />
+        }
         { this.state.results && <Results /> }
       </>
     );
