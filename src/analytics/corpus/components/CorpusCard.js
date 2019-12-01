@@ -276,7 +276,7 @@ export default class CorpusCard extends React.Component {
             }}
             // tagRenderer takes as input what selectedItems gives
             tagRenderer={filterLabel => filterLabel}
-            noResults={<MenuItem disabled={true} text="No results." />}
+            noResults={<MenuItem disabled={true} text="No result." />}
             placeholder={"Filter by categories..."}
             // popoverProps={{ minimal: false }} -> not working...
           />
@@ -300,7 +300,7 @@ export default class CorpusCard extends React.Component {
             }}
             // tagRenderer takes as input what selectedItems gives
             tagRenderer={filterLabel => filterLabel}
-            noResults={<MenuItem disabled={true} text="No results." />}
+            noResults={<MenuItem disabled={true} text="No result." />}
             placeholder={"Filter by authors..."}
           />
         </FormGroup>
@@ -323,7 +323,7 @@ export default class CorpusCard extends React.Component {
             }}
             // tagRenderer takes as input what selectedItems gives
             tagRenderer={filterLabel => filterLabel}
-            noResults={<MenuItem disabled={true} text="No results." />}
+            noResults={<MenuItem disabled={true} text="No result." />}
             placeholder={"Filter by titles..."}
           />
         </FormGroup>
@@ -346,7 +346,7 @@ export default class CorpusCard extends React.Component {
             }}
             // tagRenderer takes as input what selectedItems gives
             tagRenderer={filterLabel => filterLabel}
-            noResults={<MenuItem disabled={true} text="No results." />}
+            noResults={<MenuItem disabled={true} text="No result." />}
             placeholder={"Filter by source languages..."}
           />
         </FormGroup>

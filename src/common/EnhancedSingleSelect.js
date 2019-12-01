@@ -18,7 +18,12 @@ const EnhancedSingleSelect = (props) => {
   ));
 
   return (
-    <FormGroup label={props.label} labelFor={props.label} inline={true}>
+    <FormGroup
+      label={props.label}
+      labelFor={props.label}
+      inline={true}
+      helperText={props.helperText}
+    >
       <HTMLSelect
         id={props.label}
         name={props.name}
@@ -37,6 +42,7 @@ EnhancedSingleSelect.propTypes = {
   // label related props
   label: PropTypes.string,
   name: PropTypes.string,
+  helperText: PropTypes.string,
 
   // default option
   hasDefault: PropTypes.bool,
@@ -52,6 +58,8 @@ EnhancedSingleSelect.propTypes = {
 
 EnhancedSingleSelect.defaultProps = {
   defaultLabel: "-----",
+  helperText: '',
+  hasDefault: false,
   hasSelectableDefault: false,
   disabled: false,
 };

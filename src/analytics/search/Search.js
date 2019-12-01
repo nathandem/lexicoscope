@@ -25,9 +25,10 @@ export default class Search extends React.Component {
           isOpen={isParamsModalOpen}
           onClose={this.handleParamsModalSwitch}
           title={'Configure advanced params'}
+          style={{'width': '800px'}}  // 800px seems a good deal
         >
           <AdvancedParams
-            onParamsReady={() => {}}  //TODO
+            onParamsReady={this.props.onParamsReady}
             onCloseParamsModal={this.handleParamsModalSwitch}
           />
         </Dialog>
