@@ -1,0 +1,12 @@
+.Search__topSection {
+  height: 7rem;
+}
+
+.Search__ParamsBtnWrapper {
+  padding: 2rem 2rem 0 0;
+}
+
+.Search__ParamsBtn {
+  height: fit-content;
+  width: fit-content;
+}

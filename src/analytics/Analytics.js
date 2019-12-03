@@ -19,7 +19,7 @@ export default class Analytics extends React.Component {
     const data = {
       query: this.state.query,
       corpus: this.state.corpus,
-      params: this.state.params,
+      params: this.state.params,  // don't pass params if empty
     };
 
     const endpoint = '/search.ajax.php';

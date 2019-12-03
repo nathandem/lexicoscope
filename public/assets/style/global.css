@@ -11,6 +11,7 @@ button:focus,div:focus,select:focus {
   outline: none;
 }
 
+/* `wrapper` wraps everything including `layout` */
 .wrapper {
   min-width: 970px;
   min-height: 100vh;
