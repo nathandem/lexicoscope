@@ -6,10 +6,6 @@ import LexicalParams from './LexicalParams';
 import OccurrencesParams from './OccurrencesParams';
 import SearchAreaParams from './SearchAreaParams';
 
-// TODO
-// Put all the state related to params here, in `AdvancedParams`
-// Each time, a value is changed in one of the child push it here
-// The options are defined at the child level (if cumbersome, change that later)
 
 export default class AdvancedParams extends React.PureComponent {
 
@@ -21,7 +17,7 @@ export default class AdvancedParams extends React.PureComponent {
     searchAreaParamValues: {
       maxElapsedTime: 1000,
       nbMax2Parse: 10000,
-      percent2Parse: 1,
+      percent2Parse: 100,
       nbMaxFound: 5000,
     },
 
@@ -49,8 +45,10 @@ export default class AdvancedParams extends React.PureComponent {
   prepParamsForQuery = () => {
     // params are sent through a flat object, containing all params
     const { searchAreaParamValues, occurrencesParamValues, lexicalClasses } = this.state;
+    const newPercent2Parse = searchAreaParamValues.percent2Parse / 100;
+    const prepSearchAreaParamValues = {...searchAreaParamValues, percent2Parse: newPercent2Parse };
     const params = {
-      ...searchAreaParamValues,
+      ...prepSearchAreaParamValues,
       ...occurrencesParamValues,
       lexicalClasses,
     };

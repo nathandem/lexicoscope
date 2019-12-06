@@ -35,7 +35,7 @@ export default class SearchAreaParams extends React.PureComponent {
           <NumericInput
             min={0} buttonPosition={null}
             value={maxElapsedTime}
-            onValueChange={(newValue) => onValueChange('searchArea', 'maxElapsedTime', newValue)}
+            onValueChange={(newValue) => onValueChange('searchAreaParamValues', 'maxElapsedTime', newValue)}
           />
         </FormGroup>
 
@@ -48,21 +48,21 @@ export default class SearchAreaParams extends React.PureComponent {
           <NumericInput
             min={0} buttonPosition={null}
             value={nbMax2Parse}
-            onValueChange={(newValue) => onValueChange('searchArea', 'nbMax2Parse', newValue)}
+            onValueChange={(newValue) => onValueChange('searchAreaParamValues', 'nbMax2Parse', newValue)}
           />
         </FormGroup>
 
         <FormGroup
-          helperText="entre 0 et 1"
+          helperText="entre 0 et 100"
           label="Pourcentage de phrases à parser"
           labelInfo="(sur l'ensemble de recherche)"
           inline={true}
           style={formGroupStyle}
         >
           <NumericInput
-            min={0} max={0} buttonPosition={null}
+            buttonPosition={null}
             value={percent2Parse}
-            onValueChange={(newValue) => onValueChange('searchArea', 'percent2Parse', newValue)}
+            onValueChange={(newValue) => onValueChange('searchAreaParamValues', 'percent2Parse', newValue)}
           />
         </FormGroup>
 
@@ -75,7 +75,7 @@ export default class SearchAreaParams extends React.PureComponent {
           <NumericInput
             min={0} buttonPosition={null}
             value={nbMaxFound}
-            onValueChange={(newValue) => onValueChange('searchArea', 'nbMaxFound', newValue)}
+            onValueChange={(newValue) => onValueChange('searchAreaParamValues', 'nbMaxFound', newValue)}
           />
         </FormGroup>
       </>

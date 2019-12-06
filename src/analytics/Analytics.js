@@ -9,7 +9,7 @@ export default class Analytics extends React.Component {
 
   state = {
     corpus: null,
-    params: null,  // where do we get the default params? probably constants in the app
+    params: null,  // optional. If not provided the default ones are assumed by the backend
     query: null,
     results: null,
   };
