@@ -64,6 +64,9 @@ section {
     The colors come from the blueprint projet, see:
     https://blueprintjs.com/docs/#core/colors.core-colors
 */
+.neutral-card {
+    border: 2px solid #5C7080;
+}
 
 .active-card {
     border: 2px solid #137CBD;

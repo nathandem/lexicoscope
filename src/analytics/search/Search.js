@@ -43,7 +43,7 @@ export default class Search extends React.Component {
           onQueryReady={this.props.onQueryReady}
         />
 
-        {/* As a modalview, Dialog stays hidden */}
+        {/* As a modalview, Dialog stays hidden unless called */}
         <Dialog
           isOpen={isParamsModalOpen}
           onClose={this.handleParamsModalSwitch}

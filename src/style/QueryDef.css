@@ -1,4 +1,20 @@
 .QueryDef__wrapper {
   margin: 0 auto;
-  width: 800px;
+  width: 750px;
+}
+
+.QueryDef__input {
+  width: 700px;
+}
+
+.QueryDef__suggestionsWrapper {
+  text-align: center;
+}
+
+.QueryDef__suggestionCard {
+  width: 400px;
+  text-align: center;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+  border-radius: 2%;
 }
