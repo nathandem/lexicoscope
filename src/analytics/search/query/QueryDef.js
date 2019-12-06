@@ -22,23 +22,33 @@ export default class QueryDef extends React.PureComponent {
 
   handleQueryUpdate = (e) => {
     const newQuery = e.target.value;
-    this.setState({ query: newQuery });
-    // fetchQuerySuggestions stores suggestions in the state itself
-    debounce(this.fetchQuerySuggestions(newQuery), 250);
+    this.setState({ query: newQuery }, () => {
+      // fetchQuerySuggestions stores suggestions in the state itself
+      debounce(this.fetchQuerySuggestions(), 250);
+    });
   }
 
   selectSuggestedQuery = (suggQuery) => {
     this.setState({ query: suggQuery });
   }
 
-  fetchQuerySuggestions = (query) => {
+  fetchQuerySuggestions = () => {
+
+    const data = {
+      query: this.state.query,
+      corpus: this.props.corpus,
+    };
+    if (this.props.params) {
+      data.params = this.props.params;
+    }
+
     const endpoint = '/get_examples.ajax.php';
     fetch(
       process.env.REACT_APP_API_HOSTNAME + endpoint, {
         credentials: 'include',
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(query),
+        body: JSON.stringify(data),
       }
     )
     .then((res) => {
@@ -130,4 +140,6 @@ export default class QueryDef extends React.PureComponent {
 
 QueryDef.propTypes = {
   onQueryReady: PropTypes.func,
+  corpus: PropTypes.object,
+  params: PropTypes.object,
 };

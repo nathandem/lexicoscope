@@ -41,6 +41,8 @@ export default class Search extends React.Component {
 
         <QueryDef
           onQueryReady={this.props.onQueryReady}
+          corpus={this.props.corpus}
+          params={this.props.params}
         />
 
         {/* As a modalview, Dialog stays hidden unless called */}
@@ -63,4 +65,6 @@ export default class Search extends React.Component {
 Search.propTypes = {
   onQueryReady: PropTypes.func,
   onParamsReady: PropTypes.func,
+  corpus: PropTypes.object,
+  params: PropTypes.object,
 };

@@ -53,6 +53,7 @@ export default class AdvancedParams extends React.PureComponent {
       lexicalClasses,
     };
     this.props.onParamsReady(params);
+    this.props.onCloseParamsModal();
   }
 
   render() {

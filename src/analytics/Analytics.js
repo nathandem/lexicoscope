@@ -19,15 +19,16 @@ export default class Analytics extends React.Component {
     const data = {
       query: this.state.query,
       corpus: this.state.corpus,
-      params: this.state.params,  // don't pass params if empty
     };
+    if (this.state.params) {
+      data.params = this.state.params;
+    }
 
     const endpoint = '/search.ajax.php';
     fetch(
       process.env.REACT_APP_API_HOSTNAME + endpoint, {
         credentials: 'include',
         method: 'POST',
-        data: data,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       }
@@ -46,22 +47,31 @@ export default class Analytics extends React.Component {
     })
   }
 
+  handleOnQueryReady = (query) => {
+    this.setState({ query }, () => {
+      this.performSearch();
+    });
+  }
+
 
   render() {
+    const { query, corpus, params, results } = this.state;
 
     // conditionally display the components based on the progression of the user
     return (
       <>
-        { !this.state.corpus &&
+        { !corpus &&
           <Corpus onCorpusReady={corpus => this.setState({ corpus })} />
         }
-        { this.state.corpus && !this.state.query &&
+        { corpus && !query &&
           <Search
-            onQueryReady={query => this.setState({ query })}
+            onQueryReady={this.handleOnQueryReady}
             onParamsReady={params => this.setState({ params })}
+            corpus={corpus}
+            params={params}
           />
         }
-        { this.state.results && <Results /> }
+        { results && <Results results={results} /> }
       </>
     );
   }
