@@ -6,7 +6,7 @@ import MaterialTable, { MTableBodyRow } from 'material-table';
 import { Bar, withResponsiveness } from 'britecharts-react';
 
 
-export default class DetailByCorp extends React.PureComponent {
+export default class DetailByDoc extends React.PureComponent {
 
 
   render() {
@@ -15,13 +15,10 @@ export default class DetailByCorp extends React.PureComponent {
 
     let type;
     switch (this.props.type) {
-      case 'dispByCorp':
-        type = 'disp';
-        break;
-      case 'freqByCorp':
+      case 'freqByDoc':
         type = 'freq';
         break;
-      case 'speByCorp':
+      case 'speByDoc':
         type = 'specificity';
         break;
       default:
@@ -43,13 +40,10 @@ export default class DetailByCorp extends React.PureComponent {
 
     let typeLabel;
     switch (this.props.type) {
-      case 'dispByCorp':
-        typeLabel = 'Dispersion';
-        break;
-      case 'freqByCorp':
+      case 'freqByDoc':
         typeLabel = 'Frequency';
         break;
-      case 'speByCorp':
+      case 'speByDoc':
         typeLabel = 'Specificity';
         break;
       default:
@@ -127,7 +121,7 @@ export default class DetailByCorp extends React.PureComponent {
   }
 }
 
-DetailByCorp.propTypes = {
+DetailByDoc.propTypes = {
   corpusStats: PropTypes.object,
   type: PropTypes.string,
 };
