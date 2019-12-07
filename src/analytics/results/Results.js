@@ -2,11 +2,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Tab, Tabs } from '@blueprintjs/core';
 
+import Cooccurrences from './cooc/Cooccurrences';
 import Recap from './recap/Recap';
 import Statistics from './stats/Statistics';
 //TODO Remove this import when the corpus+query part of the app works properly
 import { ResultsFixture } from '../../mockedAPI/fixtures/ResultsFixture';
-
 
 
 const prepStatsData = (results) => {
@@ -38,6 +38,25 @@ const prepReadyData = (results) => {
   };
 }
 
+const propCoocData = (results) => {
+  // `cocc` is an array of arrays like the one below:
+  //
+  // [
+  //   "GEN",  # corpus name
+  //   "Chamson_NOUN le_DET crime_NOUN",  # expression
+  //   "<l=André,c=NOUN,#co>",  # collocatif
+  //   1,  # nb cooccurrences
+  //   3,  # nb occurrences pivot
+  //   11,  # nb occurrences collocatif
+  //   305746,  # nb occurrences relation
+  //   1,  # dispersion
+  //   "~NMOD"  # relation
+  //   2.5945307449803 # logLike
+  // ],
+
+  return results.cooc;
+}
+
 export default class Results extends React.Component {
 
   constructor(props) {
@@ -48,6 +67,7 @@ export default class Results extends React.Component {
       selectedTabId: 'stats',
       statsData: prepStatsData(results),
       recapData: prepReadyData(results),
+      coocData: propCoocData(results),
     }
   }
 
@@ -55,17 +75,18 @@ export default class Results extends React.Component {
 
   render() {
 
-    const { recapData, statsData } = this.state;
+    const { coocData, recapData, statsData } = this.state;
 
     const stats = <Statistics stats={statsData} />;
     const recap = <Recap recap={recapData} />;
+    const cooc = <Cooccurrences cooc={coocData} />;
 
     return (
       <>
         <Tabs onChange={this.handleTabChange} selectedTabId={this.state.selectedTabId}>
           <Tab id='stats' title='Statistics' panel={stats} />
           <Tab id='conc' title='Concordances' panel='Concordances' />
-          <Tab id='cooc' title='Cooccurrences' panel='Cooccurrences' />
+          <Tab id='cooc' title='Cooccurrences' panel={cooc} />
           <Tab id='ws' disabled title='Word Sketch' panel='Word Sketch' />
           <Tabs.Expander />
           <Tab id='recap' title='Recap' panel={recap} />

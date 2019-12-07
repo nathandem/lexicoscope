@@ -24,3 +24,10 @@ export function debounce(func, wait, immediate) {
 export function simpleArrStrToStr (arr) {
   return arr.map(el => `${el} `);
 }
+
+export const getString = (value) => {
+  if (typeof(value) === 'number') {
+    return value.toString();
+  }
+  return value;
+}
