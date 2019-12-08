@@ -10629,21 +10629,21 @@ export const ResultsFixture = {
        [
          "SF",
          "voiture",
-         "",
+         "<l=André,c=NOUN,#co>",
          2,
          10.7165474457889
        ],
        [
          "SF",
          "voiture",
-         "",
+         "<l=André,c=NOUN,#co>",
          1,
          3.26098458625702
        ],
        [
          "SF",
          "voiture",
-         "",
+         "<l=André,c=NOUN,#co>",
          4,
          -0.0264366118949437
        ],

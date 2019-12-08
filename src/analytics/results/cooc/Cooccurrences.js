@@ -76,5 +76,6 @@ export default class Cooccurrences extends React.PureComponent {
 }
 
 Cooccurrences.propTypes = {
+  // see prepCoocData for an example
   cooc: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.any)),
 };

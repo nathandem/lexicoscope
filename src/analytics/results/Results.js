@@ -5,6 +5,7 @@ import { Tab, Tabs } from '@blueprintjs/core';
 import Cooccurrences from './cooc/Cooccurrences';
 import Recap from './recap/Recap';
 import Statistics from './stats/Statistics';
+import WordSketch from './wordSketch/WordSketch';
 //TODO Remove this import when the corpus+query part of the app works properly
 import { ResultsFixture } from '../../mockedAPI/fixtures/ResultsFixture';
 
@@ -38,7 +39,7 @@ const prepReadyData = (results) => {
   };
 }
 
-const propCoocData = (results) => {
+const prepCoocData = (results) => {
   // `cocc` is an array of arrays like the one below:
   //
   // [
@@ -57,6 +58,27 @@ const propCoocData = (results) => {
   return results.cooc;
 }
 
+const prepWordSketch = (results) => {
+  // `wordsketch` is an object, whose keys are categories of collocates,
+  // and the values are arrays of array (example of one below):
+  //
+  // "Adjectifs modifieurs": [
+  //   [
+  //     "SF",  # corpus name
+  //     "voiture",  # expression
+  //     "",  # collocatif
+  //     2,  # nb cooccurrences
+  //     10.7165474457889  # logLike?
+  //   ],
+  //   ...,
+  // ],
+  // "Verbes dont le pivot est objet": [
+  //   ...
+  // ]
+
+  return results.wordsketch;
+}
+
 export default class Results extends React.Component {
 
   constructor(props) {
@@ -67,7 +89,8 @@ export default class Results extends React.Component {
       selectedTabId: 'stats',
       statsData: prepStatsData(results),
       recapData: prepReadyData(results),
-      coocData: propCoocData(results),
+      coocData: prepCoocData(results),
+      wordSketchData: prepWordSketch(results),
     }
   }
 
@@ -75,11 +98,12 @@ export default class Results extends React.Component {
 
   render() {
 
-    const { coocData, recapData, statsData } = this.state;
+    const { coocData, recapData, statsData, wordSketchData } = this.state;
 
     const stats = <Statistics stats={statsData} />;
     const recap = <Recap recap={recapData} />;
     const cooc = <Cooccurrences cooc={coocData} />;
+    const wordSketch = <WordSketch ws={wordSketchData} />;
 
     return (
       <>
@@ -87,7 +111,7 @@ export default class Results extends React.Component {
           <Tab id='stats' title='Statistics' panel={stats} />
           <Tab id='conc' title='Concordances' panel='Concordances' />
           <Tab id='cooc' title='Cooccurrences' panel={cooc} />
-          <Tab id='ws' disabled title='Word Sketch' panel='Word Sketch' />
+          <Tab id='ws' title='Word Sketch' panel={wordSketch} />
           <Tabs.Expander />
           <Tab id='recap' title='Recap' panel={recap} />
         </Tabs>
