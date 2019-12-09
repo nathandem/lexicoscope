@@ -17,8 +17,10 @@ export default class SavedCorpus extends React.PureComponent {
     const endpoint = '/get_archives.ajax.php';
 
     fetch(
-      process.env.REACT_APP_API_HOSTNAME + endpoint,
-      { credentials: 'include' })
+      process.env.REACT_APP_API_HOSTNAME + endpoint, {
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+      })
       .then((res) => {
         if (res.status !== 200) {
           console.log(`Issue reaching ${endpoint}`);

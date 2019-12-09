@@ -17,7 +17,7 @@ export default class Statistics extends React.Component {
 
     const stats = this.props.stats;
 
-    let tabs = [];
+    const tabs = [];
 
     // generate the global page, only when more than one page
     if (Object.keys(stats.byCorpus).length > 1) {

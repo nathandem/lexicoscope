@@ -3,6 +3,7 @@ import React from 'react';
 import { Tab, Tabs } from '@blueprintjs/core';
 
 import Cooccurrences from './cooc/Cooccurrences';
+import Concordances from './concord/Concordances';
 import Recap from './recap/Recap';
 import Statistics from './stats/Statistics';
 import WordSketch from './wordSketch/WordSketch';
@@ -79,6 +80,30 @@ const prepWordSketch = (results) => {
   return results.wordsketch;
 }
 
+const prepConcordData = (results) => {
+  // `concord` is a object, organised by sub-corpuses (one key by sub-corpus)
+  // and one special key named `docMeta` which contains details about the document
+  // in which the concordances are taken from.
+  //
+  // Example of the 1st concordance of a sub-corpus called "SF":
+  // "SF": [
+  //   {
+  //     "right": ", sans plus perdre de temps, j'ai hÃ¢te de retrouver mes meubles...\\n ",
+  //     "sentId": "SF/SF.fr.WALTHER.xml_3053",
+  //     "node": "[[[voiture#1]]]",
+  //     "left": "â€“ En ",
+  //     "docId": "SF/SF.fr.WALTHER.xml#0#3253"
+  //   },
+  //
+  // Note: the document details in `docMeta` are nevertheless redundant with the
+  // information that we can get from the endpoint `get_result_meta.ajax.php`.
+  // So we don't include it.
+
+  const concordByCorpus = { ...results.concord };
+  delete concordByCorpus.docMeta;
+  return concordByCorpus;
+}
+
 export default class Results extends React.Component {
 
   constructor(props) {
@@ -86,10 +111,14 @@ export default class Results extends React.Component {
     const results = props.results;
 
     this.state = {
+      // presentational
       selectedTabId: 'stats',
-      statsData: prepStatsData(results),
-      recapData: prepReadyData(results),
+
+      // data
       coocData: prepCoocData(results),
+      concordData: prepConcordData(results),
+      recapData: prepReadyData(results),
+      statsData: prepStatsData(results),
       wordSketchData: prepWordSketch(results),
     }
   }
@@ -98,18 +127,19 @@ export default class Results extends React.Component {
 
   render() {
 
-    const { coocData, recapData, statsData, wordSketchData } = this.state;
+    const { coocData, concordData, recapData, statsData, wordSketchData } = this.state;
 
-    const stats = <Statistics stats={statsData} />;
-    const recap = <Recap recap={recapData} />;
     const cooc = <Cooccurrences cooc={coocData} />;
+    const conc = <Concordances concords={concordData} />;
+    const recap = <Recap recap={recapData} />;
+    const stats = <Statistics stats={statsData} />;
     const wordSketch = <WordSketch ws={wordSketchData} />;
 
     return (
       <>
         <Tabs onChange={this.handleTabChange} selectedTabId={this.state.selectedTabId}>
           <Tab id='stats' title='Statistics' panel={stats} />
-          <Tab id='conc' title='Concordances' panel='Concordances' />
+          <Tab id='conc' title='Concordances' panel={conc} />
           <Tab id='cooc' title='Cooccurrences' panel={cooc} />
           <Tab id='ws' title='Word Sketch' panel={wordSketch} />
           <Tabs.Expander />
