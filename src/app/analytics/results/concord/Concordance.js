@@ -2,22 +2,25 @@ import React from 'react';
 import { Switch } from '@blueprintjs/core';
 
 import KwicTable from './KwicTable';
+import MetaData from './MetaData';
 import { concordShape } from './shapes';
 
 
 export default class Concordance extends React.PureComponent {
 
-  constructor(props) {
-    super(props);
+  state = {
+    isKwic: true,
+    concordDetail: null,  // metadata of 1 concordance
+  }
 
-    this.state = {
-      isKwic: true,
-      // detail and metadata of 1 concordance
-      concordDetail: null,
-    }
+  componentDidMount() {
+    // show the details of the first concordance
+    const firstConcord = this.props.concord[0];
+    this.getConcordDetail(firstConcord);
   }
 
   getConcordDetail = (concordData) => {
+    // one element in the `concord` array
     const sentId = concordData.sentId;
 
     const endpoint = '/get_result_meta.ajax.php';
@@ -36,17 +39,13 @@ export default class Concordance extends React.PureComponent {
         res.json().then((concordDetail) => {
           // Example of `concordDetail`:
           // {
-          //   "tokens", // tableau d'objets { id, cat, features, lemma, form }
-          //   "relations",  // tableau d'objets { gouv, dep, rel }
-          //   "title",  // str
-          //   "author", // str
-          //   "sub_genre", // str
-          //   "pub_date",  // str
-          //   "nbTokens",  // number
-          //   "left_context",  // str (avec les tokens de la recherche mis en avant, comme [[[....#1]]] ?)
-          //   "right_context",  // str
-          //   "sentence",
-          //   "svg"  // str
+          //   `metadata`,  // object, arbitrary key/value pairs
+          //   `left_context`,  // str
+          //   `sentence`,  // str
+          //   `right_context`,  // str
+          //   `svg`,  // str, syntax tree
+          //   `tokens`,  // array of object like { id, cat, features, lemma, form }
+          //   `relations`,  // array of object like { gouv, dep, rel }
           // }
           this.setState({ concordDetail });
         })
@@ -60,23 +59,30 @@ export default class Concordance extends React.PureComponent {
     const { concordDetail, isKwic } = this.state;
 
     return (
-      <>
-        <div>
-          <Switch
-            label="Kwic/unfolded"
-            checked={this.state.isKwic}
-            onChange={() => this.setState(prevState => ({ isKwic: !prevState.isKwic }))}
-          />
-          {isKwic &&
-            <KwicTable
-              concord={this.props.concord}
-              onSelectRow={this.getConcordDetail}
+      <div className="flex flex-between">
+        <div className="flex-two-panels">
+          <div className="padding-1-rem">
+            <Switch
+              label="Kwic/unfolded"
+              checked={this.state.isKwic}
+              onChange={() => this.setState(prevState => ({ isKwic: !prevState.isKwic }))}
             />
-          }
+            {isKwic &&
+              <KwicTable
+                concord={this.props.concord}
+                onSelectRow={this.getConcordDetail}
+              />
+            }
+          </div>
         </div>
-        <div>
+        <div className="flex-two-panels">
+          <div className="padding-1-rem">
+            {concordDetail &&
+              <MetaData concordDetail={concordDetail} />
+            }
+          </div>
         </div>
-      </>
+      </div>
     );
   }
 }

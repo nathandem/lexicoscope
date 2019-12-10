@@ -35,7 +35,7 @@ const KwicTable = (props) => {
         Container: containerProps => (
           <Paper
             {...containerProps}
-            elevation={0}
+            elevation={1}
           />
         ),
         Row: rowProps => (
