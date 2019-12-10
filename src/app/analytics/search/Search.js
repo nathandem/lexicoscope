@@ -5,6 +5,8 @@ import { Button, Dialog, H1 } from '@blueprintjs/core';
 import AdvancedParams from './params/AdvancedParams';
 import QueryDef from './query/QueryDef';
 
+import '../../../style/Search.css';
+
 
 /* `Search` is a rather shallow component logic-wise, because
  * it just passes down the functions it receives from `Analytics`.
@@ -37,7 +39,7 @@ export default class Search extends React.Component {
           </div>
         </div>
 
-        <H1 className="center-text">Lexicoscope</H1>
+        <H1 className="center-text margin-bottom-1-5-rem">Lexicoscope</H1>
 
         <QueryDef
           onQueryReady={this.props.onQueryReady}

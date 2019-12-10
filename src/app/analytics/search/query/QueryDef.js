@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Button, Checkbox, H3, InputGroup } from '@blueprintjs/core';
+import { Button, Checkbox, H3, InputGroup, TextArea } from '@blueprintjs/core';
 
 import { debounce } from '../../../utils';
 import '../../../../style/QueryDef.css';
@@ -96,23 +96,29 @@ export default class QueryDef extends React.PureComponent {
       );
     });
 
+    const commonInputProps = {
+      placeholder: "Enter a query",
+      name: "query",
+      onChange: this.handleQueryUpdate,
+      value: query,
+      className: "QueryDef__input",
+    };
+
     return(
       <div className="QueryDef__wrapper">
-        <div className="flex flex-between">
-          <InputGroup
-            placeholder="Enter a query"
-            name="query"
-            value={query}
-            onChange={this.handleQueryUpdate}
-            className="QueryDef__input"
-          />
-          <Button text="Go" onClick={this.runQuery} />
+        <div className="flex flex-between margin-bottom-1-rem">
+          {!isTQLOn ?
+            <InputGroup {...commonInputProps} />
+            :
+            <TextArea {...commonInputProps} />
+          }
+          <div><Button text="Go" onClick={this.runQuery} /></div>
         </div>
 
         <Checkbox name='isTQLOn' checked={isTQLOn} label="TQL (advanced query)" onChange={this.handleBoolChange} />
 
         <div className="QueryDef__suggestionsWrapper">
-          {isTQLOn && !query &&
+          {isTQLOn &&
             <>
               <p><b>Examples of advanced queries in TQL:</b></p>
               <p>
