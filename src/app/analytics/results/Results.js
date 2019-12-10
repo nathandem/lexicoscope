@@ -8,7 +8,7 @@ import Recap from './recap/Recap';
 import Statistics from './stats/Statistics';
 import WordSketch from './wordSketch/WordSketch';
 //TODO Remove this import when the corpus+query part of the app works properly
-import { ResultsFixture } from '../../mockedAPI/fixtures/ResultsFixture';
+import { ResultsFixture } from '../../../mockedAPI/fixtures/ResultsFixture';
 
 
 const prepStatsData = (results) => {

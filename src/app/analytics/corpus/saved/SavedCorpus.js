@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Card, H3, H6 } from '@blueprintjs/core';
 
-import CorpusHeader from './CorpusHeader';
+import CorpusHeader from '../common/CorpusHeader';
 import SavedCorpusTable from './SavedCorpusTable';
 
 

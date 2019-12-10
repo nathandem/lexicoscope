@@ -1,14 +1,15 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import Navbar from './Navbar';
-import Footer from './Footer';
+import Navbar from './app/global/Navbar';
+import Footer from './app/global/Footer';
 
-import Home from './Home';
-import Help from './Help';
-import Analytics from './analytics/Analytics';
-import Search from './analytics/search/Search';
-import Results from './analytics/results/Results';
+import Home from './app/info/Home';
+import Help from './app/info/Help';
+
+import Analytics from './app/analytics/Analytics';
+import Search from './app/analytics/search/Search';
+import Results from './app/analytics/results/Results';
 
 
 function App() {

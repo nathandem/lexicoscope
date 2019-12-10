@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Paper } from '@material-ui/core';
 
-import { CORPUS_TYPES } from '../../constants';
-import '../../../style/TypeChoice.css';
+import { CORPUS_TYPES } from '../constants';
+import '../../../../style/TypeChoice.css';
 
 
 const TypeChoice = (props) => (

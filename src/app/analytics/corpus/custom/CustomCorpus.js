@@ -1,10 +1,9 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
-
 import { Button, Card, FormGroup, InputGroup, H3, H4, H6 } from '@blueprintjs/core';
 
-import CorpusHeader from './CorpusHeader';
+import CorpusHeader from '../common/CorpusHeader';
 import CorpusCard from './CorpusCard';
 import SelectPartKeys from './SelectPartKeys';
 import EnhancedSingleSelect from '../../../common/EnhancedSingleSelect';

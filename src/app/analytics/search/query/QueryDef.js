@@ -4,7 +4,7 @@ import React from 'react';
 import { Button, Checkbox, H3, InputGroup } from '@blueprintjs/core';
 
 import { debounce } from '../../../utils';
-import '../../../style/QueryDef.css';
+import '../../../../style/QueryDef.css';
 
 
 export default class QueryDef extends React.PureComponent {

@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import TypesChoice from './components/TypesChoice';
-import PredefinedCorpus from './components/PredefinedCorpus';
-import CustomCorpus from './components/CustomCorpus';
-import SavedCorpus from './components/SavedCorpus';
+import TypesChoice from './choice/TypesChoice';
+import PredefinedCorpus from './predefined/PredefinedCorpus';
+import CustomCorpus from './custom/CustomCorpus';
+import SavedCorpus from './saved/SavedCorpus';
 
 
 const baseState = {

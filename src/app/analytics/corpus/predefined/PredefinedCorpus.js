@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Card, H3, H4, H6, HTMLSelect } from '@blueprintjs/core';
 
-import CorpusHeader from './CorpusHeader';
-import '../../../style/PredefinedCorpus.css';
+import CorpusHeader from '../common/CorpusHeader';
+import '../../../../style/PredefinedCorpus.css';
 
 
 export default class PredefinedCorpus extends React.PureComponent {

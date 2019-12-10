@@ -3,7 +3,7 @@ import React from 'react';
 import { H2, Icon } from '@blueprintjs/core';
 import { IconNames } from '@blueprintjs/icons';
 
-import '../../../style/CorpusHeader.css';
+import '../../../../style/CorpusHeader.css';
 
 
 const CorpusHeader = (props) => (
