@@ -1,8 +1,12 @@
-/* Typically transform '[[[voiture#1]]]'
- * into '<span style="color: #0D8050">voiture</span>'
+/* Color search tokens, examples:
+ * [[[voiture#1]]] -> <span style="color: #0D8050">voiture</span>
+ * [[[voiture blindée#1]]] -> <span style="color: #0D8050">voiture blindée</span>
+ * [[[peu à peu#3]]] -> <span style="color: #0D8050">peu à peu</span>
+ *
+ * Inspiration for the regex: https://stackoverflow.com/a/26900132
 */
 export const colorQueryTokens = (text) => {
-  const regex = /\[\[\[(\w+)#\d+\]\]\]/gi
+  const regex = /\[\[\[([A-zÀ-ú_ -]+)#\d+\]\]\]/gi;
   return text.replace(regex, '<span style="color: #0D8050">$1</span>');
 }
 
