@@ -4,6 +4,7 @@ import { Switch } from '@blueprintjs/core';
 
 import KwicTable from './KwicTable';
 import MetaData from './MetaData';
+import UnfoldedView from './UnfoldedView';
 import { corpusConcordsShape } from './shapes';
 
 
@@ -74,10 +75,15 @@ export default class Concordance extends React.PureComponent {
               checked={this.state.isKwic}
               onChange={() => this.setState(prevState => ({ isKwic: !prevState.isKwic }))}
             />
-            {isKwic &&
+            {isKwic ?
               <KwicTable
                 concords={concords}
                 onSelectRow={this.getConcordDetail}
+              />
+              :
+              <UnfoldedView
+                concords={concords}
+                onSelectLine={this.getConcordDetail}
               />
             }
           </div>
