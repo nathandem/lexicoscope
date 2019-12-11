@@ -6,6 +6,7 @@ import Footer from './app/global/Footer';
 
 import Home from './app/info/Home';
 import Help from './app/info/Help';
+import SignIn from './app/auth/SignIn';
 
 import Analytics from './app/analytics/Analytics';
 import Search from './app/analytics/search/Search';
@@ -23,6 +24,7 @@ function App() {
         <Route path="/search" component={Search} />
         <Route path="/results" component={Results} />
         <Route path="/help" component={Help} />
+        <Route path="/signin" component={SignIn} />
         <Footer />
       </div>
     </div>

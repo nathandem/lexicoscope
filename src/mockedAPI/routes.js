@@ -14,4 +14,4 @@ fetchMock.post(/refresh_select.ajax.php/, FrPhraseoromFixture);
 fetchMock.post(/search.ajax.php/, ResultsFixture);
 fetchMock.post(/get_examples.ajax.php/, ExamplesFixture);
 fetchMock.post(/get_result_meta.ajax.php/, ConcordMetaDataFixture);
-// fetchMock.put(/\/posts\/(\w+)/, user.putUser);
+fetchMock.post(/signIn.ajax.php/, {})  // just get a 200 status code
