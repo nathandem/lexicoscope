@@ -5,21 +5,24 @@ import { Tab, Tabs } from '@blueprintjs/core';
 import Concordance from './Concordance';
 
 
+/* Unlike in stats, concordances are always presented by sub-corpus,
+ * no `global` key which is a synthesis of all subcorpuses.
+*/
 export default class Concordances extends React.PureComponent {
 
   state = {
-    selectedTabId: Object.keys(this.props.concords)[0],
+    selectedTabId: Object.keys(this.props.concordsByCorpus)[0],
   };
 
   handleTabChange = newTabId => this.setState({ selectedTabId: newTabId });
 
   render() {
-    const concords = this.props.concords;
+    const { concordsByCorpus, docMeta, lang } = this.props;
     const tabs = [];
 
     // generate the indidual concordance pages
-    for (const corp in concords) {
-      const concord = <Concordance concord={concords[corp]} />;
+    for (const corp in concordsByCorpus) {
+      const concord = <Concordance concords={concordsByCorpus[corp]} docMeta={docMeta} lang={lang} />;
       const tab = <Tab key={corp} id={corp} title={corp} panel={concord} />;
       tabs.push(tab);
     }
@@ -39,7 +42,7 @@ export default class Concordances extends React.PureComponent {
 
 Concordances.propTypes = {
   // look at `Results.prepConcordData` for more details
-  // it's basically one key by sub-corpus,
-  // it fully depends on the search made by the user
-  concords: PropTypes.object,
+  concordsByCorpus: PropTypes.object,
+  docMeta: PropTypes.object,
+  lang: PropTypes.string,
 };

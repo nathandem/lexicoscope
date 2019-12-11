@@ -3,11 +3,11 @@ import React from 'react';
 import { Paper, TablePagination } from '@material-ui/core';
 import MaterialTable, { MTableBodyRow } from 'material-table';
 
-import { concordShape } from './shapes';
+import { corpusConcordsShape } from './shapes';
 import { prepDangerouslySetInnerHTMLString } from './utils';
 
 
-const KwicTable = (props) => {
+export default function KwicTable(props) {
 
   return (
     <MaterialTable
@@ -17,7 +17,7 @@ const KwicTable = (props) => {
         { title: "Node", field: 'node', render: rowData => <div dangerouslySetInnerHTML={prepDangerouslySetInnerHTMLString(rowData.node)} /> },
         { title: "Right context", field: 'right', render: rowData => <div dangerouslySetInnerHTML={prepDangerouslySetInnerHTMLString(rowData.right)} /> },
       ]}
-      data={props.concord}
+      data={props.concords}
       options={{
         search: true,
         sorting: true,
@@ -50,8 +50,7 @@ const KwicTable = (props) => {
 };
 
 KwicTable.propTypes = {
-  concord: concordShape,
+  // the concordances of one corpus
+  concords: corpusConcordsShape,
   onSelectRow: PropTypes.func,
 };
-
-export default KwicTable;

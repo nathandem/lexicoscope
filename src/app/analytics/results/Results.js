@@ -95,13 +95,17 @@ const prepConcordData = (results) => {
   //     "docId": "SF/SF.fr.WALTHER.xml#0#3253"
   //   },
   //
-  // Note: the document details in `docMeta` are nevertheless redundant with the
-  // information that we can get from the endpoint `get_result_meta.ajax.php`.
-  // So we don't include it.
+  // Note: the document details in `docMeta` is mostly redundant with the information
+  // with get from the endpoint `get_result_meta`. Just passed to get the collection
+  // the document belongs to.
+  const concordsByCorpus = { ...results.concord };
+  delete concordsByCorpus.docMeta;
 
-  const concordByCorpus = { ...results.concord };
-  delete concordByCorpus.docMeta;
-  return concordByCorpus;
+  return {
+    concordsByCorpus: concordsByCorpus,
+    docMeta: results.concord.docMeta,
+    lang: results.lang,
+  };
 }
 
 export default class Results extends React.Component {
@@ -116,7 +120,7 @@ export default class Results extends React.Component {
 
       // data
       coocData: prepCoocData(results),
-      concordData: prepConcordData(results),
+      concordsData: prepConcordData(results),
       recapData: prepReadyData(results),
       statsData: prepStatsData(results),
       wordSketchData: prepWordSketch(results),
@@ -126,11 +130,10 @@ export default class Results extends React.Component {
   handleTabChange = (navbarTabId) => this.setState({ selectedTabId: navbarTabId });
 
   render() {
-
-    const { coocData, concordData, recapData, statsData, wordSketchData } = this.state;
+    const { coocData, concordsData, recapData, statsData, wordSketchData } = this.state;
 
     const cooc = <Cooccurrences cooc={coocData} />;
-    const conc = <Concordances concords={concordData} />;
+    const conc = <Concordances {...concordsData} />;
     const recap = <Recap recap={recapData} />;
     const stats = <Statistics stats={statsData} />;
     const wordSketch = <WordSketch ws={wordSketchData} />;

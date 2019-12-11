@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 
-export const concordShape = PropTypes.arrayOf(
+export const corpusConcordsShape = PropTypes.arrayOf(
   PropTypes.shape({
     "left": PropTypes.string,
     "node": PropTypes.string,

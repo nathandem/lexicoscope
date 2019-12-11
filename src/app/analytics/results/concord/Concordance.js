@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Switch } from '@blueprintjs/core';
 
 import KwicTable from './KwicTable';
 import MetaData from './MetaData';
-import { concordShape } from './shapes';
+import { corpusConcordsShape } from './shapes';
 
 
 export default class Concordance extends React.PureComponent {
@@ -15,13 +16,18 @@ export default class Concordance extends React.PureComponent {
 
   componentDidMount() {
     // show the details of the first concordance
-    const firstConcord = this.props.concord[0];
+    const firstConcord = this.props.concords[0];
     this.getConcordDetail(firstConcord);
   }
 
   getConcordDetail = (concordData) => {
-    // one element in the `concord` array
-    const sentId = concordData.sentId;
+    const { docMeta, lang } = this.props;
+
+    const data = {
+      sentId: concordData.sentId,
+      collection: docMeta[concordData.docId],
+      lang: lang,
+    };
 
     const endpoint = '/get_result_meta.ajax.php';
     fetch(
@@ -29,7 +35,7 @@ export default class Concordance extends React.PureComponent {
         credentials: 'include',
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sentId: sentId }),
+        body: JSON.stringify(data),
       })
       .then((res) => {
         if (res.status !== 200) {
@@ -57,6 +63,7 @@ export default class Concordance extends React.PureComponent {
 
   render() {
     const { concordDetail, isKwic } = this.state;
+    const { concords } = this.props;
 
     return (
       <div className="flex flex-between">
@@ -69,7 +76,7 @@ export default class Concordance extends React.PureComponent {
             />
             {isKwic &&
               <KwicTable
-                concord={this.props.concord}
+                concords={concords}
                 onSelectRow={this.getConcordDetail}
               />
             }
@@ -88,5 +95,7 @@ export default class Concordance extends React.PureComponent {
 }
 
 Concordance.propTypes = {
-  concord: concordShape,
+  concords: corpusConcordsShape,
+  docMeta: PropTypes.object,
+  lang: PropTypes.string,
 };
