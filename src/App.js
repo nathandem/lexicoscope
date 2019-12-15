@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 // page components of the app
-import Navbar from './app/global/Navbar';
+import LexNavbar from './app/global/Navbar';
 import Footer from './app/global/Footer';
 
 import Home from './app/info/Home';
@@ -17,7 +17,7 @@ import Results from './app/analytics/results/Results';
 
 const App = () => (
   <div className="wrapper">
-    <Navbar />
+    <LexNavbar />
     <div className="layout">
       <Route exact path="/" component={Home} />
       <Route path="/analytics" component={Analytics} />

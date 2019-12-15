@@ -1,59 +1,70 @@
 import Cookies from 'js-cookie';
 import React from 'react';
-import {
-  Alignment,
-  Button,
-  Classes,
-  Menu,
-  MenuItem,
-  Navbar,
-  NavbarGroup,
-  Popover,
-  PopoverInteractionKind,
-  Position,
-} from '@blueprintjs/core';
+import { withRouter } from 'react-router-dom';
+import { Alignment, Button, Classes, Navbar, NavbarGroup } from '@blueprintjs/core';
 
 import { FRONT_USER_FRONT_LOGGED_IN_COOKIE_NAME } from '../auth/constants';
 
 
-export default class Header extends React.Component {
+// LexNavbar and not simply Navbar, because Navbar is already taken in
+// the module namespace by blueprint's Navbar component
+class LexNavbar extends React.Component {
+
+    logOut = () => {
+        // log-out on the backend side (via API call), then spread this information
+        // to the frontend side via the dedicated frontend cookie
+        const endpoint = '/disconnect.ajax.php';
+        fetch(
+          process.env.REACT_APP_API_HOSTNAME + endpoint, {
+            credentials: 'include',
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            Cookies.remove(FRONT_USER_FRONT_LOGGED_IN_COOKIE_NAME);
+            this.forceUpdate();
+          }
+        })
+        .catch(() => {
+          console.log(`Network error when trying to connect to ${endpoint}`);
+        })
+    }
+
+    goToSignIn = () => {
+        this.props.history.push('/signin');
+    }
+
+    goToSignUp = () => {
+        this.props.history.push('/signup');
+    }
+
     render () {
         // read the frontend logged-in cookie to determine if the user is logged-in or not
         const isUserFrontLoggedIn = !!(Cookies.get(FRONT_USER_FRONT_LOGGED_IN_COOKIE_NAME));
-
-        const profileMenu = (
-            <Menu>
-                <MenuItem text="Infos persos" />
-                <MenuItem text="Corpus et params sauvegardés" />
-                <MenuItem text="Déconnexion" />
-            </Menu>
-        );
-
-        const profileButton = (
-            <Popover
-                className={Classes.MINIMAL}
-                content={profileMenu}
-                position={Position.BOTTOM_RIGHT}
-                interactionKind={PopoverInteractionKind.HOVER}
-                minimal={true}
-            >
-                <Button className={Classes.MINIMAL} text="Profil" />
-            </Popover>
-        );
 
         return (
             <Navbar>
                 {!isUserFrontLoggedIn &&
                     <NavbarGroup align={Alignment.LEFT}>
-                        TOTO
+                        Please log-in to access all the features
                     </NavbarGroup>
                 }
                 <NavbarGroup align={Alignment.RIGHT}>
-                    {profileButton}
                     <Button className={Classes.MINIMAL} text="Aide" />
                     <Button className={Classes.MINIMAL} text="Langue" />
+                    {isUserFrontLoggedIn ?
+                        <Button text="Log out" className={Classes.MINIMAL} onClick={this.logOut} />
+                        :
+                        <>
+                            <Button text="Sign In" className={Classes.MINIMAL} onClick={this.goToSignIn} />
+                            <Button text="Sign Up" className={Classes.MINIMAL} onClick={this.goToSignUp} />
+                        </>
+                    }
                 </NavbarGroup>
             </Navbar>
         );
     }
 }
+
+export default withRouter(LexNavbar);
