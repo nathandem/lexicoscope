@@ -1,6 +1,8 @@
+import Cookies from 'js-cookie';
 import React from 'react';
 import { Button, H1, FormGroup, InputGroup, Toaster } from '@blueprintjs/core';
 
+import { FRONT_USER_FRONT_LOGGED_IN_COOKIE_NAME } from './constants';
 import '../../style/CommonAuth.css';
 
 
@@ -46,8 +48,13 @@ export default class SignIn extends React.PureComponent {
         console.log(`Error when trying to connect with ${endpoint}`);
       } else {
         res.json().then(() => {
+          // set front-end specific cookie, expire at the end of session (like the backend session cookie)
+          Cookies.set(FRONT_USER_FRONT_LOGGED_IN_COOKIE_NAME, 'true');
           // redirect to corpus type choice when succeed
           this.props.history.push('/analytics');
+          // without a proper global state, that's the best way to
+          // let the entire app knows the auth state has changed
+          window.location.reload();
         })
       }
     })

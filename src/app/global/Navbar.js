@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import React from 'react';
 import {
   Alignment,
@@ -12,9 +13,14 @@ import {
   Position,
 } from '@blueprintjs/core';
 
+import { FRONT_USER_FRONT_LOGGED_IN_COOKIE_NAME } from '../auth/constants';
 
-export default class Header extends React.PureComponent {
+
+export default class Header extends React.Component {
     render () {
+        // read the frontend logged-in cookie to determine if the user is logged-in or not
+        const isUserFrontLoggedIn = !!(Cookies.get(FRONT_USER_FRONT_LOGGED_IN_COOKIE_NAME));
+
         const profileMenu = (
             <Menu>
                 <MenuItem text="Infos persos" />
@@ -37,6 +43,11 @@ export default class Header extends React.PureComponent {
 
         return (
             <Navbar>
+                {!isUserFrontLoggedIn &&
+                    <NavbarGroup align={Alignment.LEFT}>
+                        TOTO
+                    </NavbarGroup>
+                }
                 <NavbarGroup align={Alignment.RIGHT}>
                     {profileButton}
                     <Button className={Classes.MINIMAL} text="Aide" />
@@ -44,6 +55,5 @@ export default class Header extends React.PureComponent {
                 </NavbarGroup>
             </Navbar>
         );
-
     }
 }

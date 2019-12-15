@@ -13,6 +13,7 @@
     "@material-ui/icons": "^4.5.1",
     "britecharts-react": "^0.5.3",
     "classnames": "^2.2.6",
+    "js-cookie": "^2.2.1",
     "material-table": "^1.54.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
