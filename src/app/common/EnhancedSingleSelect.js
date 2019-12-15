@@ -20,12 +20,12 @@ const EnhancedSingleSelect = (props) => {
   return (
     <FormGroup
       label={props.label}
-      labelFor={props.label}
+      labelFor={props.name}
       inline={true}
       helperText={props.helperText}
     >
       <HTMLSelect
-        id={props.label}
+        id={props.name}
         name={props.name}
         onChange={props.onChange}
         value={props.value}

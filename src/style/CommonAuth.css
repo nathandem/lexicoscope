@@ -1,0 +1,12 @@
+.CommonAuth__wrapper {
+  padding-top: 4rem;
+  padding-bottom: 5rem;
+  width: 500px;
+
+  margin: auto;
+}
+
+.SignIn__form {
+  text-align: center;
+  padding-bottom: 15rem;
+}

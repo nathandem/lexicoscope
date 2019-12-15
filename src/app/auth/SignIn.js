@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, H1, FormGroup, InputGroup, Toaster } from '@blueprintjs/core';
 
-import '../../style/SignIn.css';
+import '../../style/CommonAuth.css';
 
 
 export default class SignIn extends React.PureComponent {
@@ -66,7 +66,7 @@ export default class SignIn extends React.PureComponent {
     const { login, password } = this.state;
 
     return (
-      <div className="SignIn__wrapper">
+      <div className="CommonAuth__wrapper SignIn__form">
         <H1>Sign in</H1>
 
         <form onSubmit={this.signIn}>
