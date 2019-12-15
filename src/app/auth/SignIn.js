@@ -17,11 +17,29 @@ export default class SignIn extends React.PureComponent {
     password: '',
   };
 
+  componentDidMount() {
+    // check if the user reaches this page from the signup email,
+    // if yes show a message
+    const urlParams = new URLSearchParams(window.location.search);
+    const signUpSuccess = urlParams.get('success');
+    if (signUpSuccess) {
+      this.addSignUpSuccessToast();
+    }
+  }
+
   addCredentialsErrorToast = () => {
     this.toaster.show({
       message: "Credentials error. Please retry or create an account if you don't have one already.",
       intent: 'danger',
       icon: 'warning-sign',
+    });
+  }
+
+  addSignUpSuccessToast = () => {
+    this.toaster.show({
+      message: 'You account was successfully created! Please now log-in.',
+      intent: 'success',
+      icon: 'tick',
     });
   }
 
