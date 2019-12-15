@@ -24,7 +24,7 @@ export default class Analytics extends React.Component {
       data.params = this.state.params;
     }
 
-    const endpoint = '/search.ajax.php';
+    const endpoint = '/create_session_id.ajax.php';
     fetch(
       process.env.REACT_APP_API_HOSTNAME + endpoint, {
         credentials: 'include',
@@ -39,7 +39,30 @@ export default class Analytics extends React.Component {
         return;
       }
       res.json().then((data) => {
-        this.setState({ results: data });
+        // No need to store the session_id in the state, as create_session_id
+        // is called every time. If the session already exists, the same
+        // gets session_id sent back.
+        // Note: this session is a query session, not a user session (the one
+        // tracked by the session cookie).
+        const sessionId = data.session_id;
+
+        const endpoint = '/search.ajax.php';
+        const queryParams = new URLSearchParams({ session_id: sessionId });
+        fetch(
+          process.env.REACT_APP_API_HOSTNAME + endpoint + '?' + queryParams, {
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+          }
+        )
+        .then((res) => {
+          if (res.status !== 200) {
+            console.log(`Issue reaching ${endpoint}`);
+            return;
+          }
+          res.json().then((data) => {
+            this.setState({ results: data });
+          });
+        })
       })
     })
     .catch(() => {
