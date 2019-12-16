@@ -15,7 +15,7 @@ class LexNavbar extends React.Component {
         // to the frontend side via the dedicated frontend cookie
         const endpoint = '/disconnect.ajax.php';
         fetch(
-          process.env.REACT_APP_API_HOSTNAME + endpoint, {
+          process.env.REACT_APP_API_BASE + endpoint, {
             credentials: 'include',
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

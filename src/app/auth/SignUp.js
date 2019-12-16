@@ -72,7 +72,7 @@ export default class SignUp extends React.PureComponent {
 
     const endpoint = '/signUp.ajax.php';
     fetch(
-      process.env.REACT_APP_API_HOSTNAME + endpoint, {
+      process.env.REACT_APP_API_BASE + endpoint, {
         credentials: 'include',
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

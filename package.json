@@ -5,6 +5,7 @@
   "engines": {
     "node": ">=10.13"
   },
+  "homepage": "http://phraseotext.univ-grenoble-alpes.fr/lexicoscope_2.0",
   "dependencies": {
     "@blueprintjs/core": "^3.18.1",
     "@blueprintjs/icons": "^3.10.0",

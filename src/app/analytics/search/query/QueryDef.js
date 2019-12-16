@@ -44,7 +44,7 @@ export default class QueryDef extends React.PureComponent {
 
     const endpoint = '/get_examples.ajax.php';
     fetch(
-      process.env.REACT_APP_API_HOSTNAME + endpoint, {
+      process.env.REACT_APP_API_BASE + endpoint, {
         credentials: 'include',
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

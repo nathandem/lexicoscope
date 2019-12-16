@@ -54,9 +54,9 @@ export default class CustomCorpus extends React.PureComponent {
   }
 
   fetchCollections = () => {
-    const endpoint = '/collections';
+    const endpoint = '/perl/xml/collections.json';
     fetch(
-      process.env.REACT_APP_API_HOSTNAME + endpoint,
+      process.env.REACT_APP_API_BASE + endpoint,
       { credentials: 'include' })
       .then((res) => {
         if (res.status !== 200) {

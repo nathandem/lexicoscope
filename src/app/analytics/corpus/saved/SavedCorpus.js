@@ -17,7 +17,7 @@ export default class SavedCorpus extends React.PureComponent {
     const endpoint = '/get_archives.ajax.php';
 
     fetch(
-      process.env.REACT_APP_API_HOSTNAME + endpoint, {
+      process.env.REACT_APP_API_BASE + endpoint, {
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
       })

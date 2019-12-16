@@ -26,7 +26,7 @@ export default class Analytics extends React.Component {
 
     const endpoint = '/create_session_id.ajax.php';
     fetch(
-      process.env.REACT_APP_API_HOSTNAME + endpoint, {
+      process.env.REACT_APP_API_BASE + endpoint, {
         credentials: 'include',
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -49,7 +49,7 @@ export default class Analytics extends React.Component {
         const endpoint = '/search.ajax.php';
         const queryParams = new URLSearchParams({ session_id: sessionId });
         fetch(
-          process.env.REACT_APP_API_HOSTNAME + endpoint + '?' + queryParams, {
+          process.env.REACT_APP_API_BASE + endpoint + '?' + queryParams, {
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
           }

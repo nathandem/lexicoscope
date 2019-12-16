@@ -53,7 +53,7 @@ export default class SignIn extends React.PureComponent {
 
     const endpoint = '/signIn.ajax.php';
     fetch(
-      process.env.REACT_APP_API_HOSTNAME + endpoint, {
+      process.env.REACT_APP_API_BASE + endpoint, {
         credentials: 'include',
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

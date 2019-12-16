@@ -81,7 +81,7 @@ export default class CorpusCard extends React.Component {
 
     const endpoint = '/refresh_select.ajax.php';
     fetch(
-      process.env.REACT_APP_API_HOSTNAME + endpoint, {
+      process.env.REACT_APP_API_BASE + endpoint, {
         credentials: 'include',
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
