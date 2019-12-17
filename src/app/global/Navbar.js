@@ -1,7 +1,20 @@
 import Cookies from 'js-cookie';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { Alignment, Button, Classes, Navbar, NavbarGroup } from '@blueprintjs/core';
+import { withTranslation } from 'react-i18next';
+import {
+    Alignment,
+    Button,
+    Classes,
+    Icon,
+    Menu,
+    MenuItem,
+    Popover,
+    PopoverInteractionKind,
+    Position,
+    Navbar,
+    NavbarGroup
+} from '@blueprintjs/core';
 
 import { FRONT_USER_FRONT_LOGGED_IN_COOKIE_NAME } from '../auth/constants';
 
@@ -39,9 +52,35 @@ class LexNavbar extends React.Component {
         this.props.history.push('/signup');
     }
 
+    handleLangSwitch = (newLang) => {
+        this.props.i18n.changeLanguage(newLang);
+    }
+
     render () {
+        const { t } = this.props;
         // read the frontend logged-in cookie to determine if the user is logged-in or not
         const isUserFrontLoggedIn = !!(Cookies.get(FRONT_USER_FRONT_LOGGED_IN_COOKIE_NAME));
+
+        const langOptions = (
+            <Menu>
+                <MenuItem text="Français" onClick={() => this.handleLangSwitch('fr')} />
+                <MenuItem text="English" onClick={() => this.handleLangSwitch('en')} />
+            </Menu>
+        );
+
+        const langSelect = (
+            <Popover
+                className={Classes.MINIMAL}
+                content={langOptions}
+                position={Position.BOTTOM}
+                interactionKind={PopoverInteractionKind.HOVER}
+                minimal={true}
+            >
+                <Button className={Classes.MINIMAL}>
+                    <Icon icon="globe" iconSize={25} />
+                </Button>
+            </Popover>
+        );
 
         return (
             <Navbar>
@@ -52,19 +91,19 @@ class LexNavbar extends React.Component {
                 }
                 <NavbarGroup align={Alignment.RIGHT}>
                     <Button className={Classes.MINIMAL} text="Aide" />
-                    <Button className={Classes.MINIMAL} text="Langue" />
                     {isUserFrontLoggedIn ?
                         <Button text="Log out" className={Classes.MINIMAL} onClick={this.logOut} />
                         :
                         <>
-                            <Button text="Sign In" className={Classes.MINIMAL} onClick={this.goToSignIn} />
+                            <Button text={t('signIn')} className={Classes.MINIMAL} onClick={this.goToSignIn} />
                             <Button text="Sign Up" className={Classes.MINIMAL} onClick={this.goToSignUp} />
                         </>
                     }
+                    {langSelect}
                 </NavbarGroup>
             </Navbar>
         );
     }
 }
 
-export default withRouter(LexNavbar);
+export default withTranslation()(withRouter(LexNavbar));
