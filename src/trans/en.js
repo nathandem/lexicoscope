@@ -19,7 +19,7 @@ export const en = {
     'passwordConfirmation': "Password confirmation",
     'terms': "Terms of use",
     'IAgreeToTerms': "I read and agreed to the terms of use.",
-    'detailedDataPolicy': "The data collected in this form will be used by the Emolex team (i.e. Lidilem, Université Stendhal Grenoble 3) to know its user base better, and won't sold to any third party. In accordance with the law, you can reach to us and we will delete your personnal information.",
+    'detailedDataPolicy': "The data collected in this form will be used by the PhraseoBase team (i.e. Lidilem, Université Stendhal Grenoble 3) to know its user base better, and won't sold to any third party. In accordance with the French law, you can reach to us and we will delete your personnal information.",
     'scholar': "Scholar",
     'teachingScholar': "Teaching-scholar",
     'FFLTeacher': "French foreign language teacher",

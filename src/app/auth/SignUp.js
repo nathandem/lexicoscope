@@ -166,7 +166,7 @@ class SignUp extends React.PureComponent {
             <embed
               id="terms"
               type="application/pdf"
-              src="http://phraseotext.univ-grenoble-alpes.fr/lexicoscope/doc/charte-emobase.pdf"
+              src="http://phraseotext.univ-grenoble-alpes.fr/lexicoscope_2.0/doc/charte-phraseobase.pdf"
               title={t('terms')}
               width="500" height="375"
             />
