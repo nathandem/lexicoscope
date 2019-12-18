@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import { withTranslation } from 'react-i18next';
 
 import { Paper, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
 
@@ -18,8 +19,8 @@ const SavedCorpusTable = (props) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell align="right">Name</TableCell>
-              <TableCell align="right">Creation date</TableCell>
+              <TableCell align="right">{props.t('name')}</TableCell>
+              <TableCell align="right">{props.t('creationDate')}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -50,4 +51,4 @@ SavedCorpusTable.propTypes = {
   onSelectRow: PropTypes.func,
 };
 
-export default SavedCorpusTable;
+export default withTranslation()(SavedCorpusTable);

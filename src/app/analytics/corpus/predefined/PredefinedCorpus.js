@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 import { Card, H3, H4, H6, HTMLSelect } from '@blueprintjs/core';
 
 import CorpusHeader from '../common/CorpusHeader';
 import '../../../../style/PredefinedCorpus.css';
 
 
-export default class PredefinedCorpus extends React.PureComponent {
+class PredefinedCorpus extends React.PureComponent {
 
   state = {
     collections: null,
@@ -69,6 +70,8 @@ export default class PredefinedCorpus extends React.PureComponent {
       selectedCorpusBody
     } = this.state;
 
+    const { t } = this.props;
+
     let collectionsInSelectedLang;
     if (collections && selectedLang) {
       const collsInSelectedLang = collections[selectedLang];
@@ -92,8 +95,7 @@ export default class PredefinedCorpus extends React.PureComponent {
     return (
       <>
         <CorpusHeader
-          title="PredefinedCorpus"
-          explanations="Après avoir sélectionné un corpus, n'oubliez pas d'appuyer sur le bouton Lancer une recherche en haut à droite !"
+          title={t('predefinedCorpus')}
           goToQuery={this.handleSelectionReady}
           onBackToTypeSelection={this.props.onBackToTypeSelection}
         />
@@ -102,12 +104,12 @@ export default class PredefinedCorpus extends React.PureComponent {
 
           <div className="PredefinedCorpus__corpusSelection">
             <div className="PredefinedCorpus__langChoice">
-              Language
+              {t('language')}
               {' '}
               <HTMLSelect options={allLangs} onChange={this.handleLangChange} />
             </div>
 
-            <H4 className="margin-bottom-1rem">Corpus choice</H4>
+            <H4 className="margin-bottom-1rem">{t('collectionChoice')}</H4>
             <div className="PredefinedCorpus__corpusList">
               {collectionsInSelectedLang}
             </div>
@@ -120,17 +122,17 @@ export default class PredefinedCorpus extends React.PureComponent {
                   <H3 className="margin-bottom-1-5rem">{selectedCorpusName}</H3>
                   <div className="PredefinedCorpus__corpusCaracImg margin-bottom-1-5rem">
                     <div>
-                      <H6>Key caracteristics</H6>
+                      <H6>{t('keyCaracteristics')}</H6>
                       <ul>
-                        <li>Period: {selectedCorpusBody.yearMin} - {selectedCorpusBody.yearMax}</li>
-                        <li>Category: {selectedCorpusBody.category}</li>
-                        <li>Token number: {selectedCorpusBody.tokenSize}</li>
+                        <li>{t('periodColon')} {selectedCorpusBody.yearMin} - {selectedCorpusBody.yearMax}</li>
+                        <li>{t('categoryColon')} {selectedCorpusBody.category}</li>
+                        <li>{t('tokenNumberColon')} {selectedCorpusBody.tokenSize}</li>
                       </ul>
                     </div>
                     <div><img src={selectedCorpusBody.thumbnail} alt="" /></div>
                   </div>
 
-                  <H6>Description</H6>
+                  <H6>{t('description')}</H6>
                   <p>{selectedCorpusBody.description}</p>
                 </>
               }
@@ -147,3 +149,5 @@ PredefinedCorpus.propType = {
   onCollectionChosen: PropTypes.func,
   onBackToTypeSelection: PropTypes.func,
 };
+
+export default withTranslation()(PredefinedCorpus);

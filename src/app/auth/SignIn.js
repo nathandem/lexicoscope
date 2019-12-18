@@ -1,12 +1,13 @@
 import Cookies from 'js-cookie';
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 import { Button, H1, FormGroup, InputGroup, Toaster } from '@blueprintjs/core';
 
 import { FRONT_USER_FRONT_LOGGED_IN_COOKIE_NAME } from './constants';
 import '../../style/CommonAuth.css';
 
 
-export default class SignIn extends React.PureComponent {
+class SignIn extends React.PureComponent {
 
   refHandlers = {
     toaster: (ref) => this.toaster = ref,
@@ -29,7 +30,7 @@ export default class SignIn extends React.PureComponent {
 
   addCredentialsErrorToast = () => {
     this.toaster.show({
-      message: "Credentials error. Please retry or create an account if you don't have one already.",
+      message: this.props.t('credentialsErrorsMsg'),
       intent: 'danger',
       icon: 'warning-sign',
     });
@@ -37,7 +38,7 @@ export default class SignIn extends React.PureComponent {
 
   addSignUpSuccessToast = () => {
     this.toaster.show({
-      message: 'You account was successfully created! Please now log-in.',
+      message: this.props.t('successfulSignupMsg'),
       intent: 'success',
       icon: 'tick',
     });
@@ -88,18 +89,19 @@ export default class SignIn extends React.PureComponent {
   }
 
   render() {
+    const { t } = this.props;
     const { login, password } = this.state;
 
     return (
       <div className="CommonAuth__wrapper SignIn__form">
-        <H1>Sign in</H1>
+        <H1>{t('signIn')}</H1>
 
         <form onSubmit={this.signIn}>
-          <FormGroup label="Login" labelFor="login">
+          <FormGroup label={t('logIn')} labelFor="login">
             <InputGroup id="login" type="text" value={login} onChange={this.onTextUpdate} />
           </FormGroup>
 
-          <FormGroup label="Password" labelFor="password" >
+          <FormGroup label={t('password')} labelFor="password" >
             <InputGroup id="password" type="password" value={password} onChange={this.onTextUpdate} />
           </FormGroup>
 
@@ -112,3 +114,5 @@ export default class SignIn extends React.PureComponent {
     );
   }
 }
+
+export default withTranslation()(SignIn);

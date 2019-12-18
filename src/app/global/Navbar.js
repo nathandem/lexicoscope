@@ -86,17 +86,16 @@ class LexNavbar extends React.Component {
             <Navbar>
                 {!isUserFrontLoggedIn &&
                     <NavbarGroup align={Alignment.LEFT}>
-                        Please log-in to access all the features
+                        {t('pleaseLogIn')}
                     </NavbarGroup>
                 }
                 <NavbarGroup align={Alignment.RIGHT}>
-                    <Button className={Classes.MINIMAL} text="Aide" />
                     {isUserFrontLoggedIn ?
-                        <Button text="Log out" className={Classes.MINIMAL} onClick={this.logOut} />
+                        <Button text={t('logOut')} className={Classes.MINIMAL} onClick={this.logOut} />
                         :
                         <>
                             <Button text={t('signIn')} className={Classes.MINIMAL} onClick={this.goToSignIn} />
-                            <Button text="Sign Up" className={Classes.MINIMAL} onClick={this.goToSignUp} />
+                            <Button text={t('signUp')} className={Classes.MINIMAL} onClick={this.goToSignUp} />
                         </>
                     }
                     {langSelect}

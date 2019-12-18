@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 import { H2, Icon } from '@blueprintjs/core';
 import { IconNames } from '@blueprintjs/icons';
 
@@ -11,7 +12,7 @@ const CorpusHeader = (props) => (
     <div className="CorpusHeader__typesFlexBox">
       <div onClick={props.onBackToTypeSelection} className="CorpusHeader__typesInner">
         <Icon icon={IconNames.ARROW_LEFT} iconSize={50} />
-        <p>Back to type selection</p>
+        <p>{props.t('backToTypeSelection')}</p>
       </div>
     </div>
 
@@ -23,7 +24,7 @@ const CorpusHeader = (props) => (
     <div className="CorpusHeader__queryFlexBox">
       <div onClick={props.goToQuery} className="CorpusHeader__goToQuery">
         <Icon icon={IconNames.ARROW_RIGHT} iconSize={50} />
-        <p>Go to query!</p>
+        <p>{props.t('goToQuery')}</p>
       </div>
     </div>
   </div>
@@ -37,4 +38,4 @@ CorpusHeader.propTypes = {
   onBackToTypeSelection: PropTypes.func,
 };
 
-export default CorpusHeader;
+export default withTranslation()(CorpusHeader);

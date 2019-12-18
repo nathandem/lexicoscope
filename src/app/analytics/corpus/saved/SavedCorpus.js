@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 import { Card, H3, H6 } from '@blueprintjs/core';
 
 import CorpusHeader from '../common/CorpusHeader';
 import SavedCorpusTable from './SavedCorpusTable';
 
 
-export default class SavedCorpus extends React.PureComponent {
+class SavedCorpus extends React.PureComponent {
 
   state = {
     savedCorpuses: null,
@@ -46,12 +47,12 @@ export default class SavedCorpus extends React.PureComponent {
 
   render() {
     const { savedCorpuses, selectedCorpus } = this.state;
+    const { t } = this.props;
 
     return (
       <>
         <CorpusHeader
-          title="Choix d'un corpus précédemment sauvegardé"
-          explanations="Lorsque vous etes satisfait de votre sélection, cliquez sur Lancer une recherche pour passer à la création de requête."
+          title={t('savedCorpusHeader')}
           goToQuery={this.handleSelectionReady}
           onBackToTypeSelection={this.props.onBackToTypeSelection}
         />
@@ -71,7 +72,7 @@ export default class SavedCorpus extends React.PureComponent {
               {selectedCorpus &&
                 <Card elevation={2}>
                   <H3 className="margin-bottom-1-5rem">{selectedCorpus.file_name}</H3>
-                  <H6>Recap information</H6>
+                  <H6>{t('recapInfo')}</H6>
                   <ul>
                     {Object.keys(selectedCorpus.json).map(detailKey => (
                       <li key={detailKey}>{selectedCorpus.json[detailKey]}</li>
@@ -91,3 +92,5 @@ SavedCorpus.propTypes = {
   onSavedCorpusChosen: PropTypes.func,
   onBackToTypeSelection: PropTypes.func,
 };
+
+export default withTranslation()(SavedCorpus);

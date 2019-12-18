@@ -1,12 +1,12 @@
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 import { Button, Checkbox, H1, FormGroup, InputGroup, Toaster } from '@blueprintjs/core';
 
 import EnhancedSingleSelect from '../common/EnhancedSingleSelect';
 import '../../style/CommonAuth.css';
 
 
-const statusOptions = ['chercheur', 'Enseignant-chercheur', 'Enseignant FLE', 'Doctorant ou post-doctorant', 'Etudiant', 'Autre'];
-export default class SignUp extends React.PureComponent {
+class SignUp extends React.PureComponent {
 
   refHandlers = {
     toaster: (ref) => this.toaster = ref,
@@ -27,7 +27,7 @@ export default class SignUp extends React.PureComponent {
 
   addMissingFieldsToast = () => {
     this.toaster.show({
-      message: "Please fill the missing fields and submit again.",
+      message: this.props.t('addMissingFieldsMsg'),
       intent: 'warning',
       icon: 'hand',
     });
@@ -35,7 +35,7 @@ export default class SignUp extends React.PureComponent {
 
   addLoginTakenToast = () => {
     this.toaster.show({
-      message: "This login is already taken, please take another one and submit again.",
+      message: this.props.t('addLoginTakenMsg'),
       intent: 'warning',
       icon: 'warning-sign',
     });
@@ -43,7 +43,7 @@ export default class SignUp extends React.PureComponent {
 
   addErrorToast = () => {
     this.toaster.show({
-      message: "An error occured, please try again later.",
+      message: this.props.t('addErrorMsg'),
       intent: 'danger',
       icon: 'warning-sign',
     });
@@ -51,7 +51,7 @@ export default class SignUp extends React.PureComponent {
 
   addEmailSentToast = () => {
     this.toaster.show({
-      message: "Success! Please check your email to validate your account.",
+      message: this.props.t('addEmailSentMsg'),
       intent: 'success',
       icon: 'tick',
     });
@@ -103,32 +103,41 @@ export default class SignUp extends React.PureComponent {
   }
 
   render() {
-
     const { affiliation, agreedToTerms, country, email, firstname, login, name, password, password2, status  } = this.state;
+    const { t } = this.props;
+
+    const statusOptions = [
+      t('scholar'),
+      t('teachingScholar'),
+      t('FFLTeacher'),
+      t('phdStudent'),
+      t('student'),
+      t('other'),
+    ];
 
     return (
       <div className="CommonAuth__wrapper">
-        <H1>Sign up</H1>
+        <H1>{t('signUp')}</H1>
 
         <form onSubmit={this.signUp} className="margin-top-2-rem">
-          <FormGroup label="Name" labelFor="name">
+          <FormGroup label={t('name')} labelFor="name">
             <InputGroup id="name" type="text" value={name} onChange={this.onTextUpdate} />
           </FormGroup>
 
-          <FormGroup label="First name" labelFor="firstname">
+          <FormGroup label={t('firstName')} labelFor="firstname">
             <InputGroup id="firstname" type="text" value={firstname} onChange={this.onTextUpdate} />
           </FormGroup>
 
-          <FormGroup label="Affiliation" labelFor="affiliation">
+          <FormGroup label={t('affiliation')} labelFor="affiliation">
             <InputGroup id="affiliation" type="text" value={affiliation} onChange={this.onTextUpdate} />
           </FormGroup>
 
-          <FormGroup label="Country" labelFor="country">
+          <FormGroup label={t('country')} labelFor="country">
             <InputGroup id="country" type="text" value={country} onChange={this.onTextUpdate} />
           </FormGroup>
 
           <EnhancedSingleSelect
-            label="Status"
+            label={t('status')}
             name='status'  // name is also used to make the input's `id`
             hasDefault={true}
             hasSelectableDefault={false}
@@ -137,33 +146,33 @@ export default class SignUp extends React.PureComponent {
             onChange={this.onTextUpdate}
           />
 
-          <FormGroup label="Email" labelFor="email">
+          <FormGroup label={t('email')} labelFor="email">
             <InputGroup id="email" type="email" value={email} onChange={this.onTextUpdate} />
           </FormGroup>
 
-          <FormGroup label="login" labelFor="login">
+          <FormGroup label={t('logIn')} labelFor="login">
             <InputGroup id="login" type="text" value={login} onChange={this.onTextUpdate} />
           </FormGroup>
 
-          <FormGroup label="Password" labelFor="password" >
+          <FormGroup label={t('password')} labelFor="password" >
             <InputGroup id="password" type="password" value={password} onChange={this.onTextUpdate} />
           </FormGroup>
 
-          <FormGroup label="Password confirmation" labelFor="password2" >
+          <FormGroup label={t('passwordConfirmation')} labelFor="password2" >
             <InputGroup id="password2" type="password" value={password2} onChange={this.onTextUpdate} />
           </FormGroup>
 
-          <FormGroup label="Terms of use" labelFor="terms" >
+          <FormGroup label={t('terms')} labelFor="terms" >
             <embed
               id="terms"
               type="application/pdf"
               src="http://phraseotext.univ-grenoble-alpes.fr/lexicoscope/doc/charte-emobase.pdf"
-              title="Terms of use"
+              title={t('terms')}
               width="500" height="375"
             />
             <Checkbox
               checked={agreedToTerms}
-              label="Je certifie avoir pris connaissance des modalités d'accès à l'application EmoBase. Je m'engage à les respecter strictement et certifie l'exactitude des renseignements portés dans le présent formulaire."
+              label={t('IAgreeToTerms')}
               onChange={this.onTermsUpdate}
             />
           </FormGroup>
@@ -171,7 +180,7 @@ export default class SignUp extends React.PureComponent {
           <Button type="submit" intent='primary'>Ok</Button>
         </form>
 
-        <p className="margin-top-2-rem">Les informations recueillies font l’objet d’un traitement informatique destiné à l'équipe de chercheurs du Projet Emolex. Ces informations n'ont pas d'autres objet que de mieux connaître les utilisateurs d'EmoBase. Les destinataires des données sont des membres du Laboratoire Lidilem, Université Stendhal Grenoble 3. Conformément à la loi « informatique et libertés » du 6 janvier 1978 modifiée en 2004, vous bénéficiez d’un droit d’accès et de rectification aux informations qui vous concernent, que vous pouvez exercer en vous adressant à olivier.kraif@u-grenoble3.fr, Lidilem (ou en modifiant ces informations directement via l'interface du site). Vous pouvez également, pour des motifs légitimes, vous opposer au traitement des données vous concernant.</p>
+        <p className="margin-top-2-rem">{t('detailedDataPolicy')}</p>
 
         {/* Special component, out of the normal flow */}
         <Toaster ref={this.refHandlers.toaster} />
@@ -179,3 +188,5 @@ export default class SignUp extends React.PureComponent {
     );
   }
 }
+
+export default withTranslation()(SignUp);

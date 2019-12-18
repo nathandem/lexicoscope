@@ -1,7 +1,55 @@
 export const en = {
   translation: {
     'signIn': 'Sign In',
+    'signUp': 'Sign Up',
+    'logOut': 'Log Out',
+    'pleaseLogIn': "Please log-in to access all the features",
+
     'logIn': 'Login',
     'password': 'password',
+    'credentialsErrorsMsg': "Credentials error. Please retry or create an account if you don't have one already.",
+    'successfulSignUpMsg': "You account was successfully created! Please now log-in.",
+
+    'name': "Name",
+    'firstName': "First name",
+    'affiliation': "Affiliation",
+    'country': "Country",
+    'status': "Status",
+    'email': "Email",
+    'passwordConfirmation': "Password confirmation",
+    'terms': "Terms of use",
+    'IAgreeToTerms': "I read and agreed to the terms of use.",
+    'detailedDataPolicy': "The data collected in this form will be used by the Emolex team (i.e. Lidilem, Université Stendhal Grenoble 3) to know its user base better, and won't sold to any third party. In accordance with the law, you can reach to us and we will delete your personnal information.",
+    'scholar': "Scholar",
+    'teachingScholar': "Teaching-scholar",
+    'FFLTeacher': "French foreign language teacher",
+    'phdStudent': "Phd or post-Phd student",
+    'student': "Student",
+    'other': "Other",
+
+    'addMissingFieldsMsg': "Please fill the missing fields and submit again",
+    'addLoginTakenMsg': "This login is already taken, please take another one and submit again",
+    'addErrorMsg': "An error occured, please try again later",
+    'addEmailSentMsg': "Success! Please click on the validation link in the email we sent you to validate your account",
+
+    'usePredefinedCorpus': "Use a predefined collection",
+    'useCustomCorpus': "Build your own corpus",
+    'useSavedCorpus': "Reuse a saved personalized corpus",
+
+    'backToTypeSelection': "Back to type selection",
+    'goToQuery': "Go to query!",
+
+    'predefinedCorpus': "Predefined collections",
+    'language': "Language",
+    'collectionChoice': "Collection choice",
+    'keyCaracteristics': "Key caracteristics",
+    'periodColon': "Period:",
+    'categoryColon': "Category:",
+    'tokenNumberColon': "Tokens number:",
+    'description': "Description",
+
+    'savedCorpusHeader': "Previously saved corpuses",
+    'recapInfo': "Recap information",
+    'creationDate': "Creation date",
   },
 };

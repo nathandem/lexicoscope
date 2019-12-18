@@ -7,7 +7,7 @@ export default function Footer () {
 
     return (
         <footer className="bp3-text-small center-text margin-top-3-rem padding-bottom-1-rem">
-            Copyright © 2016-{currentYear} Université Grenoble Alpes - Crédits
+            Copyright © 2016-{currentYear} Université Grenoble Alpes
         </footer>
     );
 }
