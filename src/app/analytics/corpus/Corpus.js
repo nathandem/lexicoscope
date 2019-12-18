@@ -5,10 +5,11 @@ import TypesChoice from './choice/TypesChoice';
 import PredefinedCorpus from './predefined/PredefinedCorpus';
 import CustomCorpus from './custom/CustomCorpus';
 import SavedCorpus from './saved/SavedCorpus';
+import { CORPUS_TYPES } from './constants';
 
 
 const baseState = {
-  type: null,  // predefined, custom, saved
+  type: null,  // one of CORPUS_TYPES
 };
 
 /* `Corpus` doesn't show any UI, its role is to:
@@ -25,7 +26,7 @@ export default class Corpus extends React.PureComponent {
 
   handleSelectPredefinedCorpus = (lang, collName) => {
     const predefinedCorpus = {
-      type: 'predefined',
+      type: CORPUS_TYPES.PREDEFINED,
       language: lang,
       collection: collName,
     };
@@ -34,7 +35,7 @@ export default class Corpus extends React.PureComponent {
 
   handleSelectUserSavedCorpus = (userSavedCorpusName) => {
     const userSavedCorpus = {
-      type: 'saved',
+      type: CORPUS_TYPES.SAVED,
       userCorpus: userSavedCorpusName,
     };
     this.props.onCorpusReady(userSavedCorpus);
@@ -50,7 +51,7 @@ export default class Corpus extends React.PureComponent {
     });
 
     const customCorpus = {
-      type: 'custom',
+      type: CORPUS_TYPES.SAVED,
       name: rawCustomCorpus.name,
       language: rawCustomCorpus.lang,
       partitions: rawCustomCorpus.partKeys,
@@ -70,19 +71,19 @@ export default class Corpus extends React.PureComponent {
         { !this.state.type &&
           <TypesChoice selectCorpusTypeCallback={type => this.setState({ type })} />
         }
-        { this.state.type === 'predefined' &&
+        { this.state.type === CORPUS_TYPES.PREDEFINED &&
           <PredefinedCorpus
             onCollectionChosen={this.handleSelectPredefinedCorpus}
             onBackToTypeSelection={this.handleBackToTypeSelection}
           />
         }
-        { this.state.type === 'custom' &&
+        { this.state.type === CORPUS_TYPES.CUSTOM &&
           <CustomCorpus
             corpusReadyCallback={this.handleSelectCustomCorpus}
             onBackToTypeSelection={this.handleBackToTypeSelection}
           />
         }
-        { this.state.type === 'saved' &&
+        { this.state.type === CORPUS_TYPES.SAVED &&
           <SavedCorpus
             onSavedCorpusChosen={this.handleSelectUserSavedCorpus}
             onBackToTypeSelection={this.handleBackToTypeSelection}
