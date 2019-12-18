@@ -1,18 +1,19 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 import { H6 } from '@blueprintjs/core';
 import { TablePagination, Paper } from '@material-ui/core';
-import MaterialTable, { MTableBodyRow } from 'material-table';
+import MaterialTable from 'material-table';
 import { Bar, withResponsiveness } from 'britecharts-react';
 
 
-export default class DetailByReal extends React.PureComponent {
+class DetailByReal extends React.PureComponent {
 
 
   render() {
-
     const corpusStats = this.props.corpusStats;
     const type = (this.props.type === 'dispByReal') ? 'disp' : 'freq';
+    const t = this.props.t;
 
     let data = [];
     for (const real in corpusStats.realizations) {
@@ -27,17 +28,17 @@ export default class DetailByReal extends React.PureComponent {
     data.sort((a, b) => a.value - b.value);
     data.reverse();
 
-    const typeLabel = (type === 'disp') ? "Dispersion" : "Frequency";
+    const typeLabel = (type === 'disp') ? t('dispersion') : t('frequency');
     const typeLabelLower = typeLabel.toLowerCase();
 
     const realsTable = (
       <MaterialTable
         columns={[
-          { title: "Realization", field: "real" },
+          { title: t('realization'), field: "real" },
           { title: typeLabel, field: 'value' },
         ]}
         data={data}
-        title={`${typeLabel} by realization`}
+        title={`${typeLabel} ${t('byReal')}`}
         options={{
           search: true,
           sorting: true,
@@ -50,13 +51,6 @@ export default class DetailByReal extends React.PureComponent {
             <TablePagination
               {...props}
               rowsPerPageOptions={[5, 10, 25, 50, 100]}
-            />
-          ),
-          Row: props => (
-            <MTableBodyRow
-              {...props}
-              // TODO Max hight, the number of elements
-              // onRowClick={() => {}}  // onRowClick must be a function
             />
           ),
           Container: props => (
@@ -80,7 +74,7 @@ export default class DetailByReal extends React.PureComponent {
     return(
       <>
         <div className="margin-bottom-1-rem">
-          <H6><u>Graphical representation</u></H6>
+          <H6><u>{t('graphicalRepr')}</u></H6>
           <ResponsiveBarChart
             data={chartData}
             isHorizontal={true}
@@ -93,7 +87,7 @@ export default class DetailByReal extends React.PureComponent {
           />
         </div>
 
-        <H6><u>Complete list of results</u></H6>
+        <H6><u>{t('completeResList')}</u></H6>
         {realsTable}
       </>
     );
@@ -104,3 +98,5 @@ DetailByReal.propTypes = {
   corpusStats: PropTypes.object,
   type: PropTypes.string,
 };
+
+export default withTranslation()(DetailByReal);

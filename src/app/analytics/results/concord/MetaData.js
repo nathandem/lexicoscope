@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 import { H3, HTMLTable } from '@blueprintjs/core';
 import { Paper } from '@material-ui/core';
 
 
-export default function MetaData(props) {
+function MetaData(props) {
   const { metadata, tokens, svg } = props.concordDetail;
+  const t = props.t;
 
   const metaDataEls = Object.keys(metadata).map(key => (
     <li key={key}>{key}: {metadata[key]}</li>
@@ -24,22 +26,22 @@ export default function MetaData(props) {
   return (
     <Paper className="padding-1-rem">
       <section>
-        <H3>Document metadata</H3>
+        <H3>{t('docMeta')}</H3>
         <ul>
           {metaDataEls}
         </ul>
       </section>
 
       <section className="margin-bottom-1-rem">
-        <H3>Tokens</H3>
+        <H3>{t('tokens')}</H3>
         <HTMLTable bordered={true}>
           <thead>
             <tr>
-              <th>id</th>
-              <th>Category</th>
-              <th>Features</th>
-              <th>Lemma</th>
-              <th>Form</th>
+              <th>{t('id')}</th>
+              <th>{t('category')}</th>
+              <th>{t('features')}</th>
+              <th>{t('lemma')}</th>
+              <th>{t('form')}</th>
             </tr>
           </thead>
           <tbody>
@@ -49,8 +51,8 @@ export default function MetaData(props) {
       </section>
 
       <section>
-        <H3>Syntaxic tree</H3>
-        <img src={`data:image/svg+xml;utf8,${svg}`} alt="Syntaxic tree" />
+        <H3>{t("syntaxicTree")}</H3>
+        <img src={`data:image/svg+xml;utf8,${svg}`} alt={t("syntaxicTree")} />
       </section>
     </Paper>
   );
@@ -77,3 +79,5 @@ MetaData.propTypes = {
     })),
   }),
 };
+
+export default withTranslation()(MetaData);

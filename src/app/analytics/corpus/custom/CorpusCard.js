@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 import { Button, Card, FormGroup, H3, H6, Icon, InputGroup, MenuItem, RangeSlider } from '@blueprintjs/core';
 import { IconNames } from '@blueprintjs/icons';
 import { MultiSelect } from '@blueprintjs/select';
@@ -8,7 +9,7 @@ import { MultiSelect } from '@blueprintjs/select';
 import EnhancedSingleSelect from '../../../common/EnhancedSingleSelect';
 
 
-export default class CorpusCard extends React.Component {
+class CorpusCard extends React.Component {
 
   constructor(props) {
     super(props);
@@ -216,8 +217,8 @@ export default class CorpusCard extends React.Component {
   }
 
   render() {
-
     const { corpus, filters, stats } = this.state;
+    const { t } = this.props;
 
     const corpusCardClasses = classNames(
       'margin-bottom-1-rem',
@@ -230,11 +231,11 @@ export default class CorpusCard extends React.Component {
       <Card elevation={2} className={corpusCardClasses}>
 
         <div className="flex flex-between">
-          <H3 className="margin-bottom-1-5rem">Subcorpus parameters</H3>
+          <H3 className="margin-bottom-1-5rem">{t('subCorpusParams')}</H3>
           <Icon icon={IconNames.CROSS} iconSize={Icon.SIZE_LARGE} onClick={() => this.props.onDeleteCorpus(corpus)} />
         </div>
 
-        <FormGroup label="Subcorpus name" labelFor={`name-${corpus.id}`} inline={true}>
+        <FormGroup label={t('subCorpusName')} labelFor={`name-${corpus.id}`} inline={true}>
           <InputGroup
             disabled={corpus.ready}
             id={`name-${corpus.id}`}
@@ -249,16 +250,16 @@ export default class CorpusCard extends React.Component {
           value={corpus.collection}
           hasDefault={true}
           hasSelectableDefault={false}
-          label={"Collection"}
+          label={t('collection')}
           name={"collection"}
           options={filters.collections}
           onChange={this.onChangeEditedCorpus}
           popoverProps={{ minimal: true }}
         />
 
-        <H6>Filters</H6>
+        <H6>{t('filters')}</H6>
 
-        <FormGroup label={"Categories"} inline={true}>
+        <FormGroup label={t('categories')} inline={true}>
           <MultiSelect
             items={filters.categories}
             itemRenderer={
@@ -276,13 +277,12 @@ export default class CorpusCard extends React.Component {
             }}
             // tagRenderer takes as input what selectedItems gives
             tagRenderer={filterLabel => filterLabel}
-            noResults={<MenuItem disabled={true} text="No result." />}
-            placeholder={"Filter by categories..."}
-            // popoverProps={{ minimal: false }} -> not working...
+            noResults={<MenuItem disabled={true} text={t('noResult')} />}
+            placeholder={t('filterByCategories')}
           />
         </FormGroup>
 
-        <FormGroup label={"Authors"} inline={true}>
+        <FormGroup label={t('authors')} inline={true}>
           <MultiSelect
             items={filters.authors}
             itemRenderer={
@@ -300,12 +300,12 @@ export default class CorpusCard extends React.Component {
             }}
             // tagRenderer takes as input what selectedItems gives
             tagRenderer={filterLabel => filterLabel}
-            noResults={<MenuItem disabled={true} text="No result." />}
-            placeholder={"Filter by authors..."}
+            noResults={<MenuItem disabled={true} text={t('noResult')} />}
+            placeholder={t('filterByAuthors')}
           />
         </FormGroup>
 
-        <FormGroup label={"Titles"} inline={true}>
+        <FormGroup label={t('titles')} inline={true}>
           <MultiSelect
             items={filters.titles}
             itemRenderer={
@@ -323,12 +323,12 @@ export default class CorpusCard extends React.Component {
             }}
             // tagRenderer takes as input what selectedItems gives
             tagRenderer={filterLabel => filterLabel}
-            noResults={<MenuItem disabled={true} text="No result." />}
-            placeholder={"Filter by titles..."}
+            noResults={<MenuItem disabled={true} text={t('noResult')} />}
+            placeholder={t('filterByTitles')}
           />
         </FormGroup>
 
-        <FormGroup label={"Source languages (original languages of the text)"} inline={true}>
+        <FormGroup label={t('sourceLangs')} inline={true}>
           <MultiSelect
             items={filters.sourceLangs}
             itemRenderer={
@@ -346,8 +346,8 @@ export default class CorpusCard extends React.Component {
             }}
             // tagRenderer takes as input what selectedItems gives
             tagRenderer={filterLabel => filterLabel}
-            noResults={<MenuItem disabled={true} text="No result." />}
-            placeholder={"Filter by source languages..."}
+            noResults={<MenuItem disabled={true} text={t('noResult')} />}
+            placeholder={t('filterBySourceLangs')}
           />
         </FormGroup>
 
@@ -361,19 +361,19 @@ export default class CorpusCard extends React.Component {
 
         {stats &&
           <>
-            <H6>Recap information</H6>
+            <H6>{t('recapInfo')}</H6>
             <ul>
-              <li>Titles number: {stats.nbTitles}</li>
-              <li>Authors number: {stats.nbAuthors}</li>
-              <li>Tokens number: {stats.nbTokens}</li>
+              <li>{t('titlesNumColon')} {stats.nbTitles}</li>
+              <li>{t('authorsNumColon')} {stats.nbAuthors}</li>
+              <li>{t('tokenNumberColon')} {stats.nbTokens}</li>
             </ul>
           </>
         }
 
         {!corpus.ready &&
           <>
-            <Button text={"Reset"} onClick={this.resetCorpus} />
-            <Button text={"Ready"} onClick={this.setCorpusReady} />
+            <Button text={t('reset')} onClick={this.resetCorpus} />
+            <Button text={t('ready')} onClick={this.setCorpusReady} />
           </>
         }
 
@@ -400,3 +400,5 @@ CorpusCard.propTypes = {
   onCorpusReady: PropTypes.func,
   onDeleteCorpus: PropTypes.func,
 };
+
+export default withTranslation()(CorpusCard);

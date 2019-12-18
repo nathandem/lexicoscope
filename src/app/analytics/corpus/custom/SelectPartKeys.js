@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 import { Button, Card, Checkbox, H3, Icon } from '@blueprintjs/core';
 import { IconNames } from '@blueprintjs/icons';
 
@@ -39,6 +40,7 @@ class SelectPartKeys extends React.PureComponent {
 
   render() {
     const { partKeys, ready } = this.state;
+    const { t } = this.props;
 
     const partKeysClasses = classNames(
       'margin-bottom-1-rem',
@@ -62,13 +64,13 @@ class SelectPartKeys extends React.PureComponent {
     return (
       <Card elevation={2} className={partKeysClasses}>
         <div className="flex flex-between">
-          <H3 className="margin-bottom-1-5rem">Partition keys</H3>
+          <H3 className="margin-bottom-1-5rem">{t('partKeys')}</H3>
           <Icon icon={IconNames.CROSS} iconSize={Icon.SIZE_LARGE} onClick={this.props.onDeletePart} />
         </div>
 
         {partitionKeys}
 
-        {!ready && <Button text={"Validate"} onClick={this.setPartsReady} />}
+        {!ready && <Button text={t('validate')} onClick={this.setPartsReady} />}
       </Card>
     );
   }
@@ -81,4 +83,4 @@ SelectPartKeys.propTypes = {
   onDeletePart: PropTypes.func,
 };
 
-export default SelectPartKeys;
+export default withTranslation()(SelectPartKeys);

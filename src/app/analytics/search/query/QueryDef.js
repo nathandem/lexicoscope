@@ -1,13 +1,14 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 import { Button, Checkbox, H3, InputGroup, TextArea } from '@blueprintjs/core';
 
 import { debounce } from '../../../utils';
 import '../../../../style/QueryDef.css';
 
 
-export default class QueryDef extends React.PureComponent {
+class QueryDef extends React.PureComponent {
 
   state = {
     query: '',
@@ -72,8 +73,8 @@ export default class QueryDef extends React.PureComponent {
   }
 
   render() {
-
     const { isTQLOn, query, suggestions } = this.state;
+    const { t } = this.props;
 
     const suggestionCards = suggestions.map(sugg => {
       const suggCardBorder = classNames('QueryDef__suggestionCard', {
@@ -87,17 +88,17 @@ export default class QueryDef extends React.PureComponent {
           className={suggCardBorder}
           onClick={() => this.selectSuggestedQuery(sugg.query)}
         >
-          <p>query: {sugg.query}</p>
+          <p>{t('queryColon')} {sugg.query}</p>
           <img src={`data:image/svg+xml;utf8,${sugg.svg}`} alt={`representation of ${sugg.query}`} />
-          <p>frequency: {sugg.freq}</p>
-          <p>Example:</p>
+          <p>{t('frequencyColon')} {sugg.freq}</p>
+          <p>{t('exampleColon')}</p>
           {sugg.example}
         </div>
       );
     });
 
     const commonInputProps = {
-      placeholder: "Enter a query",
+      placeholder: t('typeAQuery'),
       name: "query",
       onChange: this.handleQueryUpdate,
       value: query,
@@ -112,15 +113,15 @@ export default class QueryDef extends React.PureComponent {
             :
             <TextArea {...commonInputProps} />
           }
-          <div><Button text="Go" onClick={this.runQuery} /></div>
+          <div><Button text={t('go')} onClick={this.runQuery} /></div>
         </div>
 
-        <Checkbox name='isTQLOn' checked={isTQLOn} label="TQL (advanced query)" onChange={this.handleBoolChange} />
+        <Checkbox name='isTQLOn' checked={isTQLOn} label={t('tql')} onChange={this.handleBoolChange} />
 
         <div className="QueryDef__suggestionsWrapper">
           {isTQLOn &&
             <>
-              <p><b>Examples of advanced queries in TQL:</b></p>
+              <p><b>{t('exemplesOfAdvancedQueriesColon')}</b></p>
               <p>
                 {'"<l=considération,c=N,#1>"'}
                 <br/>
@@ -131,8 +132,8 @@ export default class QueryDef extends React.PureComponent {
 
           {query && suggestions.length > 0 &&
             <div style={{'marginTop': '3rem'}}>
-              <H3>Suggestion of advanced queries</H3>
-              <p>Cliquez sur une des suggestions ci-dessous pour générer automatiquement une requête avancée</p>
+              <H3>{t('suggestionOfAdvancedQueries')}</H3>
+              <p>{t('suggestedQueriesExplanation')}</p>
               <br/>
               {suggestionCards}
             </div>
@@ -149,3 +150,5 @@ QueryDef.propTypes = {
   corpus: PropTypes.object,
   params: PropTypes.object,
 };
+
+export default withTranslation()(QueryDef);

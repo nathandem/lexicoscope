@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 import { Paper, TablePagination } from '@material-ui/core';
 import MaterialTable from 'material-table';
 
@@ -21,7 +22,7 @@ const prepTableRow = (row) => {
   };
 }
 
-export default class Cooccurrences extends React.PureComponent {
+class Cooccurrences extends React.PureComponent {
 
   constructor(props) {
     super(props);
@@ -31,21 +32,23 @@ export default class Cooccurrences extends React.PureComponent {
   }
 
   render() {
+    const { t } = this.props;
+
     return (
       <div className="margin-top-2-rem">
         <MaterialTable
-          title='Cooccurrences'
+          title={t('cooc')}
           columns={[
-            { title: "Corpus", field: 'corpus' },
-            { title: "Expression", field: 'exp' },
-            { title: "Collocatif", field: 'coll' },
-            { title: "Cooccurrences number", field: 'numCooc' },
-            { title: "Pivot occurrences number", field: 'numPivotOcc' },
-            { title: "Collocate occurrences number", field: 'numCollOcc' },
-            { title: "Relation occurrences number", field: 'numRelOcc' },
-            { title: "Dispersion", field: 'disp' },
-            { title: "Relation", field: 'rel' },
-            { title: "Log like", field: 'logLike' },
+            { title: t('corpus'), field: 'corpus' },
+            { title: t('expression'), field: 'exp' },
+            { title: t('collocate'), field: 'coll' },
+            { title: t('coocNum'), field: 'numCooc' },
+            { title: t('pivotOccNum'), field: 'numPivotOcc' },
+            { title: t('collOccNum'), field: 'numCollOcc' },
+            { title: t('relOccNum'), field: 'numRelOcc' },
+            { title: t('dispersion'), field: 'disp' },
+            { title: t('relation'), field: 'rel' },
+            { title: t('logLike'), field: 'logLike' },
           ]}
           data={this.state.tableRows}
           options={{
@@ -79,3 +82,5 @@ Cooccurrences.propTypes = {
   // see prepCoocData for an example
   cooc: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.any)),
 };
+
+export default withTranslation()(Cooccurrences);

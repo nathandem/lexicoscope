@@ -23,7 +23,7 @@ export default class SearchAreaParams extends React.PureComponent {
 
     return (
       <>
-        <H4><u>Scope of sentences to analyse</u></H4>
+        <H4><u>Périmètre des phrases à analyser</u></H4>
 
         <FormGroup
           helperText="0 si pas de limite"

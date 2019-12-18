@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 import { FormGroup, H2, H4, HTMLSelect } from '@blueprintjs/core';
 import { Paper } from '@material-ui/core';
 
@@ -7,7 +8,7 @@ import DetailByDoc from './DetailByDoc';
 import DetailByReal from './DetailByReal';
 
 
-export default class Stat extends React.PureComponent {
+class Stat extends React.PureComponent {
 
   state = {
     detailStats: 'dispByReal',  // dispByReal, freqByReal, freqByDoc, speByDoc
@@ -19,38 +20,37 @@ export default class Stat extends React.PureComponent {
   }
 
   render() {
-
-    const corpusStats = this.props.corpusStats;
+    const { corpusStats, t } = this.props;
 
     return(
     <>
       <Paper className="margin-bottom-1-rem padding-1-rem">
-        <H2>Space search</H2>
+        <H2>{t('searchSpace')}</H2>
         <ul>
-          <li>Sentences to parse: {corpusStats.nbSents2Parse}</li>
-          <li>Sentences parsed: {corpusStats.nbParsedSents}</li>
+          <li>{t('sentencesToParseColon')} {corpusStats.nbSents2Parse}</li>
+          <li>{t('sentencesParsedColon')} {corpusStats.nbParsedSents}</li>
         </ul>
       </Paper>
 
       <Paper className="margin-bottom-1-5-rem padding-1-rem">
-        <H2>Search results</H2>
+        <H2>{t('searchResults')}</H2>
 
         <div className="margin-bottom-1-rem">
-          <H4><u>Synthetic statistics</u></H4>
+          <H4><u>{t('syntheticStats')}</u></H4>
           <ul>
-            <li>Dispersion: {corpusStats.disp}</li>
-            <li>Number of instances: {corpusStats.size}</li>
+            <li>{t('dispColon')} {corpusStats.disp}</li>
+            <li>{t('instancesNumColon')} {corpusStats.size}</li>
           </ul>
         </div>
 
         <div className="margin-bottom-1-5-rem">
-          <H4><u>Detailed statistics</u></H4>
-          <FormGroup label="Choose" labelFor='statsDetails' inline={true}>
+          <H4><u>{t('detailedStats')}</u></H4>
+          <FormGroup label={t('type')} labelFor='statsDetails' inline={true}>
             <HTMLSelect id='statsDetails' name='statsDetails' onChange={this.onDetailChange}>
-              <option value='dispByReal'>Dispersion by realization</option>
-              <option value='freqByReal'>Frequency by realization</option>
-              <option value='freqByDoc'>Frequency by document</option>
-              <option value='speByDoc'>Specificity by document</option>
+              <option value='dispByReal'>{t('dispByReal')}</option>
+              <option value='freqByReal'>{t('freqByReal')}</option>
+              <option value='freqByDoc'>{t('freqByDoc')}</option>
+              <option value='speByDoc'>{t('speByDoc')}</option>
             </HTMLSelect>
           </FormGroup>
         </div>
@@ -78,3 +78,5 @@ export default class Stat extends React.PureComponent {
 Stat.propTypes = {
   corpusStats: PropTypes.object,
 };
+
+export default withTranslation()(Stat);

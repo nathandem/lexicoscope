@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 import { Tab, Tabs } from '@blueprintjs/core';
 
 import Cooccurrences from './cooc/Cooccurrences';
@@ -108,7 +109,7 @@ const prepConcordData = (results) => {
   };
 }
 
-export default class Results extends React.Component {
+class Results extends React.Component {
 
   constructor(props) {
     super(props);
@@ -131,6 +132,7 @@ export default class Results extends React.Component {
 
   render() {
     const { coocData, concordsData, recapData, statsData, wordSketchData } = this.state;
+    const t = this.props.t;
 
     const cooc = <Cooccurrences cooc={coocData} />;
     const conc = <Concordances {...concordsData} />;
@@ -141,12 +143,12 @@ export default class Results extends React.Component {
     return (
       <>
         <Tabs onChange={this.handleTabChange} selectedTabId={this.state.selectedTabId}>
-          <Tab id='stats' title='Statistics' panel={stats} />
-          <Tab id='conc' title='Concordances' panel={conc} />
-          <Tab id='cooc' title='Cooccurrences' panel={cooc} />
-          <Tab id='ws' title='Word Sketch' panel={wordSketch} />
+          <Tab id='stats' title={t('stats')} panel={stats} />
+          <Tab id='conc' title={t('conc')} panel={conc} />
+          <Tab id='cooc' title={t('cooc')} panel={cooc} />
+          <Tab id='ws' title={t('ws')} panel={wordSketch} />
           <Tabs.Expander />
-          <Tab id='recap' title='Recap' panel={recap} />
+          <Tab id='recap' title={t('recap')} panel={recap} />
         </Tabs>
       </>
     );
@@ -159,3 +161,5 @@ Results.propTypes = {
 Results.defaultProps = {
   results: ResultsFixture,
 };
+
+export default withTranslation()(Results);

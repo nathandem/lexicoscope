@@ -1,17 +1,17 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 import { H6 } from '@blueprintjs/core';
 import { TablePagination, Paper } from '@material-ui/core';
-import MaterialTable, { MTableBodyRow } from 'material-table';
+import MaterialTable from 'material-table';
 import { Bar, withResponsiveness } from 'britecharts-react';
 
 
-export default class DetailByDoc extends React.PureComponent {
+class DetailByDoc extends React.PureComponent {
 
 
   render() {
-
-    const corpusStats = this.props.corpusStats;
+    const { corpusStats, t } = this.props;
 
     let type;
     switch (this.props.type) {
@@ -41,10 +41,10 @@ export default class DetailByDoc extends React.PureComponent {
     let typeLabel;
     switch (this.props.type) {
       case 'freqByDoc':
-        typeLabel = 'Frequency';
+        typeLabel = t('frequency');
         break;
       case 'speByDoc':
-        typeLabel = 'Specificity';
+        typeLabel = t('specificity');
         break;
       default:
         break;
@@ -54,16 +54,16 @@ export default class DetailByDoc extends React.PureComponent {
     const titlesTable = (
       <MaterialTable
         columns={[
-          { title: "Title", field: 'title' },
+          { title: t('title'), field: 'title' },
           { title: typeLabel, field: 'value' },
         ]}
         data={data}
-        title={`${typeLabel} by title`}
+        title={`${typeLabel} ${t('byDoc')}`}
         options={{
           search: true,
           sorting: true,
           exportButton: true,
-          exportFileName:`${typeLabelLower}_by_title`,
+          exportFileName:`${typeLabelLower}_by_document`,
           exportAllData: true,
         }}
         components={{
@@ -71,13 +71,6 @@ export default class DetailByDoc extends React.PureComponent {
             <TablePagination
               {...props}
               rowsPerPageOptions={[5, 10, 25, 50, 100]}
-            />
-          ),
-          Row: props => (
-            <MTableBodyRow
-              {...props}
-              // TODO Max hight, the number of elements
-              // onRowClick={() => {}}  // onRowClick must be a function
             />
           ),
           Container: props => (
@@ -101,7 +94,7 @@ export default class DetailByDoc extends React.PureComponent {
     return(
       <>
         <div className="margin-bottom-1-rem">
-          <H6><u>Graphical representation</u></H6>
+          <H6><u>{t('graphicalRepr')}</u></H6>
           <ResponsiveBarChart
             data={chartData}
             isHorizontal={true}
@@ -114,7 +107,7 @@ export default class DetailByDoc extends React.PureComponent {
           />
         </div>
 
-        <H6><u>Complete list of results</u></H6>
+        <H6><u>{t('completeResList')}</u></H6>
         {titlesTable}
       </>
     );
@@ -125,3 +118,5 @@ DetailByDoc.propTypes = {
   corpusStats: PropTypes.object,
   type: PropTypes.string,
 };
+
+export default withTranslation()(DetailByDoc);

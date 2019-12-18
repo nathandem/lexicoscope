@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 import { Tab, Tabs } from '@blueprintjs/core';
 
 import Stat from './Stat';
 
 
-export default class Statistics extends React.Component {
+class Statistics extends React.Component {
 
   state = {
     selectedTabId: Object.keys(this.props.stats.byCorpus)[0],  // select first corpus by default
@@ -14,8 +15,7 @@ export default class Statistics extends React.Component {
   handleTabChange = (navbarTabId) => this.setState({ selectedTabId: navbarTabId });
 
   render() {
-
-    const stats = this.props.stats;
+    const { stats, t } = this.props;
 
     const tabs = [];
 
@@ -31,7 +31,7 @@ export default class Statistics extends React.Component {
       }
 
       const stat = <Stat corpusStats={this.props.stats} />;
-      const tab = <Tab key='Global' id='Global' title='Global' panel={stat} />;
+      const tab = <Tab key='Global' id='Global' title={t('global')} panel={stat} />;
       tabs.push(tab);
     }
 
@@ -55,3 +55,5 @@ export default class Statistics extends React.Component {
 Statistics.propTypes = {
   stats: PropTypes.object,
 };
+
+export default withTranslation()(Statistics);

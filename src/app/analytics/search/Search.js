@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 import { Button, Dialog, H1 } from '@blueprintjs/core';
 
 import AdvancedParams from './params/AdvancedParams';
@@ -13,7 +14,7 @@ import '../../../style/Search.css';
  * Note: it's `QueryDef` which is responsible for starting
  * the query by calling `onQueryReady` received by props.
  */
-export default class Search extends React.Component {
+class Search extends React.Component {
 
   state = {
     isParamsModalOpen: false,
@@ -25,6 +26,7 @@ export default class Search extends React.Component {
 
   render() {
     const { isParamsModalOpen } = this.state;
+    const { t } = this.props;
 
     return (
       <>
@@ -32,7 +34,7 @@ export default class Search extends React.Component {
           <div></div>
           <div className="Search__ParamsBtnWrapper">
             <Button
-              text="Advanced params"
+              text={t('advancedParamsBtn')}
               onClick={this.handleParamsModalSwitch}
               className="Search__ParamsBtn"
             />
@@ -51,7 +53,7 @@ export default class Search extends React.Component {
         <Dialog
           isOpen={isParamsModalOpen}
           onClose={this.handleParamsModalSwitch}
-          title={'Configure advanced params'}
+          title={t('advancedParamsBtn')}
           style={{'width': '800px'}}  // 800px seems a good deal
         >
           <AdvancedParams
@@ -70,3 +72,5 @@ Search.propTypes = {
   corpus: PropTypes.object,
   params: PropTypes.object,
 };
+
+export default withTranslation()(Search);

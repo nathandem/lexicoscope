@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 import { Button, Card, FormGroup, InputGroup, H3, H4, H6 } from '@blueprintjs/core';
 
 import CorpusHeader from '../common/CorpusHeader';
@@ -21,7 +22,7 @@ const emptyCorpus = {
   period: [1950, 2000],
 };
 
-export default class CustomCorpus extends React.PureComponent {
+class CustomCorpus extends React.PureComponent {
 
   state = {
     // Options available to the user
@@ -222,8 +223,9 @@ export default class CustomCorpus extends React.PureComponent {
 
 
   render() {
+    const { t } = this.props;
 
-    const globalParamsBtnLabel = this.state.globalParamsReady ? 'Reset' : 'Ready';
+    const globalParamsBtnLabel = this.state.globalParamsReady ? t('reset') : t('ready');
 
     // array.reducer allows neat things too!
     const allCorpusesReady = this.state.corpuses.reduce(((prev, curr) => (
@@ -259,8 +261,8 @@ export default class CustomCorpus extends React.PureComponent {
     return (
       <>
         <CorpusHeader
-          title="Create your own corpus"
-          explanations="You can define a corpus, several sub-corpuses or split one into partitions."
+          title={t('customCorpusTitle')}
+          explanations={t('customCorpusDesc')}
           goToQuery={this.onCustomCorpusReady}
           onBackToTypeSelection={this.props.onBackToTypeSelection}
         />
@@ -271,8 +273,8 @@ export default class CustomCorpus extends React.PureComponent {
             
             {/* Global parameters */}
             <Card elevation={2} className={globalParamBoxClasses}>
-              <H3 className="margin-bottom-1-5rem">Global parameters</H3>
-              <FormGroup label="Corpus name" labelFor="corpusName" inline={true}>
+              <H3 className="margin-bottom-1-5rem">{t('globalParams')}</H3>
+              <FormGroup label={t('corpusName')} labelFor="corpusName" inline={true}>
                 <InputGroup
                   disabled={this.state.globalParamsReady}
                   id="corpusName"
@@ -283,19 +285,19 @@ export default class CustomCorpus extends React.PureComponent {
               <EnhancedSingleSelect
                 disabled={this.state.globalParamsReady}
                 value={this.state.lang}
-                label={"Corpus language"}
+                label={t('corpusLang')}
                 name={"lang"}
                 hasDefault={true}
                 options={this.state.allLangs}
                 onChange={this.onChangeLang}
               />
-              <H6><u>Advanced parameters (optional)</u></H6>
+              <H6><u>{t('advancedParams')}</u></H6>
               <EnhancedSingleSelect
                 disabled={this.state.globalParamsReady}
                 value={this.state.alignedLang}
                 hasDefault={true}
                 hasSelectableDefault={true}
-                label={"Aligned language (language in which the text is translated)"}
+                label={t('alignedLang')}
                 name={"alignedLang"}
                 options={this.state.alignedLangs}
                 onChange={this.onChangeAlignedLang}
@@ -310,10 +312,10 @@ export default class CustomCorpus extends React.PureComponent {
             {this.state.globalParamsReady && allCorpusesReady &&
               <div className="flex">
                 {this.state.corpuses.length === 1 && !this.state.isPartToggled &&
-                  <Button text={"Partition the corpus"} onClick={this.onPartToggle} />
+                  <Button text={t('partSubCorpus')} onClick={this.onPartToggle} />
                 }
                 {!this.state.isPartToggled &&
-                  <Button text={"Add a subcorpus"} onClick={this.createNewCorpus} />
+                  <Button text={t('addSubCorpus')} onClick={this.createNewCorpus} />
                 }
               </div>
             }
@@ -330,7 +332,7 @@ export default class CustomCorpus extends React.PureComponent {
 
           <div className="flex-one-third">
             <Card elevation={2} className="margin-bottom-1-rem margin-left-05-rem">
-              <H4>Recap search area: {this.state.name}</H4>
+              <H4>{t('searchRecapColon')} {this.state.name}</H4>
               <ul>
                 {corpusRecapList}
               </ul>
@@ -347,3 +349,5 @@ CustomCorpus.propTypes = {
   corpusReadyCallback: PropTypes.func,
   onBackToTypeSelection: PropTypes.func,
 };
+
+export default withTranslation()(CustomCorpus);

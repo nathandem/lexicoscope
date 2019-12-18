@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 import { Paper, TablePagination } from '@material-ui/core';
 import MaterialTable, { MTableBodyRow } from 'material-table';
 
@@ -7,17 +8,17 @@ import { corpusConcordsShape } from './shapes';
 import { prepDangerouslySetInnerHTMLString } from './utils';
 
 
-export default function KwicTable(props) {
+function KwicTable({ concords, onSelectRow, t }) {
 
   return (
     <MaterialTable
-      title='Concordances'
+      title={t('conc')}
       columns={[
-        { title: "Left context", field: 'left', render: rowData => <div dangerouslySetInnerHTML={prepDangerouslySetInnerHTMLString(rowData.left)} /> },
-        { title: "Node", field: 'node', render: rowData => <div dangerouslySetInnerHTML={prepDangerouslySetInnerHTMLString(rowData.node)} /> },
-        { title: "Right context", field: 'right', render: rowData => <div dangerouslySetInnerHTML={prepDangerouslySetInnerHTMLString(rowData.right)} /> },
+        { title: t('leftContext'), field: 'left', render: rowData => <div dangerouslySetInnerHTML={prepDangerouslySetInnerHTMLString(rowData.left)} /> },
+        { title: t('node'), field: 'node', render: rowData => <div dangerouslySetInnerHTML={prepDangerouslySetInnerHTMLString(rowData.node)} /> },
+        { title: t('rightContext'), field: 'right', render: rowData => <div dangerouslySetInnerHTML={prepDangerouslySetInnerHTMLString(rowData.right)} /> },
       ]}
-      data={props.concords}
+      data={concords}
       options={{
         search: true,
         sorting: true,
@@ -41,7 +42,7 @@ export default function KwicTable(props) {
         Row: rowProps => (
           <MTableBodyRow
             {...rowProps}
-            onRowClick={(event, rowData) => props.onSelectRow(rowData)}
+            onRowClick={(event, rowData) => onSelectRow(rowData)}
           />
         )
       }}
@@ -54,3 +55,5 @@ KwicTable.propTypes = {
   concords: corpusConcordsShape,
   onSelectRow: PropTypes.func,
 };
+
+export default withTranslation()(KwicTable);

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 import { Switch } from '@blueprintjs/core';
 
 import KwicTable from './KwicTable';
@@ -8,7 +9,7 @@ import UnfoldedView from './UnfoldedView';
 import { corpusConcordsShape } from './shapes';
 
 
-export default class Concordance extends React.PureComponent {
+class Concordance extends React.PureComponent {
 
   state = {
     isKwic: true,
@@ -64,14 +65,14 @@ export default class Concordance extends React.PureComponent {
 
   render() {
     const { concordDetail, isKwic } = this.state;
-    const { concords } = this.props;
+    const { concords, t } = this.props;
 
     return (
       <div className="flex flex-between">
         <div className="flex-two-panels">
           <div className="padding-1-rem">
             <Switch
-              label="Kwic/unfolded"
+              label={t('KWIC/Unfolded')}
               checked={this.state.isKwic}
               onChange={() => this.setState(prevState => ({ isKwic: !prevState.isKwic }))}
             />
@@ -105,3 +106,5 @@ Concordance.propTypes = {
   docMeta: PropTypes.object,
   lang: PropTypes.string,
 };
+
+export default withTranslation()(Concordance);
