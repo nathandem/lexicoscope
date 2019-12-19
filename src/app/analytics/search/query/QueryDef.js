@@ -30,7 +30,7 @@ class QueryDef extends React.PureComponent {
   }
 
   selectSuggestedQuery = (suggQuery) => {
-    this.setState({ query: suggQuery });
+    this.setState({ query: suggQuery, isTQLOn: true });
   }
 
   fetchQuerySuggestions = () => {
