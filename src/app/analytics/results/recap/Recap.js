@@ -15,7 +15,9 @@ class Recap extends React.PureComponent {
       <p>{t('caracteristics')}</p>
       <ul>
         <li>{t('langColon')} {recap.global.lang}</li>
-        <li>{t('alignedLangColon')} {simpleArrStrToStr(recap.global.alignedLang)}</li>
+        {recap.global.alignedLang &&
+          <li>{t('alignedLangColon')} {simpleArrStrToStr(recap.global.alignedLang)}</li>
+        }
       </ul>
 
       <p>{t('stats')}</p>
@@ -34,10 +36,18 @@ class Recap extends React.PureComponent {
         <H5><u>{subCorp.name}</u></H5>
         <ul>
           <li>{t('collectionColon')} {subCorp.collection[0]}</li>
-          <li>{t('categoriesColon')} {simpleArrStrToStr(subCorp.constraints.categories)}</li>
-          <li>{t('periodColon')} {subCorp.constraints.pubDate[0]} - {subCorp.constraints.pubDate.slice(-1)[0]}</li>
-          <li>{t('sourceLangsColon')} {simpleArrStrToStr(subCorp.source_language)}</li>
-          <li>{t('tokenNumColon')} {subCorp.nb_toks}</li>
+          {subCorp.constraints.categories &&
+            <li>{t('categoriesColon')} {simpleArrStrToStr(subCorp.constraints.categories)}</li>
+          }
+          {subCorp.constraints.pubDate &&
+            <li>{t('periodColon')} {subCorp.constraints.pubDate[0]} - {subCorp.constraints.pubDate.slice(-1)[0]}</li>
+          }
+          {subCorp.source_language &&
+            <li>{t('sourceLangsColon')} {simpleArrStrToStr(subCorp.source_language)}</li>
+          }
+          {subCorp.nb_toks &&
+            <li>{t('tokenNumColon')} {subCorp.nb_toks}</li>
+          }
         </ul>
       </div>
     ));
