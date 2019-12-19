@@ -44,7 +44,7 @@ class Search extends React.Component {
         <img
           src={process.env.PUBLIC_URL + '/assets/img/lexicoscope.png'}
           alt="Lexicoscope"
-          className="Search__Title"
+          className="largeLogo"
         />
 
         <QueryDef

@@ -1,0 +1,9 @@
+.Home__wrapper {
+  width: 800px;
+  margin: 3rem auto;
+}
+
+.Home__actions {
+  display: flex;
+  justify-content: space-between;
+}
