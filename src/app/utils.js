@@ -31,3 +31,10 @@ export const getString = (value) => {
   }
   return value;
 }
+
+export const getFloat = (value) => {
+  if (typeof(value) === 'string') {
+    return parseFloat(value);
+  }
+  return value;
+}

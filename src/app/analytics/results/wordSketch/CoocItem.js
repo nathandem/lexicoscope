@@ -2,9 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { ListItem } from '@material-ui/core';
 
+import { getFloat } from '../../../utils';
+
 
 const CoocItems = (props) => {
-  const logLikeForDisplay = props.logLike.toFixed(2);
+  const logLikeFloat = getFloat(props.logLike);
+  const logLikeForDisplay = logLikeFloat.toFixed(2);
 
   return (
     <ListItem divider={true}>
@@ -30,7 +33,7 @@ CoocItems.propTypes = {
   exp: PropTypes.string,
   corpus: PropTypes.string,
   numCooc: PropTypes.number,
-  logLike: PropTypes.number,
+  logLike: PropTypes.any,
 };
 
 export default CoocItems;
