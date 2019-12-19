@@ -1,5 +1,5 @@
 .Search__topSection {
-  height: 7rem;
+  height: 6rem;
 }
 
 .Search__ParamsBtnWrapper {
@@ -9,4 +9,14 @@
 .Search__ParamsBtn {
   height: fit-content;
   width: fit-content;
+}
+
+.Search__Title {
+  /* dimension the logo */
+  display: block;
+  width: 800px;
+  height: auto;
+
+  /* position the logo */
+  margin: 0 auto 2rem;
 }

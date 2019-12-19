@@ -41,7 +41,11 @@ class Search extends React.Component {
           </div>
         </div>
 
-        <H1 className="center-text margin-bottom-1-5-rem">Lexicoscope</H1>
+        <img
+          src={process.env.PUBLIC_URL + '/assets/img/lexicoscope.png'}
+          alt="Lexicoscope"
+          className="Search__Title"
+        />
 
         <QueryDef
           onQueryReady={this.props.onQueryReady}
