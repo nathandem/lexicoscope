@@ -85,7 +85,11 @@ class PredefinedCorpus extends React.PureComponent {
           className="PredefinedCorpus__corpusCard"
         >
           <div>
-            <img src={collsInSelectedLang[collName].thumbnail} alt="" />
+            <img
+              className="PredefinedCorpus__collsThumb"
+              src={collsInSelectedLang[collName].thumbnail}
+              alt=""
+            />
             <p>{collName}</p>
           </div>
         </Card>
@@ -120,8 +124,8 @@ class PredefinedCorpus extends React.PureComponent {
               {selectedCorpusName &&
                 <>
                   <H3 className="margin-bottom-1-5rem">{selectedCorpusName}</H3>
-                  <div className="PredefinedCorpus__corpusCaracImg margin-bottom-1-5rem">
-                    <div>
+                  <div className="PredefinedCorpus__corpusCaracs margin-bottom-1-5rem">
+                    <div className="PredefinedCorpus__corpusCaracsChild">
                       <H6>{t('keyCaracteristics')}</H6>
                       <ul>
                         <li>{t('periodColon')} {selectedCorpusBody.yearMin} - {selectedCorpusBody.yearMax}</li>
@@ -129,7 +133,9 @@ class PredefinedCorpus extends React.PureComponent {
                         <li>{t('tokenNumberColon')} {selectedCorpusBody.tokenSize}</li>
                       </ul>
                     </div>
-                    <div><img src={selectedCorpusBody.thumbnail} alt="" /></div>
+                    <div className="PredefinedCorpus__corpusCaracsChild">
+                      <img src={selectedCorpusBody.thumbnail} className="PredefinedCorpus__corpusCaracImg" alt="" />
+                    </div>
                   </div>
 
                   <H6>{t('description')}</H6>

@@ -1,105 +1,121 @@
-const dummyThumbnail = process.env.PUBLIC_URL + '/assets/img/dummyimage__100-100.png';
+const resourcesBase = 'http://phraseotext.univ-grenoble-alpes.fr/lexicoscope_2.0';
 
 export const CollectionsFixture = {
+	"fr": {
+		"phraseorom":{
+			"yearMin":1950,
+			"yearMax":2016,
+			"thumbnail": resourcesBase + "/perl/thumbnails/phraseorom.png",
+			"description":"Le principal objectif de ce projet est d’élaborer, dans une démarche inductive corpus-driven, une typologie structurelle et fonctionnelle des constructions lexico-syntaxiques spécifiques (CLS) au discours romanesque francophone, anglophone et germanophone du XX e siècle, le roman constituant le genre littéraire qui touche le lectorat le plus large.",
+			"genre":"Romans",
+			"category":"sub_genre",
+			"alignedLanguages": {
+				"asSource":["en"],
+				"asTarget":["en"]
+			},
+			"tokenSize":113166903,
+			"partition":["decade","sub_genre","author"]
+		},
+		"termith":{
+			"yearMin":2005,
+			"yearMax":2013,
+			"thumbnail": resourcesBase + "/perl/thumbnails/termith.png",
+			"description":"Le projet TermITH vise à indexer automatiquement des articles scientifiques intégraux en sciences humaines et sociales. Il a réuni six partenaires : l'Atilf, l'Inist, l'Inria (Grand-Est et Saclay), le Lidilem et le Lina. Les articles scientifiques ont été fournis par ADBS (Cairn), Lavoisier (Cairn), Elsevier via le projet ISTEX, Canadian Journal of Chemistry, OpenEdition et le projet Scientext.",
+			"genre":"Articles scientifiques",
+			"category":"discipline",
+			"tokenSize":113166903,
+			"alignedLanguages": {
+				"asSource":[],
+				"asTarget":[]
+			},
+			"partition":["decade","discipline","author"]
 
-  fr: {
-    'Phraseorom': {
-      yearMin: 1960,
-      yearMax: 2005,
-      thumbnail: dummyThumbnail,
-      category: "Roman",
-      description: "La meilleure collection qui soit !",
-      alignedLanguages: {
-        asSource:["en", "de", "fr"],
-        asTarget:["en", "de", "fr"],
-      },
-      partitions: ["auteur", "genre", "année", "décade"],
-      tokenSize: 1000000,
-    },
-    'Scientext': {
-      yearMin: 1970,
-      yearMax: 1980,
-      thumbnail: dummyThumbnail,
-      category: "Article scientifique",
-      description: "Une large collection de textes scientifiques.",
-      alignedLanguages: {
-        asSource:["en", "fr"],
-        asTarget:["en", "fr"],
-      },
-      partitions: ["auteur", "thème", "année", "décade"],
-      tokenSize: 50000,
-    },
-    'Emolex': {
-      yearMin: 1990,
-      yearMax: 2000,
-      thumbnail: dummyThumbnail,
-      category: "Presse quotidienne",
-      description: "Emolex est Emolex.",
-      alignedLanguages: {
-        asSource:["de", "fr"],
-        asTarget:["de", "fr"],
-      },
-      partitions: ["auteur", "année", "décade"],
-      tokenSize: 500000,
-    },
-  },
-
-  en: {
-    'Phraseorom': {
-      yearMin: 1960,
-      yearMax: 2005,
-      thumbnail: dummyThumbnail,
-      category: "Novel",
-      description: "The best collection out there!",
-      alignedLanguages: {
-        asSource:["en", "de", "fr"],
-        asTarget:["en", "de", "fr"],
-      },
-      partitions: ["author", "genre", "year", "decade"],
-      tokenSize: 1000000,
-    },
-    'Scientext': {
-      yearMin: 1970,
-      yearMax: 1980,
-      thumbnail: dummyThumbnail,
-      category: "Scientific articles",
-      description: "A wide-ranging scientific collection.",
-      alignedLanguages: {
-        asSource:["en", "fr"],
-        asTarget:["en", "fr"],
-      },
-      partitions: ["author", "topic", "year", "decade"],
-      tokenSize: 50000,
-    },
-  },
-
-  de: {
-    'Phraseorom': {
-      yearMin: 1960,
-      yearMax: 2005,
-      thumbnail: dummyThumbnail,
-      category: "Roman",
-      description: "Die beste Sammlung da draußen!",
-      alignedLanguages: {
-        asSource:["en", "de", "fr"],
-        asTarget:["en", "de", "fr"],
-      },
-      partitions: ["autor", "genre", "jahr", "dekade"],
-      tokenSize: 1000000,
-    },
-    'Emolex': {
-      yearMin: 1990,
-      yearMax: 2000,
-      thumbnail: dummyThumbnail,
-      category: "Tagespresse",
-      description: "Emolex ist Emolex.",
-      alignedLanguages: {
-        asSource:["de", "fr"],
-        asTarget:["de", "fr"],
-      },
-      partitions: ["autor", "jahr", "dekade"],
-      tokenSize: 50000,
-    },
-  },
-
+		},
+		"emolex":{
+			"yearMin":1938,
+			"yearMax":2009,
+			"thumbnail": resourcesBase + "/perl/thumbnails/emobase.png",
+			"description":"Fondé sur une approche multilingue et multidisciplinaire (typologie intra et interlangue, sémantique lexicale, syntaxe, lexicographie, didactique des langues étrangères, TAL) et basé sur une étude de corpus, le projet a plusieurs objectifs. A partir d’un cadre théorique articulant les approches « représentationnistes » et « instrumentalistes » du sens (c’est-à-dire « sens-concept » vs sens-usage »), le projet vise à analyser les valeurs sémantiques, le comportement combinatoire (lexématique et syntaxique) et les profils discursifs des lexies des émotions dans cinq langues européennes (français, allemand, anglais, russe et espagnol), ce qui permet de mieux structurer le champ lexical des émotions par rapport à ce que proposent les études existantes en lexicologie et lexicographie. Cette « cartographie » linguistique des émotions aboutit au développement de nouveaux outils en didactique des langues étrangères, en lexicographie et en TAL.",
+			"category":"genre",
+			"genre":"Presse quotidienne (Le Monde, Le Figaro, Libération, Ouest France - 2007 et 2008), Romans",
+			"tokenSize":128259209,
+			"alignedLanguages": {
+				"asSource":[],
+				"asTarget":[]
+			},
+			"partition":["year","author"]
+		},
+		"europarl":{
+			"yearMin":1996,
+			"yearMax":2011,
+			"thumbnail": resourcesBase + "/perl/thumbnails/europarl.png",
+			"description":"Débats du parlement européen EuroParl (1996-2011, http://www.statmt.org/europarl/)",
+			"genre":"discours politique",
+			"category":"subject",
+			"tokenSize":53758078,
+			"alignedLanguages": {
+				"asSource":[],
+				"asTarget":[]
+			},
+			"partition":["year"]
+		}
+	},
+	"en": {
+		"phraseorom":{
+			"yearMin":1950,
+			"yearMax":2016,
+			"thumbnail": resourcesBase + "/perl/thumbnails/phraseorom.png",
+			"description": "Le principal objectif de ce projet est d’élaborer, dans une démarche inductive corpus-driven, une typologie structurelle et fonctionnelle des constructions lexico-syntaxiques spécifiques (CLS) au discours romanesque francophone, anglophone et germanophone du XX e siècle, le roman constituant le genre littéraire qui touche le lectorat le plus large.",
+			"genre":"Romans",
+			"category":"sub_genre",
+			"tokenSize":135453940,
+			"alignedLanguages": {
+				"asSource":["fr"],
+				"asTarget":["fr"]
+			},
+			"partition":["decade","sub_genre","author"]
+		},
+		"scientext":{
+			"yearMin":1997,
+			"yearMax":2005,
+			"thumbnail": resourcesBase + "/perl/thumbnails/scientext.png",
+			"description":"Textes de biologie et de médecine de la maison d’édition indépendante BioMed Central issus du projet ANR Scientext.",
+			"genre":"Articles scientifiques",
+			"category":"discipline",
+			"tokenSize":44911586,
+			"alignedLanguages": {
+				"asSource":[],
+				"asTarget":[]
+			},
+			"partition":["decade","discipline","author"]
+		},
+		"emolex":{
+			"yearMin":1950,
+			"yearMax":2010,
+			"thumbnail": resourcesBase + "/perl/thumbnails/emobase.png",
+			"description":"Fondé sur une approche multilingue et multidisciplinaire (typologie intra et interlangue, sémantique lexicale, syntaxe, lexicographie, didactique des langues étrangères, TAL) et basé sur une étude de corpus, le projet a plusieurs objectifs. A partir d’un cadre théorique articulant les approches « représentationnistes » et « instrumentalistes » du sens (c’est-à-dire « sens-concept » vs sens-usage »), le projet vise à analyser les valeurs sémantiques, le comportement combinatoire (lexématique et syntaxique) et les profils discursifs des lexies des émotions dans cinq langues européennes (français, allemand, anglais, russe et espagnol), ce qui permet de mieux structurer le champ lexical des émotions par rapport à ce que proposent les études existantes en lexicologie et lexicographie. Cette « cartographie » linguistique des émotions aboutit au développement de nouveaux outils en didactique des langues étrangères, en lexicographie et en TAL.",
+			"genre":"Presse quotidienne (Times, The Independent, The Guardian, Leicester Mercury - 2008), Romans",
+			"category":"genre",
+			"tokenSize":58986623,
+			"alignedLanguages": {
+				"asSource":[],
+				"asTarget":[]
+			},
+			"partition":["year","author"]
+		},
+		"europarl":{
+			"yearMin":1996,
+			"yearMax":2011,
+			"thumbnail": resourcesBase + "/perl/thumbnails/europarl.png",
+			"description": "Débats du parlement européen EuroParl (1996-2011, http://www.statmt.org/europarl/)",
+			"genre":"discours politique",
+			"category":"subject",
+			"tokenSize":53758078, 
+			"alignedLanguages": {
+				"asSource":[],
+				"asTarget":[]
+			},
+			"partition":["year"]
+		}
+	}
 };

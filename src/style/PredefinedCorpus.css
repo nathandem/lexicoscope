@@ -20,7 +20,16 @@
 
 .PredefinedCorpus__corpusCard {
   padding: 1rem;
-  width: fit-content;
+  width: 250px;
+  height: 150px;
+}
+
+.PredefinedCorpus__collsThumb {
+  display: block;
+  max-width: 200px;
+  max-height: 200px;
+  width: auto;
+  height: auto;
 }
 
 .PredefinedCorpus__corpusDetail {
@@ -33,7 +42,23 @@
   padding: 1rem;
 }
 
-.PredefinedCorpus__corpusCaracImg {
+.PredefinedCorpus__corpusCaracs {
   display: flex;
   justify-content: space-between;
+}
+
+.PredefinedCorpus__corpusCaracsChild {
+  width: 250px;
+}
+
+.PredefinedCorpus__corpusCaracImg {
+  /* give max dimensions to the image */
+  display: block;
+  max-width: 200px;
+  max-height: 100px;
+  width: auto;
+  height: auto;
+
+  /* center the image */
+  margin: 0 auto;
 }
