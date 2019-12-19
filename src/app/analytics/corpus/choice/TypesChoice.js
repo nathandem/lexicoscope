@@ -20,21 +20,21 @@ const TypesChoice = ({ selectCorpusTypeCallback, t }) => {
 
         <TypeChoice
           type={CORPUS_TYPES.PREDEFINED}
-          logo={process.env.PUBLIC_URL + '/assets/img/dummyimage__206-260.png'}
+          logo={process.env.PUBLIC_URL + '/layout/img/existing_corpus.png'}
           text={t('usePredefinedCorpus')}
           selectCorpusTypeCallback={selectCorpusTypeCallback}
         />
 
         <TypeChoice
           type={CORPUS_TYPES.CUSTOM}
-          logo={process.env.PUBLIC_URL + '/assets/img/dummyimage__206-260.png'}
+          logo={process.env.PUBLIC_URL + '/layout/img/build_corpus.png'}
           text={t('useCustomCorpus')}
           selectCorpusTypeCallback={selectCorpusTypeCallback}
         />
 
         <TypeChoice
           type={CORPUS_TYPES.SAVED}
-          logo={process.env.PUBLIC_URL + '/assets/img/dummyimage__206-260.png'}
+          logo={process.env.PUBLIC_URL + '/layout/img/saved_corpus.png'}
           text={t('useSavedCorpus')}
           selectCorpusTypeCallback={selectCorpusTypeCallback}
         />

@@ -13,7 +13,9 @@ const TypeChoice = (props) => (
     onClick={() => props.selectCorpusTypeCallback(props.type)}
   >
     <div className="TypeChoice__flex">
-      <img src={props.logo} alt="" />
+      <div className="TypeChoice__logoWrapper">
+        <img src={props.logo} className="TypeChoice__logo" alt="" />
+      </div>
       <p className="center-text">{props.text}</p>
     </div>
   </Paper>

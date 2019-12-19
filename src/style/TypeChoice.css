@@ -14,3 +14,16 @@
   /* Otherwise, the card's items stackup at the top */
   height: 100%;
 }
+
+.TypeChoice__logoWrapper {
+  height: 260px;
+  width: 206px;
+}
+
+.TypeChoice__logo {
+  display: block;
+  max-width: 206px;
+  max-height: 260px;
+  width: auto;
+  height: auto;
+}
