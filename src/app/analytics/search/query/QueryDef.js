@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
+import _ from 'lodash';
 import { withTranslation } from 'react-i18next';
 import { Button, Checkbox, H3, InputGroup, TextArea } from '@blueprintjs/core';
 
-import { debounce } from '../../../utils';
 import '../../../../style/QueryDef.css';
 
 
@@ -21,21 +21,24 @@ class QueryDef extends React.PureComponent {
     this.setState(prevState => ({ [name]: !prevState[name] }));
   }
 
-  handleQueryUpdate = (e) => {
-    const newQuery = e.target.value;
-    this.setState({ query: newQuery }, () => {
-      if (!this.state.isTQLOn) {
-        // fetchQuerySuggestions stores suggestions in the state by itself
-        debounce(this.fetchQuerySuggestions(), 250);
-      }
-    });
-  }
-
   selectSuggestedQuery = (suggQuery) => {
     this.setState({ query: suggQuery, isTQLOn: true });
   }
 
-  fetchQuerySuggestions = () => {
+  handleQueryUpdate = (e) => {
+    const newQuery = e.target.value;
+    this.setState({ query: newQuery }, () => {
+      if (!this.state.isTQLOn) {
+        this.debouncedFetchQuerySuggestions();
+      }
+    });
+  }
+
+  debouncedFetchQuerySuggestions = _.debounce(() => {
+  // Note: debouncing a property function in the class syntax
+  // is not that straightforward. Best to proceed like here, create
+  // a variable which stores the debounced function, then call that
+  // function.
 
     const data = {
       query: this.state.query,
@@ -66,7 +69,7 @@ class QueryDef extends React.PureComponent {
     .catch(() => {
       console.log(`Network error when trying to fetch ${endpoint}`);
     })
-  }
+  }, 1000);
 
   runQuery = () => {
     // calling props.onQueryReady is the way to notify `Analytics`
