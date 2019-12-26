@@ -24,8 +24,10 @@ class QueryDef extends React.PureComponent {
   handleQueryUpdate = (e) => {
     const newQuery = e.target.value;
     this.setState({ query: newQuery }, () => {
-      // fetchQuerySuggestions stores suggestions in the state itself
-      debounce(this.fetchQuerySuggestions(), 250);
+      if (!this.state.isTQLOn) {
+        // fetchQuerySuggestions stores suggestions in the state by itself
+        debounce(this.fetchQuerySuggestions(), 250);
+      }
     });
   }
 
@@ -130,7 +132,7 @@ class QueryDef extends React.PureComponent {
             </>
           }
 
-          {query && suggestions.length > 0 &&
+          {query && suggestions.length > 0 && !isTQLOn &&
             <div style={{'marginTop': '3rem'}}>
               <H3>{t('suggestionOfAdvancedQueries')}</H3>
               <p>{t('suggestedQueriesExplanation')}</p>

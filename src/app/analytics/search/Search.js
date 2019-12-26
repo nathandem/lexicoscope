@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { withTranslation } from 'react-i18next';
-import { Button, Dialog, H1 } from '@blueprintjs/core';
+import { Button, Dialog } from '@blueprintjs/core';
 
 import AdvancedParams from './params/AdvancedParams';
 import QueryDef from './query/QueryDef';
