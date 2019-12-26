@@ -37,7 +37,7 @@ class SavedCorpus extends React.PureComponent {
   }
 
   handleSelectionReady = () => {
-    this.props.onSavedCorpusChosen(this.state.selectedCorpus.file_name);
+    this.props.onSavedCorpusChosen(this.state.selectedCorpus.file);
   }
 
   handleSelectRow = (idx) => {
@@ -71,7 +71,7 @@ class SavedCorpus extends React.PureComponent {
             <div className="padding-1-rem">
               {selectedCorpus &&
                 <Card elevation={2}>
-                  <H3 className="margin-bottom-1-5rem">{selectedCorpus.file_name}</H3>
+                  <H3 className="margin-bottom-1-5rem">{selectedCorpus.file}</H3>
                   <H6>{t('recapInfo')}</H6>
                   <ul>
                     {Object.keys(selectedCorpus.json).map(detailKey => (

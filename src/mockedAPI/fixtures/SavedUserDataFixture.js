@@ -1,24 +1,10 @@
-// "tableau corpus[]
-// tableau params[]
-// .....3 choses: file_name (str), date, json"
-
-// - Collection utilisée : xxxx
-// - Min year: xxxx
-// - Max year : xxxx
-// - Nombre de tokens : xxxxx
-
-// `file_name` -> rather `name`
-// -> how is `date` formatted? Assumption year-month-day format
-// -> `json`? => `detail` instead?
-// would need to add an ID to each corpus and saved params
-
-// => kebab case or camel case?
-// type of the data returned by the backend. Only strings?
+// `get_archives` returns 2 arrays: corpus[] and params[]
+// both contain 3 things: file, date, json
 
 export const SavedUserDataFixture = {
   corpus: [
     {
-      file_name: 'French novels of the 20th century',
+      file: 'French novels of the 20th century',
       date: '2019-06-01',
       json: {
         collection_name: 'Phraseorom-fr',
@@ -28,7 +14,7 @@ export const SavedUserDataFixture = {
       },
     },
     {
-      file_name: 'Futurist German novels of the 2nd half of the 20th century',
+      file: 'Futurist German novels of the 2nd half of the 20th century',
       date: '2019-06-03',
       json: {
         collection_name: 'Phraseorom-de',
@@ -38,7 +24,7 @@ export const SavedUserDataFixture = {
       },
     },
     {
-      file_name: 'French scientific texts of the 1960s',
+      file: 'French scientific texts of the 1960s',
       date: '2019-06-05',
       json: {
         collection_name: 'Scientext-fr',
@@ -48,7 +34,7 @@ export const SavedUserDataFixture = {
       },
     },
     {
-      file_name: 'Police French novels of the 1990s',
+      file: 'Police French novels of the 1990s',
       date: '2019-06-07',
       json: {
         collection_name: 'Phraseorom-fr',
@@ -58,7 +44,7 @@ export const SavedUserDataFixture = {
       },
     },
     {
-      file_name: 'Fantastic English novels of the 1980s',
+      file: 'Fantastic English novels of the 1980s',
       date: '2019-06-09',
       json: {
         collection_name: 'Phraseorom-en',

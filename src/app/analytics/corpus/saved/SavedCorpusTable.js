@@ -26,11 +26,11 @@ const SavedCorpusTable = (props) => {
           <TableBody>
             {props.savedCorpuses.map((corpus, idx) => (
               <TableRow
-                key={corpus.file_name}
+                key={corpus.file}
                 onClick={() => onClickRow(idx)}
                 selected={(selectedCorpusId === idx) ? true : false}
               >
-                <TableCell align="right">{corpus.file_name}</TableCell>
+                <TableCell align="right">{corpus.file}</TableCell>
                 <TableCell align="right">{corpus.date}</TableCell>
               </TableRow>
             ))}
@@ -44,7 +44,7 @@ const SavedCorpusTable = (props) => {
 SavedCorpusTable.propTypes = {
   savedCorpuses: PropTypes.arrayOf(
     PropTypes.shape({
-      file_name: PropTypes.string,
+      file: PropTypes.string,
       date: PropTypes.string,
     }),
   ),
