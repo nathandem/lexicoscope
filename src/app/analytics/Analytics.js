@@ -12,6 +12,8 @@ export default class Analytics extends React.Component {
     params: null,  // optional. If not provided the default ones are assumed by the backend
     query: null,
     results: null,
+
+    page: 'corpus',  // 3 options: 'corpus', 'query', 'results'
   };
 
   performSearch = () => {
@@ -60,7 +62,7 @@ export default class Analytics extends React.Component {
             return;
           }
           res.json().then((data) => {
-            this.setState({ results: data });
+            this.setState({ results: data, page: 'results' });
           });
         })
       })
@@ -68,6 +70,10 @@ export default class Analytics extends React.Component {
     .catch(() => {
       console.log(`Network eror when trying to fetch ${endpoint}`);
     })
+  }
+
+  handleOnCorpusReady = (corpus) => {
+    this.setState({ corpus, page: 'query' });
   }
 
   handleOnQueryReady = (query) => {
@@ -78,15 +84,15 @@ export default class Analytics extends React.Component {
 
 
   render() {
-    const { query, corpus, params, results } = this.state;
+    const { corpus, page, params, results } = this.state;
 
     // conditionally display the components based on the progression of the user
     return (
       <>
-        { !corpus &&
-          <Corpus onCorpusReady={corpus => this.setState({ corpus })} />
+        { page === 'corpus' &&
+          <Corpus onCorpusReady={this.handleOnCorpusReady} />
         }
-        { corpus && !query &&
+        { page === 'query' &&
           <Search
             onQueryReady={this.handleOnQueryReady}
             onParamsReady={params => this.setState({ params })}
@@ -94,7 +100,7 @@ export default class Analytics extends React.Component {
             params={params}
           />
         }
-        { results && <Results results={results} /> }
+        { page === 'results' && <Results results={results} /> }
       </>
     );
   }
