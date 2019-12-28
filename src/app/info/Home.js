@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import { Button, H3 } from '@blueprintjs/core';
 
+import { ANALYTICS_URL, SIGNIN_URL, SIGNUP_URL } from '../constants';
 import './Home.css';
 
 
@@ -40,9 +41,9 @@ const Home = (props) => {
       <section className="Home__action">
         <div>Commencez à utiliser l'application dès maintenant,</div>
         <div>
-          <Button onClick={() => props.history.push('/signin')} text="Connexion" />
-          <Button onClick={() => props.history.push('/signup')} text="Création de compte" />
-          <Button onClick={() => props.history.push('/analytics')} text="Tester la plateforme" />
+          <Button onClick={() => props.history.push(SIGNIN_URL)} text="Connexion" />
+          <Button onClick={() => props.history.push(SIGNUP_URL)} text="Création de compte" />
+          <Button onClick={() => props.history.push(ANALYTICS_URL)} text="Tester la plateforme" />
         </div>
       </section>
 

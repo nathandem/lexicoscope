@@ -11,8 +11,8 @@ import SignIn from './app/auth/SignIn';
 import SignUp from './app/auth/SignUp';
 
 import Analytics from './app/analytics/Analytics';
-import Search from './app/analytics/search/Search';
-import Results from './app/analytics/results/Results';
+
+import { ANALYTICS_URL, SIGNIN_URL, SIGNUP_URL } from './app/constants';
 
 
 const App = () => (
@@ -20,12 +20,10 @@ const App = () => (
     <LexNavbar />
     <div className="layout">
       <Route exact path="/" component={Home} />
-      <Route path="/analytics" component={Analytics} />
-      <Route path="/search" component={Search} />
-      <Route path="/results" component={Results} />
+      <Route path={ANALYTICS_URL} component={Analytics} />
+      <Route path={SIGNIN_URL} component={SignIn} />
+      <Route path={SIGNUP_URL} component={SignUp} />
       <Route path="/help" component={Help} />
-      <Route path="/signin" component={SignIn} />
-      <Route path="/signup" component={SignUp} />
       <Footer />
     </div>
   </div>

@@ -16,6 +16,7 @@ import {
     NavbarGroup
 } from '@blueprintjs/core';
 
+import { SIGNIN_URL, SIGNUP_URL } from '../constants';
 import { FRONT_USER_FRONT_LOGGED_IN_COOKIE_NAME } from '../auth/constants';
 
 
@@ -45,11 +46,11 @@ class LexNavbar extends React.Component {
     }
 
     goToSignIn = () => {
-        this.props.history.push('/signin');
+        this.props.history.push(SIGNIN_URL);
     }
 
     goToSignUp = () => {
-        this.props.history.push('/signup');
+        this.props.history.push(SIGNUP_URL);
     }
 
     handleLangSwitch = (newLang) => {
