@@ -6,7 +6,7 @@ import { Button, Dialog } from '@blueprintjs/core';
 import AdvancedParams from './params/AdvancedParams';
 import QueryDef from './query/QueryDef';
 
-import '../../../style/Search.css';
+import './Search.css';
 
 
 /* `Search` is a rather shallow component logic-wise, because

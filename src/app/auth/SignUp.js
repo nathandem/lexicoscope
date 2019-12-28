@@ -3,7 +3,7 @@ import { withTranslation } from 'react-i18next';
 import { Button, Checkbox, H1, FormGroup, InputGroup, Toaster } from '@blueprintjs/core';
 
 import EnhancedSingleSelect from '../common/EnhancedSingleSelect';
-import '../../style/CommonAuth.css';
+import './CommonAuth.css';
 
 
 class SignUp extends React.PureComponent {

@@ -4,7 +4,7 @@ import { withTranslation } from 'react-i18next';
 import { Button, H1, FormGroup, InputGroup, Toaster } from '@blueprintjs/core';
 
 import { FRONT_USER_FRONT_LOGGED_IN_COOKIE_NAME } from './constants';
-import '../../style/CommonAuth.css';
+import './CommonAuth.css';
 
 
 class SignIn extends React.PureComponent {

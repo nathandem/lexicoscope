@@ -4,7 +4,7 @@ import { withTranslation } from 'react-i18next';
 import { H2, Icon } from '@blueprintjs/core';
 import { IconNames } from '@blueprintjs/icons';
 
-import '../../../../style/CorpusHeader.css';
+import './CorpusHeader.css';
 
 
 const CorpusHeader = (props) => (

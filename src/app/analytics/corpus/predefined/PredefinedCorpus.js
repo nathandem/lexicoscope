@@ -4,7 +4,7 @@ import { withTranslation } from 'react-i18next';
 import { Card, H3, H4, H6, HTMLSelect } from '@blueprintjs/core';
 
 import CorpusHeader from '../common/CorpusHeader';
-import '../../../../style/PredefinedCorpus.css';
+import './PredefinedCorpus.css';
 
 
 class PredefinedCorpus extends React.PureComponent {

@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { withTranslation } from 'react-i18next';
 import { Button, Checkbox, H3, InputGroup, TextArea } from '@blueprintjs/core';
 
-import '../../../../style/QueryDef.css';
+import './QueryDef.css';
 
 
 class QueryDef extends React.PureComponent {

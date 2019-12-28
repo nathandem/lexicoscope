@@ -9,7 +9,7 @@ import { CORPUS_TYPES } from '../constants';
 // this deeply nested import is the price to pay to stay in the default
 // configuration of create react app, and be sure my override of the default
 // won't break anything related to the compilation chain (webpack, babel, etc)
-import '../../../../style/TypesChoice.css';
+import './TypesChoice.css';
 
 
 const TypesChoice = ({ selectCorpusTypeCallback, t }) => {

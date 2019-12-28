@@ -5,7 +5,7 @@ import { List, ListItem, Paper } from '@material-ui/core';
 import { corpusConcordsShape } from './shapes';
 import { prepDangerouslySetInnerHTMLString } from './utils';
 
-import '../../../../style/UnfoldedView.css';
+import './UnfoldedView.css';
 
 
 export default function UnfoldedView(props) {
