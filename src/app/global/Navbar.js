@@ -38,6 +38,7 @@ class LexNavbar extends React.Component {
           if (res.status === 200) {
             Cookies.remove(FRONT_USER_FRONT_LOGGED_IN_COOKIE_NAME);
             this.forceUpdate();
+            this.props.history.push('/');
           }
         })
         .catch(() => {
